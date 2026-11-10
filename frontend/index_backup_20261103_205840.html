@@ -1,0 +1,6634 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shorts AI — Creator Studio</title>
+<style>
+:root{
+  --bg:#FAF8F2;--paper:#FFFEFA;--ink:#1B1918;
+  --muted:#79747D;--line:#DCD6CD;
+  --lilac:#EAD9FF;--purple:#8353E8;
+  --orange:#FF752C;--yellow:#FFF0AE;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:Inter,"Segoe UI",Arial,sans-serif;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
+button:focus-visible,input:focus-visible,select:focus-visible{
+  outline:3px solid var(--purple);outline-offset:2px
+}
+.layout{
+  max-width:1660px;min-height:100vh;margin:auto;
+  padding:15px;display:grid;gap:16px;
+  grid-template-columns:245px minmax(0,1fr) 325px;
+}
+.sidebar,.card,.download-box{
+  background:var(--paper);border:1px solid var(--line);
+  border-radius:18px;
+}
+.sidebar{padding:18px 13px;align-self:stretch}
+.brand{
+  font-size:26px;font-weight:950;letter-spacing:-1.4px;
+  padding:10px 8px 28px;
+}
+.brand span{color:var(--orange)}
+.nav{
+  display:block;width:100%;padding:13px 14px;margin-bottom:7px;
+  background:transparent;border:0;border-radius:12px;
+  text-align:left;font-weight:750;color:var(--ink);
+}
+.nav.active{background:var(--lilac)}
+.nav:hover{background:#F2E8FF}
+.nav i{font-style:normal;margin-right:11px}
+.sidebar-heading{
+  margin:28px 6px 10px;font-size:11px;
+  font-weight:900;letter-spacing:1px;color:var(--muted);
+}
+.download-box{padding:13px;border-color:#C9B3EB}
+.download-box h3{margin:0 0 12px;font-size:16px}
+label{font-size:12px;font-weight:750}
+.input{
+  width:100%;padding:12px;border-radius:10px;
+  border:1px solid #CEC7C0;background:white;color:var(--ink);
+}
+.download-box .input{margin-top:8px}
+.download-link{
+  display:block;width:100%;margin-top:12px;padding:13px 9px;
+  border:1px solid #1B1918;border-radius:10px;
+  background:var(--orange);color:#161616;
+  text-align:center;text-decoration:none;
+  font-size:13px;font-weight:900;
+}
+.download-link:hover{filter:brightness(.96)}
+.sidebar-note{
+  margin-top:16px;padding:13px;border-radius:13px;
+  background:#F3E9FF;border:1px solid #DBC5F4;
+}
+.sidebar-note strong{display:block;font-size:13px;margin-bottom:9px}
+.sidebar-note p{font-size:12px;color:#615B65;line-height:1.5;margin:7px 0}
+main{min-width:0}
+h1{
+  margin:7px 0 9px;font-size:clamp(30px,3.4vw,52px);
+  line-height:1.05;letter-spacing:-2px;font-weight:950;
+}
+.tagline{margin:0 0 20px;color:var(--muted);font-size:18px}
+.card{padding:20px;margin-bottom:17px;border:1.5px solid #24201E}
+.step{font-size:12px;font-weight:900;letter-spacing:.6px;margin-bottom:14px}
+h2{font-size:22px;margin:4px 0 12px}
+.muted{font-size:12px;color:var(--muted);line-height:1.6}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.upload{
+  padding:21px;background:#F3E8FF;border:2px dashed #BA9AEF;
+  border-radius:13px;cursor:pointer;
+}
+.upload strong{display:block;margin:6px 0}
+.row{display:flex;align-items:center;flex-wrap:wrap;gap:9px}
+.between{justify-content:space-between}
+.btn{
+  border:1px solid #302A26;border-radius:10px;
+  background:white;padding:11px 14px;font-weight:800;
+  color:var(--ink);
+}
+.btn.small{padding:8px 10px;font-size:12px}
+.btn.lilac{background:var(--lilac);border-color:#A780E8}
+.btn.orange{background:var(--orange)}
+.btn:hover:not(:disabled){filter:brightness(.96)}
+.primary{
+  display:block;width:100%;margin-top:14px;padding:16px;
+  background:var(--orange);border:1.5px solid #1B1918;
+  border-radius:12px;font-size:16px;font-weight:950;
+  box-shadow:3px 4px 0 #1B1918;
+}
+.primary:active:not(:disabled){transform:translate(2px,3px);box-shadow:none}
+.status{
+  margin-top:10px;font-size:12px;line-height:1.6;
+  color:#3568A6;white-space:pre-wrap;overflow-wrap:anywhere;
+}
+.status.error{color:#B72B20}
+.status.success{color:#278147}
+.success{
+  border:1px solid #A9DDAD;border-radius:11px;
+  background:#E4F8E9;color:#276A38;
+  padding:12px;margin-top:12px;text-align:center;font-weight:850;
+}
+.choice{
+  background:#FFF;border:1.5px solid #CCC3BA;border-radius:13px;
+  padding:19px;text-align:left;min-height:110px;
+}
+.choice:hover{border-color:var(--purple);background:#F6EEFF}
+.choice .emoji{font-size:24px;margin-bottom:9px}
+.choice strong{display:block;font-size:14px;margin-bottom:7px}
+.choice small{font-size:11px;color:var(--muted)}
+.result{
+  border:1px solid var(--line);border-radius:12px;
+  background:white;padding:13px;margin-top:11px;
+  display:flex;gap:12px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;
+}
+.result.active{background:#F3E9FF;border-color:#9C70EF}
+.result strong{font-size:13px}
+.result p{font-size:12px;color:var(--muted);margin:6px 0}
+.result .actions{display:flex;gap:7px;flex-wrap:wrap}
+.grid-results{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;margin-top:15px;
+}
+.video-card{
+  border:1px solid var(--line);background:white;
+  border-radius:13px;padding:12px;min-width:0;
+}
+.video-card video{
+  display:block;width:100%;aspect-ratio:16/10;
+  object-fit:contain;background:#121826;border-radius:9px;
+}
+.video-card strong{display:block;font-size:13px;margin:10px 0}
+.video-card .btn{width:100%;font-size:12px}
+.editor-tools{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0}
+.film-panel{
+  padding:15px;margin:15px 0;
+  background:#151A25;border-radius:14px;color:white;
+}
+.film-caption{
+  display:flex;justify-content:space-between;gap:8px;
+  font-size:11px;color:#D4D8E1;
+}
+.film{
+  position:relative;height:90px;margin-top:42px;
+  background:#2A3547;touch-action:none;
+}
+.frames{
+  display:flex;position:absolute;inset:0;
+  border-radius:7px;overflow:hidden;
+}
+.frame{
+  flex:1;min-width:0;border-right:1px solid #152033;
+  background:linear-gradient(130deg,#334155,#64748B);
+}
+.frame img{width:100%;height:100%;object-fit:cover;display:block}
+.ai-marker{
+  position:absolute;top:0;height:90px;
+  background:#FFE28535;border:1px solid #F3CB64;
+  pointer-events:none;
+}
+.selection{
+  position:absolute;top:0;height:90px;
+  background:#AF8BFA50;border:2px solid #BB95FF;
+  pointer-events:none;
+}
+.scrubber{
+  position:absolute;inset:0;z-index:3;cursor:ew-resize;
+  touch-action:none;
+}
+.playhead{
+  position:absolute;top:0;height:90px;width:2px;
+  background:white;pointer-events:none;z-index:4;
+}
+.playhead:before{
+  content:"";position:absolute;left:-5px;top:-6px;
+  width:12px;height:12px;border-radius:50%;background:white;
+}
+.handle{
+  position:absolute;top:-2px;height:94px;width:17px;
+  border-radius:6px;background:var(--purple);
+  border:2px solid white;z-index:5;cursor:ew-resize;
+  touch-action:none;
+}
+.stamp{
+  position:absolute;top:-33px;transform:translateX(-50%);
+  border-radius:7px;background:var(--lilac);color:#27133C;
+  padding:6px 8px;font-size:11px;font-weight:900;
+  pointer-events:none;white-space:nowrap;z-index:5;
+}
+.stamp.end{background:var(--yellow)}
+.ruler{
+  display:flex;justify-content:space-between;
+  margin-top:12px;font-size:10px;color:#BEC5D2;
+}
+.subtitles{
+  background:#F8F2FF;border:1px solid #BB97EE;
+  border-radius:13px;margin-top:16px;padding:15px;
+}
+.cue{
+  display:grid;grid-template-columns:75px 75px minmax(0,1fr);
+  gap:8px;margin:8px 0;
+}
+.cue input{
+  width:100%;min-width:0;padding:9px;border:1px solid #CFC5D9;
+  border-radius:7px;background:white;
+}
+.preview-column{position:sticky;top:15px;align-self:start}
+.preview{
+  background:#0C101C;border:2px solid #1C1C1C;
+  border-radius:20px;overflow:hidden;
+}
+.video-stage{position:relative;aspect-ratio:9/16;background:#0C101C}
+.video-stage video{
+  display:block;width:100%;height:100%;object-fit:contain;
+}
+.preview-pill{
+  position:absolute;left:12px;top:12px;border-radius:20px;
+  background:var(--lilac);color:#1B1522;
+  padding:8px 11px;font-size:10px;font-weight:900;
+  pointer-events:none;
+}
+.ratio{
+  position:absolute;right:12px;top:12px;background:#181A23D9;
+  border-radius:8px;color:white;padding:8px 10px;
+  font-size:11px;pointer-events:none;
+}
+.empty-preview{
+  position:absolute;inset:0;display:grid;place-items:center;
+  text-align:center;color:white;font-weight:950;font-size:27px;
+  background:radial-gradient(circle at 25% 30%,#385079,#080B15 70%);
+  pointer-events:none;
+}
+.empty-preview em{color:var(--yellow);font-style:normal}
+.preview-note{
+  color:var(--muted);font-size:12px;line-height:1.6;
+  margin:12px 6px;
+}
+@media(max-width:1150px){
+  .layout{grid-template-columns:220px minmax(0,1fr)}
+  .preview-column{grid-column:2;position:static}
+  .video-stage{max-height:460px;aspect-ratio:16/9}
+}
+@media(max-width:700px){
+  .layout{display:flex;flex-direction:column;padding:10px}
+  .sidebar{padding:12px}
+  .brand{padding-bottom:15px}
+  .grid2,.grid-results{grid-template-columns:1fr}
+  .video-stage{aspect-ratio:9/16;max-height:550px}
+  .card{padding:15px}
+}
+.layout {
+  max-width: 1800px;
+  grid-template-columns: 245px minmax(0, 1fr) 395px;
+}
+
+.video-stage {
+  aspect-ratio: 9 / 16;
+}
+
+.video-stage video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Creator Studio upgrades */
+
+@media (min-width: 1151px) {
+    .layout {
+        max-width: 1800px;
+        grid-template-columns:
+            245px minmax(0, 1fr) 395px;
+    }
+}
+
+@media (min-width: 701px) and (max-width: 1150px) {
+    .layout {
+        grid-template-columns:
+            220px minmax(0, 1fr);
+    }
+
+    .preview-column {
+        grid-column: 2;
+        position: static;
+    }
+
+    .video-stage {
+        aspect-ratio: 16 / 9;
+        max-height: 460px;
+    }
+}
+
+@media (max-width: 700px) {
+    .layout {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .video-stage {
+        aspect-ratio: 9 / 16;
+        max-height: 550px;
+    }
+}
+
+@media (min-width: 1151px) {
+    .video-stage {
+        aspect-ratio: 9 / 16;
+    }
+}
+
+.video-stage video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.sidebar .download-box {
+    margin-bottom: 14px;
+}
+
+.creator-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-top: 14px;
+    line-height: 1.5;
+    font-size: 12px;
+}
+
+.creator-checkbox input {
+    margin-top: 3px;
+    accent-color: #8353E8;
+}
+
+</style>
+</head>
+
+<body>
+<div class="layout">
+  <!-- LEFT SIDEBAR: ALL DOWNLOAD CONTROLS HERE -->
+  <aside class="sidebar">
+    <div class="brand">Shorts AI <span>✦</span></div>
+
+    <nav>
+      <button id="navCreate" class="nav active">
+        <i>✚</i> Create
+      </button>
+      <button id="navHighlights" class="nav">
+        <i>▣</i> My Highlights
+      </button>
+      <button id="navDownloads" class="nav">
+        <i>↓</i> Downloads
+      </button>
+    </nav>
+
+    <div class="sidebar-heading">DOWNLOAD STUDIO</div>
+
+    <div class="download-box">
+      <h3>↓ Export & Download</h3>
+
+      <label for="quality">Output quality</label>
+      <select id="quality" class="input">
+        <option value="fast">Fast render</option>
+        <option value="quality">High quality</option>
+      </select>
+
+      <p class="muted">
+        Select quality before generating your Shorts.
+      </p>
+
+      <div id="downloadName" class="muted">
+        No Short selected.
+      </div>
+
+      <a id="downloadLink" class="download-link" hidden>
+        ↓ Download MP4
+      </a>
+
+      <button id="rerender" class="btn small lilac"
+              style="width:100%;margin-top:11px" hidden>
+        Render with Selected Quality
+      </button>
+
+      <div id="downloadStatus" class="status"></div>
+    </div>
+
+
+    <!-- SEPARATE MP3 STUDIO -->
+    <div class="sidebar-heading">MP3 STUDIO</div>
+
+    <div class="download-box">
+      <h3>♫ Audio Export</h3>
+
+      <p class="muted">
+        Extract MP3 audio from your selected Short.
+        This is separate from MP4 Downloads.
+      </p>
+
+      <button
+        id="exportMP3"
+        class="btn small lilac"
+        style="width:100%"
+        type="button"
+      >
+        ♫ Export Selected MP3
+      </button>
+
+      <div id="mp3Status" class="status" role="status"></div>
+    </div>
+
+    <!-- SEPARATE YOUTUBE STUDIO -->
+    <div class="sidebar-heading">YOUTUBE STUDIO</div>
+
+    <div class="download-box">
+      <h3>▶ YouTube Upload</h3>
+
+      <p id="youtubeConnection" class="muted">
+        Checking YouTube connection...
+      </p>
+
+      <label for="youtubeAudience">Video audience</label>
+
+      <select id="youtubeAudience" class="input">
+        <option value="">Select audience</option>
+        <option value="no">Not made for kids</option>
+        <option value="yes">Made for kids</option>
+      </select>
+
+      <p class="muted">
+        Uploads will initially be Private.
+        Select the appropriate audience.
+      </p>
+
+      <button
+        id="uploadSelectedYouTube"
+        class="btn orange"
+        style="width:100%;margin-top:10px"
+        type="button"
+      >
+        ▶ Upload Selected Short
+      </button>
+
+      <label class="creator-checkbox">
+        <input type="checkbox" id="autoYoutube">
+        <span>
+          Automatically upload newly generated
+          Shorts to my connected YouTube channel
+          as Private videos.
+        </span>
+      </label>
+
+      <div id="youtubeStatus"
+           class="status"
+           role="status"></div>
+    </div>
+
+    <div class="sidebar-note">
+      <strong>✦ Current project</strong>
+      <p id="currentProject">No video selected</p>
+      <strong style="margin-top:15px">Your workflow</strong>
+      <p>① Process Video</p>
+      <p>② Manual or AI</p>
+      <p>③ Edit if needed</p>
+      <p>④ Generate Shorts</p>
+      <p>⑤ Download</p>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <h1>Big ideas. Short videos.</h1>
+    <p class="tagline">Make your next short with AI.</p>
+
+    <div id="createPage">
+      <section id="inputSection" class="card">
+        <div class="step">01 / INPUT</div>
+
+        <div class="grid2">
+          <label class="upload" for="videoFile">
+            <span style="font-size:26px">↥</span>
+            <strong>Upload video</strong>
+            <span class="muted">Choose an MP4, up to 200 MB</span>
+            <input id="videoFile" type="file"
+                   accept=".mp4,video/mp4" hidden>
+            <div id="fileName" class="muted"></div>
+          </label>
+
+          <div>
+            <label for="videoUrl">Or paste a video URL</label>
+            <input id="videoUrl" class="input"
+                   style="margin-top:10px"
+                   placeholder="https://youtube.com/...">
+            <p class="muted">
+              Use a supported video URL that you have
+              permission to import.
+            </p>
+          </div>
+        </div>
+
+        <button id="processVideo" class="primary">
+          Process Video →
+        </button>
+
+        <div id="processStatus" class="status" role="status"></div>
+        <div id="processed" class="success" hidden>
+          ✓ Processing done — choose a highlight method
+        </div>
+      </section>
+
+      <section id="choiceSection" class="card" hidden>
+        <div class="step">02 / CHOOSE YOUR METHOD</div>
+
+        <div class="grid2">
+          <button id="chooseManual" class="choice">
+            <div class="emoji">✂</div>
+            <strong>Manual Highlight Selection</strong>
+            <small>Open the timeline and select your own moments</small>
+          </button>
+
+          <button id="chooseAI" class="choice">
+            <div class="emoji">✦</div>
+            <strong>AI Highlight Selection</strong>
+            <small>Let Gemini find and generate your Shorts</small>
+          </button>
+        </div>
+      </section>
+
+      <!-- AI RESULTS: TIMELINE IS NOT SHOWN HERE -->
+      <section id="aiResults" class="card" hidden>
+        <div class="step">03 / AI SHORTS</div>
+        <h2>AI Shorts Generated ✨</h2>
+
+        <p class="muted">
+          Your Shorts are ready. Preview and download them,
+          or choose Edit AI Shorts if you want to make changes.
+        </p>
+
+        <div id="aiOutputList" class="grid-results"></div>
+
+        <div class="row" style="margin-top:16px">
+          <button id="editAI" class="btn lilac">
+            ✎ Edit AI Shorts
+          </button>
+          <button id="regenerateAI" class="btn">
+            ✦ Regenerate AI Shorts
+          </button>
+        </div>
+
+        <div id="aiStatus" class="status"></div>
+      </section>
+
+      <!-- EDITOR: MANUAL AUTOMATICALLY, AI ONLY ON REQUEST -->
+      <section id="editorSection" class="card" hidden>
+        <div class="step" id="editorStep">03 / EDITING STUDIO</div>
+
+        <div class="row between">
+          <strong id="editorTitle">Highlight Editor</strong>
+
+          <button id="editSubtitles" class="btn small lilac">
+            CC Edit Subtitles
+          </button>
+        </div>
+
+        <p id="editorHint" class="muted"></p>
+
+        <div class="film-panel">
+          <div class="film-caption">
+            <span id="timelineTime">00:00 / 00:00</span>
+            <span>Drag handles or scrub through the video</span>
+          </div>
+
+          <div class="film" id="film">
+            <div id="frames" class="frames"></div>
+            <div id="aiMarkers"></div>
+            <div id="selection" class="selection"></div>
+            <div id="scrubber" class="scrubber"></div>
+            <div id="playhead" class="playhead"></div>
+            <div id="startHandle" class="handle"></div>
+            <div id="endHandle" class="handle"></div>
+            <div id="startStamp" class="stamp">00:00</div>
+            <div id="endStamp" class="stamp end">00:30</div>
+          </div>
+
+          <div id="ruler" class="ruler">
+            <span>00:00</span><span>00:00</span>
+            <span>00:00</span><span>00:00</span>
+            <span>00:00</span>
+          </div>
+        </div>
+
+        <p id="rangeText" class="muted"></p>
+
+        <!-- MANUAL: NO SAVE HIGHLIGHT BUTTON -->
+        <div id="manualTools" class="editor-tools" hidden>
+          <button id="previewManual" class="btn small">
+            ▶ Preview
+          </button>
+          <button id="addSegment" class="btn small lilac">
+            + Add Another Segment
+          </button>
+          <button id="removeSegment" class="btn small">
+            Remove Segment
+          </button>
+        </div>
+
+        <!-- AI: ONLY AVAILABLE INSIDE OPTIONAL EDITOR -->
+        <div id="aiTools" class="editor-tools" hidden>
+          <button id="previewAI" class="btn small">
+            ▶ Preview
+          </button>
+          <button id="undoAI" class="btn small">
+            ↶ Undo
+          </button>
+          <button id="redoAI" class="btn small">
+            ↷ Redo
+          </button>
+          <button id="saveAITrim" class="btn small lilac">
+            Apply AI Trim
+          </button>
+          <button id="backToAI" class="btn small">
+            ← Back to AI Shorts
+          </button>
+        </div>
+
+        <div id="segmentList"></div>
+
+        <!-- SUBTITLES NEVER OPEN BY DEFAULT -->
+        <section id="subtitlePanel" class="subtitles" hidden>
+          <div class="row between">
+            <strong>Subtitle Editor</strong>
+            <button id="closeSubtitles" class="btn small">
+              Close
+            </button>
+          </div>
+
+          <p class="muted">
+            Edit caption text and timing for the selected Short.
+          </p>
+
+          <div id="subtitleRows"></div>
+
+          <div class="row" style="margin-top:12px">
+            <button id="saveSubtitles" class="btn small lilac">
+              Save Subtitles
+            </button>
+            <button id="addCaption" class="btn small">
+              + Add Caption
+            </button>
+          </div>
+
+          <div id="subtitleStatus" class="status"></div>
+        </section>
+
+        <button id="done" class="primary">
+          Done and Proceed →
+        </button>
+
+        <div id="editStatus" class="status"></div>
+      </section>
+
+      <!-- MANUAL OUTPUTS AFTER DONE -->
+      <section id="outputSection" class="card" hidden>
+        <div class="step">04 / SHORTS READY</div>
+        <h2>Your Shorts are ready ✨</h2>
+
+        <p class="muted">
+          Click Preview on any Short. The selected video
+          appears in the right column, and its Download
+          button appears on the left.
+        </p>
+
+        <div id="outputList" class="grid-results"></div>
+      </section>
+    </div>
+
+    <section id="libraryPage" class="card" hidden>
+      <div class="step">MY HIGHLIGHTS</div>
+      <h2>Generated Highlights</h2>
+      <p class="muted">
+        Choose any saved Short to preview it on the right.
+      </p>
+      <div id="libraryList" class="grid-results"></div>
+      <div id="libraryStatus" class="status"></div>
+    </section>
+
+    <section id="downloadsPage" class="card" hidden>
+      <div class="step">DOWNLOADS</div>
+      <h2>Download Your Shorts</h2>
+      <p class="muted">
+        Select a generated Short, then use the Download Studio
+        in the left sidebar.
+      </p>
+      <div id="downloadsList" class="grid-results"></div>
+      <div id="downloadsPageStatus" class="status"></div>
+    </section>
+  </main>
+
+  <!-- RIGHT: VIDEO PREVIEW ONLY -->
+  <aside class="preview-column">
+    <div class="preview">
+      <div class="video-stage">
+        <video id="player" controls playsinline
+               preload="metadata"></video>
+
+        <div id="emptyPreview" class="empty-preview">
+          <div>BIG IDEAS.<br><em>SHORT VIDEOS.</em></div>
+        </div>
+
+        <div class="preview-pill">● LIVE PREVIEW</div>
+        <div class="ratio">9:16</div>
+      </div>
+    </div>
+
+    <p class="preview-note">
+      Preview your original video, selected timeline range,
+      or generated Short here.
+    </p>
+  </aside>
+</div>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+const player = $("player");
+
+const state = {
+  page: "create",
+  stage: "input",
+  filename: null,
+  duration: 0,
+  mode: null,
+  ai: [],
+  manual: [],
+  active: 0,
+  draft: {start: 0, end: 30},
+  outputs: [],
+  selectedOutput: null,
+  currentSource: null,
+  previewEnd: null,
+  subtitleDoc: null,
+  subtitleUrl: null,
+  subtitleDirty: false,
+  history: [],
+  future: [],
+  busy: false,
+  generationId: 0,
+  frameJob: 0
+};
+
+const CLIP_NAME =
+  /^[a-f0-9]{32}_clip_\d+(?:_(?:fast|quality))?\.mp4$/;
+
+function time(value) {
+  value = Math.max(0, Math.floor(Number(value) || 0));
+  return String(Math.floor(value / 60)).padStart(2,"0") +
+    ":" + String(value % 60).padStart(2,"0");
+}
+
+function message(id, text, type = "") {
+  $(id).className = "status" + (type ? " " + type : "");
+  $(id).textContent = text;
+}
+
+function requestOptions(method, body) {
+  return {
+    method,
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(body)
+  };
+}
+
+async function api(url, options = {}) {
+  const response = await fetch(url, options);
+  const raw = await response.text();
+
+  let data;
+  try {
+    data = JSON.parse(raw);
+  } catch {
+    data = {detail: raw};
+  }
+
+  if (!response.ok) {
+    const detail = typeof data.detail === "string"
+      ? data.detail : JSON.stringify(data.detail || data);
+
+    throw new Error(detail || "Request failed");
+  }
+
+  return data;
+}
+
+function safeClipURL(clip) {
+  const filename = clip && clip.filename;
+
+  if (!CLIP_NAME.test(filename || "")) return null;
+
+  return "/clips/" + encodeURIComponent(filename);
+}
+
+function originalURL() {
+  return "/videos/" + encodeURIComponent(state.filename);
+}
+
+function activeClips() {
+  return state.mode === "manual" ? state.manual : state.ai;
+}
+
+function valid(a, b) {
+  return Number.isFinite(a) &&
+    Number.isFinite(b) &&
+    a >= 0 && a < b &&
+    b <= state.duration + .05 &&
+    b-a <= 60.05;
+}
+
+function createButton(text, className, onClick) {
+  const button = document.createElement("button");
+  button.textContent = text;
+  button.className = className;
+  button.onclick = onClick;
+  return button;
+}
+
+function showPage(page) {
+  state.page = page;
+
+  $("createPage").hidden = page !== "create";
+  $("libraryPage").hidden = page !== "library";
+  $("downloadsPage").hidden = page !== "downloads";
+
+  for (const [id, name] of [
+    ["navCreate", "create"],
+    ["navHighlights", "library"],
+    ["navDownloads", "downloads"]
+  ]) {
+    $(id).classList.toggle("active", page === name);
+  }
+
+  drawStage();
+}
+
+function drawStage() {
+  const create = state.page === "create";
+
+  $("choiceSection").hidden =
+    !create || !state.filename;
+
+  $("processed").hidden =
+    !create || !state.filename;
+
+  $("aiResults").hidden =
+    !create || state.stage !== "ai-results";
+
+  $("editorSection").hidden =
+    !create ||
+    !["manual-editor", "ai-editor"].includes(state.stage);
+
+  $("outputSection").hidden =
+    !create || state.stage !== "output";
+
+  $("manualTools").hidden =
+    state.stage !== "manual-editor";
+
+  $("aiTools").hidden =
+    state.stage !== "ai-editor";
+
+  $("done").textContent =
+    state.stage === "ai-editor"
+      ? "Regenerate Edited Shorts →"
+      : "Done and Proceed →";
+}
+
+function clearSubtitles() {
+  $("subtitlePanel").hidden = true;
+  $("subtitleRows").replaceChildren();
+  state.subtitleDoc = null;
+  state.subtitleUrl = null;
+  state.subtitleDirty = false;
+}
+
+function selectedRange() {
+  const clip = activeClips()[state.active];
+
+  if (clip) {
+    state.draft = {
+      start: Number(clip.start),
+      end: Number(clip.end)
+    };
+  } else {
+    state.draft = {
+      start: 0,
+      end: Math.min(state.duration, 30)
+    };
+  }
+
+  state.history = [];
+  state.future = [];
+  updateUndo();
+  paintTimeline();
+}
+
+function updateUndo() {
+  $("undoAI").disabled = !state.history.length;
+  $("redoAI").disabled = !state.future.length;
+}
+
+/* VIDEO PREVIEW */
+
+async function useVideo(url) {
+  if (state.currentSource === url && player.readyState >= 1) {
+    return;
+  }
+
+  player.pause();
+  state.previewEnd = null;
+
+  await new Promise((resolve, reject) => {
+    let finished = false;
+
+    const finish = error => {
+      if (finished) return;
+      finished = true;
+
+      clearTimeout(timeout);
+      player.removeEventListener("loadedmetadata", onLoad);
+      player.removeEventListener("error", onError);
+
+      if (error) reject(error);
+      else resolve();
+    };
+
+    const onLoad = () => finish();
+    const onError = () =>
+      finish(new Error("Video preview could not load."));
+
+    const timeout = setTimeout(
+      () => finish(new Error("Video loading timed out.")),
+      15000
+    );
+
+    player.addEventListener("loadedmetadata", onLoad);
+    player.addEventListener("error", onError);
+
+    player.src = url;
+    player.load();
+  });
+
+  state.currentSource = url;
+  $("emptyPreview").hidden = true;
+}
+
+async function previewRange(start, end) {
+  if (!valid(start, end)) {
+    throw new Error("Select a valid range up to 60 seconds.");
+  }
+
+  await useVideo(originalURL());
+
+  player.pause();
+  player.currentTime = start;
+  state.previewEnd = end;
+
+  await player.play();
+}
+
+player.addEventListener("timeupdate", () => {
+  if (
+    state.previewEnd !== null &&
+    player.currentTime >= state.previewEnd
+  ) {
+    player.pause();
+    state.previewEnd = null;
+  }
+
+  paintTimeline();
+});
+
+function selectDownload(clip) {
+  const url = safeClipURL(clip);
+
+  if (!url) {
+    message("downloadStatus", "Invalid clip filename.", "error");
+    return;
+  }
+
+  state.selectedOutput = clip;
+
+  $("downloadName").textContent =
+    clip.title || clip.filename;
+
+  $("downloadLink").href =
+    "/creator/download/" +
+    encodeURIComponent(clip.filename);
+  $("downloadLink").download = clip.filename;
+  $("downloadLink").hidden = false;
+
+  // The right column previews the selected Short.
+  useVideo(url).then(() => {
+    player.play().catch(() => {});
+  }).catch(error => {
+    message("downloadStatus", error.message, "error");
+  });
+
+  message(
+    "downloadStatus",
+    "Short selected. Use Download MP4.",
+    "success"
+  );
+}
+
+function resetDownload() {
+  state.selectedOutput = null;
+
+  $("downloadLink").hidden = true;
+  $("downloadLink").removeAttribute("href");
+  $("downloadName").textContent = "No Short selected.";
+  $("rerender").hidden = true;
+
+  message("downloadStatus", "");
+}
+
+/* INPUT AND PROCESS VIDEO */
+
+$("videoFile").onchange = () => {
+  $("fileName").textContent =
+    $("videoFile").files[0]?.name || "";
+};
+
+$("processVideo").onclick = async () => {
+  const file = $("videoFile").files[0];
+  const url = $("videoUrl").value.trim();
+
+  if (!file && !url) {
+    message(
+      "processStatus",
+      "Upload a video or paste a supported URL.",
+      "error"
+    );
+    return;
+  }
+
+  $("processVideo").disabled = true;
+  message("processStatus", "Preparing your video...");
+
+  try {
+    let data;
+
+    if (file) {
+      if (!file.name.toLowerCase().endsWith(".mp4")) {
+        throw new Error("Choose an MP4 video.");
+      }
+
+      if (file.size > 200*1024*1024) {
+        throw new Error("Video must be under 200 MB.");
+      }
+
+      const form = new FormData();
+      form.append("file", file);
+
+      data = await api("/upload", {
+        method: "POST",
+        body: form
+      });
+    } else {
+      data = await api(
+        "/workflow/ingest-url",
+        requestOptions("POST", {url})
+      );
+    }
+
+    if (!data.filename) {
+      throw new Error("The server did not return a video filename.");
+    }
+
+    state.filename = data.filename;
+    state.currentSource = null;
+
+    await useVideo(originalURL());
+
+    if (
+      !Number.isFinite(player.duration) ||
+      player.duration <= 0
+    ) {
+      throw new Error("Could not read the video duration.");
+    }
+
+    state.duration = player.duration;
+    state.mode = null;
+    state.ai = [];
+    state.manual = [];
+    state.outputs = [];
+    state.active = 0;
+    state.draft = {
+      start: 0,
+      end: Math.min(30, state.duration)
+    };
+    state.stage = "choose";
+    state.generationId++;
+
+    $("currentProject").textContent =
+      file?.name || "Imported video";
+
+    resetDownload();
+    clearSubtitles();
+    drawStage();
+    makeFilmFrames();
+
+    message(
+      "processStatus",
+      "Video ready. Choose Manual or AI Selection.",
+      "success"
+    );
+
+  } catch (error) {
+    state.filename = null;
+    state.stage = "input";
+
+    $("processed").hidden = true;
+    drawStage();
+
+    message("processStatus", error.message, "error");
+  } finally {
+    $("processVideo").disabled = false;
+  }
+};
+
+/* GENERATION */
+
+async function renderShorts(mode) {
+  const data = await api(
+    "/workflow/render/" +
+      encodeURIComponent(state.filename),
+    requestOptions("POST", {
+      selection_mode: mode,
+      quality: $("quality").value
+    })
+  );
+
+  if (!Array.isArray(data.clips) || !data.clips.length) {
+    throw new Error("No generated Shorts were returned.");
+  }
+
+  state.outputs = data.clips;
+
+  // Optional, explicitly enabled private YouTube upload.
+  // Never interrupt video generation if YouTube fails.
+  if ($("autoYoutube").checked) {
+    void autoUploadGeneratedShorts(data.clips);
+  }
+  $("rerender").hidden = false;
+
+  return data.clips;
+}
+
+async function startAI(force = false) {
+  if (!state.filename || state.busy) return;
+
+  state.busy = true;
+  const ticket = ++state.generationId;
+
+  state.mode = "ai";
+  state.stage = "ai-results";
+  clearSubtitles();
+  drawStage();
+
+  $("aiOutputList").replaceChildren();
+
+  message(
+    "aiStatus",
+    force
+      ? "Regenerating AI highlights and Shorts..."
+      : "Gemini is finding highlights and creating Shorts..."
+  );
+
+  $("chooseAI").disabled = true;
+  $("regenerateAI").disabled = true;
+
+  try {
+    const result = await api(
+      "/creator/analyze/" +
+        encodeURIComponent(state.filename) +
+        (force ? "?force=true" : ""),
+      {method: "POST"}
+    );
+
+    if (ticket !== state.generationId) return;
+
+    const highlights = result.highlights || [];
+
+    if (!highlights.length) {
+      throw new Error("Gemini returned no highlights.");
+    }
+
+    state.ai = highlights;
+    state.active = 0;
+
+    const outputs = await renderShorts("ai");
+
+    if (ticket !== state.generationId) return;
+
+    showGenerated($("aiOutputList"), outputs);
+    selectDownload(outputs[0]);
+
+    message(
+      "aiStatus",
+      `${outputs.length} AI Shorts generated. ` +
+      "Editing is optional.",
+      "success"
+    );
+
+  } catch (error) {
+    message("aiStatus", error.message, "error");
+  } finally {
+    state.busy = false;
+    $("chooseAI").disabled = false;
+    $("regenerateAI").disabled = false;
+  }
+}
+
+$("chooseAI").onclick = () => startAI();
+$("regenerateAI").onclick = () => {
+  if (confirm("Replace AI suggestions and regenerate Shorts?")) {
+    startAI(true);
+  }
+};
+
+/* AI RESULTS FIRST — EDITOR ONLY AFTER CLICK */
+
+$("editAI").onclick = () => openAIEditor(0);
+
+function openAIEditor(index) {
+  if (!state.ai.length) return;
+
+  state.mode = "ai";
+  state.active = index;
+  state.stage = "ai-editor";
+
+  $("editorTitle").textContent = "Edit AI Shorts";
+  $("editorHint").textContent =
+    "Adjust Gemini's selections only if needed. " +
+    "Apply a trim, then regenerate the edited Shorts.";
+
+  clearSubtitles();
+  selectedRange();
+  drawSegments();
+  drawStage();
+
+  useVideo(originalURL()).catch(error => {
+    message("editStatus", error.message, "error");
+  });
+}
+
+$("backToAI").onclick = () => {
+  if (state.subtitleDirty) {
+    if (!confirm("Discard unsaved subtitle changes?")) return;
+  }
+
+  clearSubtitles();
+
+  state.stage = "ai-results";
+  drawStage();
+  showGenerated($("aiOutputList"), state.outputs);
+};
+
+/* MANUAL: NO SAVE HIGHLIGHT BUTTON */
+
+$("chooseManual").onclick = () => {
+  if (!state.filename) return;
+
+  state.mode = "manual";
+  state.stage = "manual-editor";
+  state.active = 0;
+
+  if (!state.manual.length) {
+    state.manual = [{
+      start: 0,
+      end: Math.min(30, state.duration),
+      title: "Manual Short 1"
+    }];
+  }
+
+  $("editorTitle").textContent = "Manual Editing Studio";
+  $("editorHint").textContent =
+    "Drag the handles to select your moments. " +
+    "No Save Highlight button is needed.";
+
+  clearSubtitles();
+  selectedRange();
+  drawSegments();
+  drawStage();
+
+  useVideo(originalURL()).catch(error => {
+    message("editStatus", error.message, "error");
+  });
+};
+
+function findGap() {
+  const ordered = [...state.manual].sort(
+    (a,b) => a.start-b.start
+  );
+
+  let cursor = 0;
+
+  for (const clip of ordered) {
+    if (clip.start-cursor >= .2) {
+      return {
+        start: cursor,
+        end: Math.min(cursor+30, clip.start)
+      };
+    }
+    cursor = Math.max(cursor, clip.end);
+  }
+
+  if (state.duration-cursor >= .2) {
+    return {
+      start: cursor,
+      end: Math.min(cursor+30, state.duration)
+    };
+  }
+
+  return null;
+}
+
+$("addSegment").onclick = () => {
+  if (state.manual.length >= 6) {
+    message("editStatus", "Maximum six segments.", "error");
+    return;
+  }
+
+  const gap = findGap();
+
+  if (!gap) {
+    message(
+      "editStatus",
+      "There is no unused video section available.",
+      "error"
+    );
+    return;
+  }
+
+  state.manual.push({
+    ...gap,
+    title: `Manual Short ${state.manual.length+1}`
+  });
+
+  state.active = state.manual.length-1;
+
+  clearSubtitles();
+  selectedRange();
+  drawSegments();
+};
+
+$("removeSegment").onclick = () => {
+  if (state.manual.length <= 1) {
+    message(
+      "editStatus",
+      "At least one segment is required.",
+      "error"
+    );
+    return;
+  }
+
+  state.manual.splice(state.active, 1);
+  state.active = 0;
+
+  clearSubtitles();
+  selectedRange();
+  drawSegments();
+};
+
+/* FILMSTRIP AND DRAGGABLE TIMELINE */
+
+function percent(value) {
+  return state.duration
+    ? value/state.duration*100
+    : 0;
+}
+
+function position(event) {
+  const bounds = $("film").getBoundingClientRect();
+
+  return Math.max(0, Math.min(
+    1,
+    (event.clientX-bounds.left)/bounds.width
+  ));
+}
+
+function paintTimeline() {
+  if (
+    !state.duration ||
+    !["manual-editor","ai-editor"].includes(state.stage)
+  ) return;
+
+  const {start,end} = state.draft;
+
+  $("selection").style.left = percent(start)+"%";
+  $("selection").style.width = percent(end-start)+"%";
+
+  $("startHandle").style.left =
+    `calc(${percent(start)}% - 8px)`;
+
+  $("endHandle").style.left =
+    `calc(${percent(end)}% - 8px)`;
+
+  $("startStamp").style.left =
+    `clamp(28px, ${percent(start)}%, calc(100% - 28px))`;
+
+  $("endStamp").style.left =
+    `clamp(28px, ${percent(end)}%, calc(100% - 28px))`;
+
+  $("startStamp").textContent = time(start);
+  $("endStamp").textContent = time(end);
+
+  $("playhead").style.left =
+    percent(player.currentTime || 0)+"%";
+
+  $("rangeText").textContent =
+    time(start) + " – " + time(end) +
+    " • " + (end-start).toFixed(1) + " seconds";
+
+  $("timelineTime").textContent =
+    time(player.currentTime || 0) +
+    " / " + time(state.duration);
+
+  const ticks = $("ruler").children;
+
+  for (let i=0;i<ticks.length;i++) {
+    ticks[i].textContent = time(
+      state.duration*i/(ticks.length-1)
+    );
+  }
+
+  $("aiMarkers").replaceChildren();
+
+  if (state.mode === "ai") {
+    for (const clip of state.ai) {
+      const marker = document.createElement("div");
+      marker.className = "ai-marker";
+      marker.style.left = percent(clip.start)+"%";
+      marker.style.width =
+        percent(clip.end-clip.start)+"%";
+
+      $("aiMarkers").append(marker);
+    }
+  }
+}
+
+function updateDraft(side, value) {
+  if (!state.duration) return;
+
+  let {start,end} = state.draft;
+
+  if (side === "start") {
+    start = Math.max(0, Math.min(value, end-.1));
+  } else {
+    end = Math.min(
+      state.duration,
+      Math.max(value, start+.1)
+    );
+  }
+
+  if (end-start > 60) {
+    if (side === "start") end = start+60;
+    else start = end-60;
+  }
+
+  const candidate = {
+    start: Number(start.toFixed(2)),
+    end: Number(end.toFixed(2))
+  };
+
+  if (!valid(candidate.start, candidate.end)) return;
+
+  if (state.mode === "manual") {
+    const overlap = state.manual.some(
+      (clip,i) => i !== state.active &&
+      candidate.start < clip.end &&
+      candidate.end > clip.start
+    );
+
+    if (overlap) return;
+
+    // Update the selection automatically in memory.
+    Object.assign(state.manual[state.active], candidate);
+  }
+
+  state.draft = candidate;
+  paintTimeline();
+  drawSegments();
+}
+
+for (const [id,side] of [
+  ["startHandle","start"],
+  ["endHandle","end"]
+]) {
+  $(id).addEventListener("pointerdown", event => {
+    if (state.subtitleDirty || !$("subtitlePanel").hidden) {
+      message(
+        "editStatus",
+        "Save and close subtitles before adjusting timing.",
+        "error"
+      );
+      return;
+    }
+
+    if (!activeClips()[state.active]) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const handle = $(id);
+    handle.setPointerCapture(event.pointerId);
+
+    player.pause();
+
+    const before = {...state.draft};
+
+    const move = e => {
+      updateDraft(side, position(e)*state.duration);
+    };
+
+    const finish = () => {
+      handle.removeEventListener("pointermove", move);
+      handle.removeEventListener("pointerup", finish);
+      handle.removeEventListener("pointercancel", finish);
+
+      if (
+        state.mode === "ai" &&
+        (before.start !== state.draft.start ||
+         before.end !== state.draft.end)
+      ) {
+        state.history.push(before);
+        state.future = [];
+        updateUndo();
+      }
+    };
+
+    handle.addEventListener("pointermove", move);
+    handle.addEventListener("pointerup", finish);
+    handle.addEventListener("pointercancel", finish);
+  });
+}
+
+$("scrubber").addEventListener("pointerdown", event => {
+  if (!state.duration) return;
+
+  const surface = $("scrubber");
+  surface.setPointerCapture(event.pointerId);
+  player.pause();
+
+  let lastPosition = position(event)*state.duration;
+  let lastSeekAt = 0;
+
+  const move = e => {
+    lastPosition = position(e)*state.duration;
+
+    $("playhead").style.left =
+      percent(lastPosition)+"%";
+
+    if (performance.now()-lastSeekAt > 70) {
+      lastSeekAt = performance.now();
+
+      useVideo(originalURL()).then(() => {
+        player.currentTime = lastPosition;
+      }).catch(() => {});
+    }
+  };
+
+  const finish = () => {
+    surface.removeEventListener("pointermove", move);
+    surface.removeEventListener("pointerup", finish);
+    surface.removeEventListener("pointercancel", finish);
+
+    useVideo(originalURL()).then(() => {
+      player.currentTime = lastPosition;
+    }).catch(() => {});
+  };
+
+  move(event);
+
+  surface.addEventListener("pointermove", move);
+  surface.addEventListener("pointerup", finish);
+  surface.addEventListener("pointercancel", finish);
+});
+
+function drawSegments() {
+  const list = $("segmentList");
+  list.replaceChildren();
+
+  activeClips().forEach((clip,index) => {
+    const row = document.createElement("div");
+    row.className = "result" +
+      (index === state.active ? " active" : "");
+
+    const info = document.createElement("div");
+
+    const title = document.createElement("strong");
+    title.textContent = clip.title || `Short ${index+1}`;
+
+    const timing = document.createElement("p");
+    timing.textContent =
+      time(clip.start) + " – " + time(clip.end);
+
+    info.append(title, timing);
+
+    const select = createButton(
+      "Select & Preview",
+      "btn small lilac",
+      async () => {
+        state.active = index;
+        clearSubtitles();
+        selectedRange();
+        drawSegments();
+
+        try {
+          await previewRange(clip.start, clip.end);
+        } catch (error) {
+          message("editStatus", error.message, "error");
+        }
+      }
+    );
+
+    row.append(info, select);
+    list.append(row);
+  });
+}
+
+$("previewManual").onclick =
+$("previewAI").onclick = async () => {
+  try {
+    await previewRange(
+      state.draft.start,
+      state.draft.end
+    );
+  } catch (error) {
+    message("editStatus", error.message, "error");
+  }
+};
+
+/* REAL FRAME THUMBNAILS */
+
+async function makeFilmFrames() {
+  const job = ++state.frameJob;
+  const source = originalURL();
+
+  $("frames").replaceChildren();
+
+  const video = document.createElement("video");
+  video.muted = true;
+  video.playsInline = true;
+  video.preload = "auto";
+
+  try {
+    await new Promise((resolve,reject) => {
+      const timer = setTimeout(
+        () => reject(new Error("Frame source timeout")),12000
+      );
+
+      video.onloadedmetadata = () => {
+        clearTimeout(timer); resolve();
+      };
+
+      video.onerror = () => {
+        clearTimeout(timer);
+        reject(new Error("Cannot load frame source."));
+      };
+
+      video.src = source;
+      video.load();
+    });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = 144;
+    canvas.height = 81;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    for (let i=0;i<12;i++) {
+      if (job !== state.frameJob) break;
+
+      const frame = document.createElement("div");
+      frame.className = "frame";
+      $("frames").append(frame);
+
+      const target = Math.min(
+        Math.max(0,video.duration-.05),
+        video.duration*(i+.5)/12
+      );
+
+      try {
+        await new Promise((resolve,reject) => {
+          const timer = setTimeout(
+            () => reject(new Error("Frame seek timeout")),
+            3500
+          );
+
+          video.onseeked = () => {
+            clearTimeout(timer);
+            resolve();
+          };
+
+          video.currentTime = target;
+        });
+
+        ctx.drawImage(video,0,0,144,81);
+
+        const image = document.createElement("img");
+        image.src = canvas.toDataURL("image/jpeg",.7);
+        image.alt = "Frame at " + time(target);
+
+        frame.append(image);
+      } catch {
+        // Keep a neutral frame when seeking is unavailable.
+      }
+    }
+  } catch {
+    // Timeline controls remain usable without thumbnails.
+  } finally {
+    video.removeAttribute("src");
+    video.load();
+  }
+}
+
+/* AI TRIM — UNDO, REDO, APPLY */
+
+$("undoAI").onclick = () => {
+  if (!state.history.length) return;
+
+  state.future.push({...state.draft});
+  state.draft = state.history.pop();
+
+  updateUndo();
+  paintTimeline();
+};
+
+$("redoAI").onclick = () => {
+  if (!state.future.length) return;
+
+  state.history.push({...state.draft});
+  state.draft = state.future.pop();
+
+  updateUndo();
+  paintTimeline();
+};
+
+$("saveAITrim").onclick = async () => {
+  if (state.active < 0 || !valid(
+    state.draft.start,state.draft.end
+  )) return;
+
+  try {
+    const data = await api(
+      "/update-highlight/" +
+        encodeURIComponent(state.filename) +
+        "/" + state.active,
+      requestOptions("POST", state.draft)
+    );
+
+    state.ai[state.active] = data.highlight;
+
+    clearSubtitles();
+    selectedRange();
+    drawSegments();
+
+    message(
+      "editStatus",
+      "AI trim applied. Regenerate Edited Shorts " +
+      "to create the updated MP4.",
+      "success"
+    );
+  } catch (error) {
+    message("editStatus",error.message,"error");
+  }
+};
+
+/* MANUAL BACKEND SYNC — NEVER A SAVE BUTTON */
+
+async function syncManual() {
+  if (!state.manual.length) {
+    throw new Error("Choose at least one manual segment.");
+  }
+
+  const ordered = [...state.manual].sort(
+    (a,b) => a.start-b.start
+  );
+
+  for (let i=0;i<ordered.length;i++) {
+    const clip = ordered[i];
+
+    if (!valid(clip.start,clip.end)) {
+      throw new Error("Each segment must be 0.1–60 seconds.");
+    }
+
+    if (
+      i > 0 &&
+      ordered[i-1].end > clip.start
+    ) {
+      throw new Error("Manual segments cannot overlap.");
+    }
+  }
+
+  // Preserve the active segment even after sorting.
+  const current = state.manual[state.active];
+  state.active = ordered.indexOf(current);
+  state.manual = ordered;
+
+  await api(
+    "/workflow/manual/" +
+      encodeURIComponent(state.filename) +
+      "/selections",
+    requestOptions("POST", {
+      highlights: ordered
+    })
+  );
+}
+
+/* SUBTITLES — OPEN ONLY WHEN USER CLICKS */
+
+$("editSubtitles").onclick = async () => {
+  if (!$("subtitlePanel").hidden) {
+    clearSubtitles();
+    return;
+  }
+
+  if (!activeClips()[state.active]) {
+    message(
+      "editStatus",
+      "Select a highlight first.",
+      "error"
+    );
+    return;
+  }
+
+  $("subtitlePanel").hidden = false;
+  message("subtitleStatus","Loading captions...");
+
+  try {
+    if (state.mode === "manual") {
+      await syncManual();
+    } else {
+      const saved = state.ai[state.active];
+
+      if (
+        Math.abs(saved.start-state.draft.start)>.01 ||
+        Math.abs(saved.end-state.draft.end)>.01
+      ) {
+        throw new Error(
+          "Apply AI Trim before editing subtitles."
+        );
+      }
+    }
+
+    const endpoint = state.mode === "manual"
+      ? "/workflow/manual/" +
+          encodeURIComponent(state.filename) +
+          "/subtitles/" + state.active
+      : "/subtitle-review/" +
+          encodeURIComponent(state.filename) +
+          "/" + state.active;
+
+    const doc = await api(endpoint);
+
+    state.subtitleDoc = doc;
+    state.subtitleUrl = endpoint;
+    state.subtitleDirty = false;
+
+    drawCues();
+    message("subtitleStatus","Captions ready.");
+
+  } catch (error) {
+    message("subtitleStatus",error.message,"error");
+  }
+};
+
+$("closeSubtitles").onclick = () => {
+  if (
+    state.subtitleDirty &&
+    !confirm("Discard unsaved subtitle changes?")
+  ) return;
+
+  clearSubtitles();
+};
+
+function drawCues() {
+  const root = $("subtitleRows");
+  root.replaceChildren();
+
+  if (!state.subtitleDoc) return;
+
+  state.subtitleDoc.cues.forEach(cue => {
+    const row = document.createElement("div");
+    row.className = "cue";
+
+    for (const field of ["start","end","text"]) {
+      const input = document.createElement("input");
+      input.dataset.field = field;
+      input.value = cue[field];
+
+      if (field === "text") {
+        input.type = "text";
+      } else {
+        input.type = "number";
+        input.step = ".01";
+        input.min = "0";
+        input.max = state.subtitleDoc.duration;
+      }
+
+      input.oninput = () => {
+        state.subtitleDirty = true;
+      };
+
+      row.append(input);
+    }
+
+    root.append(row);
+  });
+}
+
+function readCues() {
+  return [...$("subtitleRows").children].map((row,id) => {
+    const value = field =>
+      row.querySelector(
+        `[data-field="${field}"]`
+      ).value;
+
+    return {
+      id,
+      start: Number(value("start")),
+      end: Number(value("end")),
+      text: value("text").trim()
+    };
+  });
+}
+
+$("addCaption").onclick = () => {
+  if (!state.subtitleDoc) return;
+
+  const cues = readCues();
+  const start = cues.length
+    ? cues[cues.length-1].end : 0;
+
+  if (start>=state.subtitleDoc.duration) {
+    message(
+      "subtitleStatus",
+      "No room for another caption.",
+      "error"
+    );
+    return;
+  }
+
+  state.subtitleDoc.cues = [
+    ...cues,
+    {
+      id:cues.length,
+      start,
+      end:Math.min(start+1,state.subtitleDoc.duration),
+      text:"[unclear]"
+    }
+  ];
+
+  state.subtitleDirty = true;
+  drawCues();
+};
+
+$("saveSubtitles").onclick = async () => {
+  if (!state.subtitleDoc) return;
+
+  $("saveSubtitles").disabled = true;
+
+  try {
+    const result = await api(
+      state.subtitleUrl,
+      requestOptions("PUT",{
+        mode:"auto",
+        revision:state.subtitleDoc.revision,
+        cues:readCues()
+      })
+    );
+
+    state.subtitleDoc = result;
+    state.subtitleDirty = false;
+
+    drawCues();
+
+    message(
+      "subtitleStatus",
+      "Subtitle edits saved.",
+      "success"
+    );
+  } catch (error) {
+    message("subtitleStatus",error.message,"error");
+  } finally {
+    $("saveSubtitles").disabled = false;
+  }
+};
+
+/* FINAL RENDER */
+
+async function generateFromEditor() {
+  if (state.subtitleDirty) {
+    throw new Error(
+      "Save your subtitle changes before generating."
+    );
+  }
+
+  if (!activeClips().length) {
+    throw new Error("Choose at least one highlight.");
+  }
+
+  if (state.mode === "manual") {
+    await syncManual();
+  } else {
+    const saved = state.ai[state.active];
+
+    if (
+      saved &&
+      (Math.abs(saved.start-state.draft.start)>.01 ||
+       Math.abs(saved.end-state.draft.end)>.01)
+    ) {
+      throw new Error("Apply AI Trim before rendering.");
+    }
+  }
+
+  const outputs = await renderShorts(state.mode);
+
+  if (state.mode === "ai") {
+    state.stage = "ai-results";
+    showGenerated($("aiOutputList"),outputs);
+    message(
+      "aiStatus",
+      "Edited AI Shorts regenerated.",
+      "success"
+    );
+  } else {
+    state.stage = "output";
+    showGenerated($("outputList"),outputs);
+  }
+
+  clearSubtitles();
+  drawStage();
+  selectDownload(outputs[0]);
+}
+
+$("done").onclick = async () => {
+  if (state.busy) return;
+
+  state.busy = true;
+  $("done").disabled = true;
+
+  message(
+    "editStatus",
+    "Generating your Shorts with FFmpeg..."
+  );
+
+  try {
+    await generateFromEditor();
+
+    message(
+      "editStatus",
+      "Your Shorts have been generated.",
+      "success"
+    );
+  } catch (error) {
+    message("editStatus",error.message,"error");
+  } finally {
+    state.busy = false;
+    $("done").disabled = false;
+  }
+};
+
+/* RESULTS AND MY HIGHLIGHTS */
+
+function showGenerated(container, clips) {
+  container.replaceChildren();
+
+  if (!clips.length) {
+    const empty = document.createElement("p");
+    empty.className = "muted";
+    empty.textContent = "No generated Shorts yet.";
+    container.append(empty);
+    return;
+  }
+
+  clips.forEach((clip,index) => {
+    const url = safeClipURL(clip);
+    if (!url) return;
+
+    const card = document.createElement("div");
+    card.className = "video-card";
+
+    const video = document.createElement("video");
+    video.src = url;
+    video.preload = "metadata";
+    video.muted = true;
+    video.playsInline = true;
+
+    const title = document.createElement("strong");
+    title.textContent =
+      clip.title || `Short ${index+1}`;
+
+    const preview = createButton(
+      "▶ Preview & Select",
+      "btn lilac",
+      () => selectDownload(clip)
+    );
+
+    card.append(video,title,preview);
+
+    // AI editing is deliberately offered only
+    // after the Shorts have already been generated.
+    if (
+      container === $("aiOutputList") &&
+      state.ai[index]
+    ) {
+      const edit = createButton(
+        "✎ Edit This Short",
+        "btn small",
+        () => openAIEditor(index)
+      );
+      edit.style.marginTop = "8px";
+      edit.style.width = "100%";
+      card.append(edit);
+    }
+
+    container.append(card);
+  });
+}
+
+async function loadLibrary(target,statusId) {
+  try {
+    const endpoint =
+      target === $("downloadsList")
+        ? "/creator/downloads"
+        : "/workflow/gallery";
+
+    const data = await api(endpoint);
+
+    showGenerated(target,data.items || []);
+    message(statusId,"");
+  } catch (error) {
+    message(statusId,error.message,"error");
+  }
+}
+
+$("navCreate").onclick = () => {
+  showPage("create");
+};
+
+$("navHighlights").onclick = async () => {
+  showPage("library");
+  await loadLibrary(
+    $("libraryList"),
+    "libraryStatus"
+  );
+};
+
+$("navDownloads").onclick = async () => {
+  showPage("downloads");
+  await loadLibrary(
+    $("downloadsList"),
+    "downloadsPageStatus"
+  );
+};
+
+$("rerender").onclick = async () => {
+  if (!state.filename || state.busy) return;
+
+  state.busy = true;
+  $("rerender").disabled = true;
+
+  message(
+    "downloadStatus",
+    "Generating Shorts at the selected quality..."
+  );
+
+  try {
+    if (state.mode === "manual") await syncManual();
+
+    const outputs = await renderShorts(state.mode);
+
+    if (state.mode === "ai") {
+      showGenerated($("aiOutputList"),outputs);
+    } else {
+      showGenerated($("outputList"),outputs);
+    }
+
+    selectDownload(outputs[0]);
+
+    message(
+      "downloadStatus",
+      "Rendered successfully at the selected quality.",
+      "success"
+    );
+  } catch (error) {
+    message("downloadStatus",error.message,"error");
+  } finally {
+    state.busy = false;
+    $("rerender").disabled = false;
+  }
+};
+
+
+
+/* ================================================
+   CREATOR FEATURES
+   Separate MP3, Downloads, and YouTube Studio
+================================================ */
+
+const youtubeUploadedThisSession = new Set();
+let youtubeConnected = false;
+
+
+/* MP3 AUDIO EXPORT */
+
+$("exportMP3").onclick = async () => {
+  const clip = state.selectedOutput;
+
+  if (!clip || !safeClipURL(clip)) {
+    message(
+      "mp3Status",
+      "Select a generated Short first.",
+      "error"
+    );
+    return;
+  }
+
+  const button = $("exportMP3");
+  button.disabled = true;
+
+  message("mp3Status", "Converting the selected Short...");
+
+  try {
+    const response = await fetch(
+      "/creator/mp3/" +
+      encodeURIComponent(clip.filename)
+    );
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+
+      throw new Error(
+        data.detail || "MP3 export failed."
+      );
+    }
+
+    const blob = await response.blob();
+    const objectURL = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = objectURL;
+    link.download = clip.filename.replace(
+      /\.mp4$/i,
+      ".mp3"
+    );
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(
+      () => URL.revokeObjectURL(objectURL),
+      10000
+    );
+
+    message(
+      "mp3Status",
+      "MP3 download started.",
+      "success"
+    );
+
+  } catch (error) {
+    message("mp3Status", error.message, "error");
+  } finally {
+    button.disabled = false;
+  }
+};
+
+
+/* YOUTUBE CONNECTION STATUS */
+
+async function refreshYouTubeConnection() {
+  try {
+    const data = await api(
+      "/creator/youtube/status"
+    );
+
+    youtubeConnected = Boolean(data.connected);
+
+    $("youtubeConnection").textContent =
+      youtubeConnected
+        ? "✓ YouTube account connected"
+        : "YouTube not connected. Run connect_youtube.py.";
+
+  } catch {
+    youtubeConnected = false;
+
+    $("youtubeConnection").textContent =
+      "YouTube backend unavailable. Check creator_features.py.";
+  }
+}
+
+
+/* CHECK VIDEO AUDIENCE */
+
+function getYouTubeAudience() {
+  const selected = $("youtubeAudience").value;
+
+  if (!selected) {
+    throw new Error(
+      "Select whether your video is made for kids."
+    );
+  }
+
+  return selected === "yes";
+}
+
+
+/* UPLOAD ONE MP4 TO YOUTUBE */
+
+async function uploadShortToYouTube(clip) {
+  if (!safeClipURL(clip)) {
+    throw new Error("Select a valid generated MP4 Short.");
+  }
+
+  if (!youtubeConnected) {
+    throw new Error(
+      "Connect your YouTube account first."
+    );
+  }
+
+  const madeForKids = getYouTubeAudience();
+
+  return api(
+    "/creator/youtube/upload/" +
+      encodeURIComponent(clip.filename),
+
+    requestOptions("POST", {
+      title: String(
+        clip.title || "Shorts AI Video"
+      ).trim().slice(0, 100),
+
+      description:
+        "Created using the Shorts AI Video Editing Agent.",
+
+      made_for_kids: madeForKids
+    })
+  );
+}
+
+
+/* MANUAL YOUTUBE UPLOAD BUTTON */
+
+$("uploadSelectedYouTube").onclick = async () => {
+  const clip = state.selectedOutput;
+
+  if (!clip) {
+    message(
+      "youtubeStatus",
+      "Select a generated Short first.",
+      "error"
+    );
+    return;
+  }
+
+  const button = $("uploadSelectedYouTube");
+  button.disabled = true;
+
+  message(
+    "youtubeStatus",
+    "Uploading your Short privately to YouTube..."
+  );
+
+  try {
+    const result = await uploadShortToYouTube(clip);
+
+    youtubeUploadedThisSession.add(clip.filename);
+
+    message(
+      "youtubeStatus",
+      "Successfully uploaded as Private:\n" +
+      result.youtube_url,
+      "success"
+    );
+
+  } catch (error) {
+    message(
+      "youtubeStatus",
+      error.message,
+      "error"
+    );
+
+    // Refresh status in case the OAuth token expired.
+    await refreshYouTubeConnection();
+  } finally {
+    button.disabled = false;
+  }
+};
+
+
+/* EXPLICIT OPT-IN FOR AUTOMATIC UPLOADS */
+
+$("autoYoutube").onchange = async function () {
+  if (!this.checked) return;
+
+  try {
+    await refreshYouTubeConnection();
+
+    if (!youtubeConnected) {
+      throw new Error(
+        "Connect YouTube before enabling automatic uploads."
+      );
+    }
+
+    getYouTubeAudience();
+
+    const approved = confirm(
+      "Automatically upload newly generated Shorts " +
+      "as PRIVATE videos to your connected YouTube channel?"
+    );
+
+    if (!approved) {
+      this.checked = false;
+    }
+
+  } catch (error) {
+    this.checked = false;
+
+    message(
+      "youtubeStatus",
+      error.message,
+      "error"
+    );
+  }
+};
+
+
+/* AUTOMATIC PRIVATE UPLOAD AFTER GENERATION */
+
+async function autoUploadGeneratedShorts(clips) {
+  if (!$("autoYoutube").checked) return;
+
+  try {
+    getYouTubeAudience();
+
+    if (!youtubeConnected) {
+      throw new Error(
+        "YouTube is not connected."
+      );
+    }
+
+  } catch (error) {
+    message(
+      "youtubeStatus",
+      error.message,
+      "error"
+    );
+    return;
+  }
+
+  let completed = 0;
+  let skipped = 0;
+  const errors = [];
+
+  for (const clip of clips) {
+    if (!clip || !safeClipURL(clip)) continue;
+
+    // Avoid duplicate uploads from repeat renders
+    // during this browser session.
+    if (youtubeUploadedThisSession.has(clip.filename)) {
+      skipped++;
+      continue;
+    }
+
+    // Reserve the filename before uploading.
+    youtubeUploadedThisSession.add(clip.filename);
+
+    message(
+      "youtubeStatus",
+      "Uploading Short " +
+      (completed + skipped + 1) +
+      " of " + clips.length + "..."
+    );
+
+    try {
+      await uploadShortToYouTube(clip);
+      completed++;
+
+    } catch (error) {
+      youtubeUploadedThisSession.delete(clip.filename);
+
+      errors.push(
+        (clip.title || clip.filename) +
+        ": " + error.message
+      );
+    }
+  }
+
+  if (errors.length) {
+    message(
+      "youtubeStatus",
+      completed + " uploaded, " +
+      errors.length + " failed.\n" +
+      errors.join("\n"),
+      "error"
+    );
+  } else {
+    message(
+      "youtubeStatus",
+      completed + " new Shorts uploaded privately." +
+      (skipped ? " " + skipped + " already uploaded." : ""),
+      "success"
+    );
+  }
+}
+
+
+/* CHECK CONNECTION AT PAGE LOAD */
+
+refreshYouTubeConnection();
+
+
+updateUndo();
+drawStage();
+</script>
+
+<!-- shorts-publishing-upgrade-v1 -->
+<style>
+#navDownloads { display:none !important; }
+#downloadsPage { display:none !important; }
+
+.publish-toolbar {
+  display:flex;gap:10px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;
+  padding:15px;margin:16px 0;
+  border-radius:13px;background:#F3E9FF;
+  border:1px solid #C5A5F2;
+}
+.publish-toolbar strong { font-size:13px; }
+.publish-review {
+  margin-top:18px;padding:16px;
+  border:1px solid #C5A5F2;
+  border-radius:13px;background:#FFFDFB;
+}
+.publish-review h3{margin:0 0 12px;}
+.publish-fields{
+  padding:13px;margin-top:12px;
+  border:1px solid #DED6CD;border-radius:12px;
+}
+.publish-fields label{display:block;margin:12px 0 5px}
+.publish-fields textarea{
+  resize:vertical;min-height:75px;
+}
+.publish-checkbox {
+  display:flex;align-items:center;gap:8px;
+  margin:10px 0;font-weight:750;
+}
+.publish-checkbox input{
+  width:18px;height:18px;accent-color:#8353E8;
+}
+.publish-status{
+  font-size:12px;line-height:1.6;
+  margin-top:10px;white-space:pre-wrap;
+}
+.publish-success{color:#287A42}
+.publish-error{color:#B72B20}
+
+/* ===============================================
+   SHORTS AI — CREAM & ORANGE REFERENCE REDESIGN
+   Add after the existing CSS.
+=============================================== */
+
+:root {
+  --bg: #fff8f0;
+  --white: #ffffff;
+  --ink: #202025;
+  --muted: #77717a;
+  --line: #f0e6de;
+  --orange: #ff790d;
+  --lilac: #fff0e4;
+  --purple: #e98d28;
+  --yellow: #ffedbd;
+}
+
+body {
+  background:
+    radial-gradient(
+      ellipse 360px 290px at 80% 1%,
+      #ffdfb9 0%,
+      transparent 75%
+    ),
+    radial-gradient(
+      ellipse 340px 320px at 100% 100%,
+      #ffe2bf 0%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 260px 260px at 0% 0%,
+      #ffefda 0%,
+      transparent 80%
+    ),
+    #fff8f0;
+
+  color: var(--ink);
+  font-family:
+    "Outfit", "Segoe UI", Arial, sans-serif;
+}
+
+/* MAIN GRID */
+
+.layout {
+  max-width: 1530px;
+  min-height: 100vh;
+  padding: 16px 19px;
+  margin: auto;
+  display: grid;
+  grid-template-columns:
+    215px minmax(0, 1fr) 298px;
+  gap: 23px;
+  align-items: start;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  position: sticky;
+  top: 16px;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 32px);
+  padding: 23px 15px;
+  background: rgba(255,255,255,.91);
+  border: 1px solid #fff;
+  border-radius: 26px;
+  box-shadow:
+    0 17px 50px rgba(185,116,54,.07);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -.8px;
+  padding: 9px 6px 37px;
+  white-space: nowrap;
+}
+
+.brand::before {
+  content: "▶";
+  display: grid;
+  place-items: center;
+  flex: 0 0 35px;
+  height: 35px;
+  border-radius: 11px;
+  color: white;
+  font-size: 17px;
+  padding-left: 2px;
+  background:
+    linear-gradient(145deg,#ffb13c,#ff7309);
+  box-shadow: 0 5px 10px #ff9b3a45;
+}
+
+.brand span {
+  color: #ff9d23;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.sidebar .nav {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: 15px;
+  background: transparent;
+  color: #665f68;
+  padding: 15px 13px;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  transition:
+    background .2s,
+    transform .2s,
+    box-shadow .2s;
+}
+
+.sidebar .nav:hover {
+  background: #fff0df;
+  transform: translateX(2px);
+}
+
+.sidebar .nav.active {
+  background:
+    linear-gradient(100deg,#ffa42b,#ff7410);
+  color: white;
+  box-shadow:
+    0 7px 16px #ff862b55;
+}
+
+.sidebar .nav .symbol {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+/* Keep advanced tools accessible through Settings */
+
+.sidebar .sidebar-heading,
+.sidebar .side-card {
+  display: none;
+}
+
+.sidebar.tools-open .sidebar-heading {
+  display: block;
+}
+
+.sidebar.tools-open .side-card {
+  display: block;
+}
+
+.sidebar .sidebar-heading {
+  margin-top: 21px;
+  color: #95847a;
+}
+
+.sidebar .side-card {
+  border: 1px solid #f5dfcc;
+  background: #fffbf6;
+  border-radius: 15px;
+}
+
+.sidebar .side-card h3 {
+  color: #362c2b;
+}
+
+/* SIDEBAR FOOTER */
+
+.sidebar .project-info {
+  position: relative;
+  margin-top: auto;
+  padding: 46px 14px 17px;
+  border: 0;
+  border-radius: 20px;
+  background:
+    linear-gradient(145deg,#fff2df,#ffe9d4);
+  overflow-wrap: anywhere;
+}
+
+.sidebar .project-info::before {
+  content: "🚀";
+  position: absolute;
+  top: 7px;
+  left: 15px;
+  font-size: 29px;
+  transform: rotate(-20deg);
+}
+
+.sidebar .project-info strong {
+  color: #363031;
+}
+
+.sidebar .project-info p {
+  font-size: 11px;
+  color: #6c5d55;
+}
+
+.ref-sidebar-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 22px 7px 0;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ref-avatar {
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 31px;
+  border-radius: 50%;
+  color: white;
+  background: #24232a;
+}
+
+/* MAIN COLUMN */
+
+main {
+  min-width: 0;
+}
+
+/* HERO */
+
+.ref-hero {
+  min-height: 270px;
+  position: relative;
+  padding: 29px 5px 30px;
+  isolation: isolate;
+}
+
+.ref-ai-badge {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 9px 17px;
+  border-radius: 30px;
+  background: #ffead9;
+  color: #71382b;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ref-ai-badge span {
+  color: #ff8212;
+  font-size: 19px;
+}
+
+.ref-hero h1 {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+  font-size: clamp(40px,4.15vw,65px);
+  font-weight: 950;
+  letter-spacing: -2.8px;
+  line-height: 1.02;
+}
+
+.ref-hero h1 .ref-orange-text {
+  position: relative;
+  color: #f66b0c;
+}
+
+.ref-orange-text::after {
+  content: "";
+  position: absolute;
+  width: 74%;
+  height: 4px;
+  bottom: -9px;
+  right: 2%;
+  background: #f9a447;
+  border-radius: 80%;
+  transform: rotate(1.5deg);
+}
+
+.ref-hero .tagline {
+  margin: 24px 0 0;
+  max-width: 410px;
+  color: #8a7870;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.ref-floating-play {
+  position: absolute;
+  right: 2%;
+  top: 47px;
+  width: 115px;
+  height: 115px;
+  display: grid;
+  place-items: center;
+  border-radius: 27px;
+  background: linear-gradient(
+    140deg,#fff,#fff8f1
+  );
+  box-shadow:
+    12px 17px 26px #d78c4f31,
+    inset 2px 3px 2px #fff;
+  transform: rotate(12deg);
+}
+
+.ref-floating-play::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 23px solid transparent;
+  border-bottom: 23px solid transparent;
+  border-left: 39px solid #ff7c11;
+  filter: drop-shadow(2px 4px 3px #ff9c36);
+  margin-left: 9px;
+}
+
+.ref-hero::after {
+  content: "✦";
+  position: absolute;
+  right: 34%;
+  top: 60px;
+  color: #eba536;
+  font-size: 25px;
+}
+
+/* CONTENT CARDS */
+
+.card {
+  background: rgba(255,255,255,.95);
+  border: 1px solid #fff;
+  border-radius: 21px;
+  padding: 21px;
+  box-shadow:
+    0 12px 34px rgba(185,117,47,.08);
+}
+
+.card h2 {
+  color: #242126;
+}
+
+.step {
+  color: #fa811d;
+  font-size: 10px;
+}
+
+/* UPLOAD SECTION */
+
+#createPage > .card:first-child {
+  padding: 20px;
+  border: 1px solid #f7e7da;
+}
+
+#createPage > .card:first-child .step {
+  display: none;
+}
+
+#createPage > .card:first-child .grid2 {
+  position: relative;
+  grid-template-columns:
+    minmax(0,1fr) minmax(0,1fr);
+  gap: 35px;
+  align-items: center;
+}
+
+#createPage > .card:first-child .grid2::after {
+  content: "OR";
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fffaf3;
+  color: #3f3c3c;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.upload-area {
+  position: relative;
+  min-height: 190px;
+  border: 2px dashed #efd9c6;
+  border-radius: 17px;
+  background: #fffdfa;
+  text-align: center;
+  padding: 24px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition:
+    border-color .2s,
+    background .2s,
+    transform .2s;
+}
+
+.upload-area:hover,
+.upload-area.ref-dragover {
+  border-color: #ff8b25;
+  background: #fff3e6;
+  transform: translateY(-2px);
+}
+
+.upload-area strong {
+  font-size: 13px;
+  margin: 12px 0 5px;
+}
+
+.upload-area .muted {
+  font-size: 11px;
+}
+
+.upload-area::after {
+  content: "📁  Choose File";
+  margin-top: 15px;
+  border-radius: 28px;
+  background:
+    linear-gradient(100deg,#ffa52e,#ff7711);
+  box-shadow:
+    0 5px 12px #ff98394a;
+  padding: 10px 24px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  pointer-events: none;
+}
+
+#fileName {
+  max-width: 95%;
+  overflow-wrap: anywhere;
+  font-size: 10px;
+}
+
+#videoURL {
+  height: 49px;
+  background: #fffdfb;
+  border: 1px solid #e8dcd1;
+  border-radius: 13px;
+  font-size: 12px;
+}
+
+.ref-fetch-button {
+  display: block;
+  width: 100%;
+  margin-top: 13px;
+  padding: 13px;
+  border-radius: 12px;
+  border: 0;
+  background:
+    linear-gradient(100deg,#ffa32b,#ff7108);
+  color: white;
+  font-size: 13px;
+  font-weight: 900;
+  box-shadow: 0 5px 13px #ff8a2450;
+}
+
+.primary,
+#processVideo {
+  border: 0;
+  border-radius: 14px;
+  color: white;
+  background:
+    linear-gradient(100deg,#ffad35,#ff720a);
+  box-shadow:
+    0 8px 18px #ff842e40;
+  font-weight: 900;
+  letter-spacing: .1px;
+  transition:
+    transform .2s,
+    box-shadow .2s;
+}
+
+.primary:hover:not(:disabled),
+#processVideo:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow:
+    0 11px 20px #ff842e55;
+}
+
+#processVideo {
+  padding: 16px;
+  margin-top: 20px;
+}
+
+/* METHOD SELECTION */
+
+#methodSection {
+  margin-top: 27px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+#methodSection .step {
+  display: none;
+}
+
+.ref-method-heading {
+  margin-bottom: 20px;
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: -.5px;
+}
+
+.ref-method-heading span {
+  color: #ff9529;
+}
+
+#methodSection .grid2 {
+  gap: 16px;
+}
+
+.choice {
+  position: relative;
+  display: grid;
+  grid-template-columns: 47px 1fr 36px;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  align-items: center;
+  width: 100%;
+  min-height: 105px;
+  padding: 15px;
+  text-align: left;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  background: rgba(255,255,255,.94);
+  box-shadow:
+    0 11px 25px #d9a67521;
+}
+
+.choice:hover {
+  background: #fff5e9;
+  border-color: #ffd1a6;
+  transform: translateY(-2px);
+}
+
+.choice > span:first-child {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  background: #fff0de;
+  font-size: 25px;
+}
+
+.choice strong {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 12px;
+  margin: 0;
+}
+
+.choice small {
+  grid-column: 2;
+  grid-row: 2;
+  font-size: 10px;
+  color: #857a78;
+  line-height: 1.45;
+}
+
+.choice::after {
+  content: "➜";
+  grid-column: 3;
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: white;
+  background:
+    linear-gradient(125deg,#ffaf36,#ff7409);
+  font-size: 20px;
+  box-shadow: 0 4px 10px #ff8b2e44;
+}
+
+/* LIVE VIDEO PREVIEW */
+
+.preview-column {
+  position: sticky;
+  top: 44px;
+  margin-top: 36px;
+}
+
+.preview {
+  padding: 45px 11px 11px;
+  border: 0;
+  border-radius: 23px;
+  background: #fff;
+  box-shadow:
+    0 12px 35px #bb96671e;
+}
+
+.video-stage {
+  aspect-ratio: 9 / 16;
+  overflow: visible;
+  background: #171a25;
+  border-radius: 13px;
+}
+
+.video-stage video {
+  border-radius: 13px;
+  background: #171a25;
+  object-fit: contain;
+}
+
+.preview-pill {
+  left: 2px;
+  top: -35px;
+  padding: 8px 0;
+  color: #242129;
+  background: transparent;
+  border-radius: 0;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.preview-pill::first-letter {
+  color: #fc2453;
+}
+
+.preview-ratio {
+  top: -34px;
+  right: 2px;
+  padding: 5px 10px;
+  background: #8c8993;
+  border-radius: 20px;
+  font-size: 10px;
+}
+
+.empty-preview {
+  overflow: hidden;
+  border-radius: 13px;
+  background:
+    radial-gradient(
+      circle at 63% 34%,
+      #ffdc99 0,
+      transparent 15%
+    ),
+    linear-gradient(
+      180deg,
+      #c4d0e7 0%,
+      #f5b9ae 46%,
+      #f3bf90 62%,
+      #4f607b 100%
+    );
+}
+
+.empty-preview > div {
+  display: none;
+}
+
+.empty-preview::before {
+  content: "";
+  position: absolute;
+  inset: 40% 0 0;
+  background: #46536c;
+  clip-path: polygon(
+    0 54%, 17% 32%, 34% 51%,
+    60% 19%, 82% 44%,
+    100% 26%, 100% 100%, 0 100%
+  );
+}
+
+.empty-preview::after {
+  content: "▶";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  padding-left: 5px;
+  border-radius: 50%;
+  color: white;
+  background: #282b3faa;
+  font-size: 27px;
+}
+
+.preview-note {
+  margin-top: 13px;
+  font-size: 11px;
+  color: #8d817b;
+}
+
+/* OTHER STUDIO PAGES */
+
+#aiResults,
+#editorSection,
+#outputSection,
+#highlightsPage {
+  border: 1px solid #f8e7d8;
+}
+
+.video-card {
+  border: 1px solid #f1e4db;
+  border-radius: 17px;
+  box-shadow: 0 6px 18px #bf935e12;
+}
+
+.video-card.selected {
+  border-color: #ff9b3a;
+  background: #fff5e9;
+}
+
+.btn.lilac {
+  background: #ffead9;
+  border-color: #f3c9a5;
+}
+
+.btn.orange {
+  background: #ff9234;
+  border-color: #ef7d22;
+  color: white;
+}
+
+.publish-toolbar,
+.review-panel,
+.subtitle-panel {
+  background: #fff5ec;
+  border-color: #f3d9c4;
+}
+
+.checkbox-line input {
+  accent-color: #ff790d;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1170px) {
+  .layout {
+    grid-template-columns:
+      190px minmax(0, 1fr) 255px;
+    gap: 15px;
+    padding: 12px;
+  }
+
+  .ref-hero h1 {
+    font-size: clamp(35px,4vw,53px);
+  }
+
+  .ref-floating-play {
+    width: 80px;
+    height: 80px;
+    right: 0;
+  }
+
+  .ref-floating-play::before {
+    border-top-width: 17px;
+    border-bottom-width: 17px;
+    border-left-width: 29px;
+  }
+}
+
+@media (max-width: 950px) {
+  .layout {
+    grid-template-columns:
+      195px minmax(0,1fr);
+  }
+
+  .preview-column {
+    grid-column: 2;
+    position: static;
+    margin: 0 auto 25px;
+    width: min(100%,350px);
+  }
+
+  .video-stage {
+    aspect-ratio: 9 / 16;
+    max-height: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .layout {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 13px;
+  }
+
+  .sidebar {
+    position: static;
+    width: 100%;
+    min-height: 0;
+    padding: 14px;
+  }
+
+  .sidebar .brand {
+    padding: 5px 4px 17px;
+  }
+
+  .sidebar nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sidebar .nav {
+    font-size: 11px;
+    padding: 12px 8px;
+  }
+
+  .sidebar .project-info {
+    display: none;
+  }
+
+  .ref-sidebar-footer {
+    padding: 13px 4px 0;
+  }
+
+  main {
+    width: 100%;
+  }
+
+  .ref-hero {
+    min-height: 235px;
+    padding: 22px 7px 20px;
+  }
+
+  .ref-hero h1 {
+    font-size: clamp(37px,9vw,56px);
+    letter-spacing: -2px;
+  }
+
+  .ref-floating-play {
+    top: 27px;
+    right: 4px;
+    width: 64px;
+    height: 64px;
+  }
+
+  .ref-floating-play::before {
+    border-top-width: 13px;
+    border-bottom-width: 13px;
+    border-left-width: 24px;
+  }
+
+  #createPage > .card:first-child .grid2,
+  #methodSection .grid2 {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  #createPage > .card:first-child .grid2::after {
+    top: 50%;
+  }
+
+  .upload-area {
+    min-height: 175px;
+  }
+
+  .preview-column {
+    width: min(100%,360px);
+  }
+
+  .card {
+    padding: 15px;
+  }
+}
+
+</style>
+
+<script>
+(() => {
+  "use strict";
+
+  // Stop using the old automatic publishing controls.
+  // Every upload must now come from My Highlights.
+  const previousAuto = document.getElementById("autoYoutube");
+  if (previousAuto) previousAuto.checked = false;
+
+  const previousUpload =
+    document.getElementById("uploadSelectedYouTube");
+
+  if (previousUpload) {
+    const oldPanel = previousUpload.closest(".download-box");
+
+    if (oldPanel) {
+      oldPanel.hidden = true;
+
+      const heading = oldPanel.previousElementSibling;
+
+      if (
+        heading &&
+        heading.classList.contains("sidebar-heading")
+      ) {
+        heading.hidden = true;
+      }
+    }
+  }
+
+  const library = document.getElementById("libraryPage");
+  const list = document.getElementById("libraryList");
+
+  const selected = new Map();
+  const clipCheckboxes = new Map();
+
+  let clips = [];
+  let channel = null;
+  let uploading = false;
+
+  const toolbar = document.createElement("div");
+  toolbar.className = "publish-toolbar";
+
+  const channelText = document.createElement("div");
+  channelText.className = "muted";
+  channelText.textContent = "Checking YouTube channel...";
+
+  const selectedText = document.createElement("strong");
+  selectedText.textContent = "0 Shorts selected";
+
+  const selectAll = document.createElement("button");
+  selectAll.className = "btn small";
+  selectAll.textContent = "Select All";
+
+  const clearAll = document.createElement("button");
+  clearAll.className = "btn small";
+  clearAll.textContent = "Clear";
+
+  const reviewButton = document.createElement("button");
+  reviewButton.className = "btn small orange";
+  reviewButton.textContent = "Review & Upload";
+  reviewButton.disabled = true;
+
+  const controls = document.createElement("div");
+  controls.className = "row";
+  controls.append(
+    selectedText, selectAll, clearAll, reviewButton
+  );
+
+  toolbar.append(channelText, controls);
+  library.insertBefore(toolbar, list);
+
+  const review = document.createElement("div");
+  review.className = "publish-review";
+  review.hidden = true;
+
+  const heading = document.createElement("h3");
+  heading.textContent = "Review Shorts Before Publishing";
+
+  const privacy = document.createElement("p");
+  privacy.className = "muted";
+  privacy.textContent =
+    "Uploads will be Private. Check each title, " +
+    "description and audience before confirming.";
+
+  const reviewRows = document.createElement("div");
+
+  const confirmUpload = document.createElement("button");
+  confirmUpload.className = "primary";
+  confirmUpload.textContent = "Confirm & Upload Selected Shorts";
+
+  const resultText = document.createElement("div");
+  resultText.className = "publish-status";
+  resultText.setAttribute("role", "status");
+
+  review.append(
+    heading, privacy, reviewRows,
+    confirmUpload, resultText
+  );
+
+  list.after(review);
+
+  function button(text, action) {
+    const element = document.createElement("button");
+    element.className = "btn small lilac";
+    element.textContent = text;
+    element.onclick = action;
+    return element;
+  }
+
+  function refreshCount() {
+    selectedText.textContent =
+      selected.size + " Shorts selected";
+
+    reviewButton.disabled =
+      !selected.size || !channel || uploading;
+
+    review.hidden = true;
+  }
+
+  function changeSelection(clip, checked) {
+    if (checked && selected.size >= 6 &&
+        !selected.has(clip.filename)) {
+      message(
+        "libraryStatus",
+        "Select up to six Shorts per upload.",
+        "error"
+      );
+
+      const checkbox = clipCheckboxes.get(clip.filename);
+      if (checkbox) checkbox.checked = false;
+      return;
+    }
+
+    if (checked) selected.set(clip.filename, clip);
+    else selected.delete(clip.filename);
+
+    refreshCount();
+  }
+
+  selectAll.onclick = () => {
+    selected.clear();
+
+    clips.forEach((clip, index) => {
+      const checked = index < 6;
+
+      if (checked) selected.set(clip.filename, clip);
+
+      const checkbox = clipCheckboxes.get(clip.filename);
+      if (checkbox) checkbox.checked = checked;
+    });
+
+    refreshCount();
+  };
+
+  clearAll.onclick = () => {
+    selected.clear();
+
+    for (const checkbox of clipCheckboxes.values()) {
+      checkbox.checked = false;
+    }
+
+    refreshCount();
+  };
+
+  function makeLabel(text, control) {
+    const wrapper = document.createElement("label");
+    wrapper.textContent = text;
+    wrapper.append(control);
+    return wrapper;
+  }
+
+  function makeOption(value, text) {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = text;
+    return option;
+  }
+
+  const reviewData = new Map();
+
+  reviewButton.onclick = () => {
+    reviewRows.replaceChildren();
+    reviewData.clear();
+    resultText.textContent = "";
+
+    for (const clip of selected.values()) {
+      const row = document.createElement("div");
+      row.className = "publish-fields";
+
+      const title = document.createElement("input");
+      title.className = "input";
+      title.maxLength = 100;
+      title.value = (clip.title || "My Short").slice(0,100);
+
+      const description = document.createElement("textarea");
+      description.className = "input";
+      description.maxLength = 5000;
+      description.value = "";
+
+      const audience = document.createElement("select");
+      audience.className = "input";
+      audience.append(
+        makeOption("", "Select audience"),
+        makeOption("no", "Not made for kids"),
+        makeOption("yes", "Made for kids")
+      );
+
+      const name = document.createElement("strong");
+      name.textContent = clip.filename;
+
+      const status = document.createElement("p");
+      status.className = "publish-status";
+
+      row.append(
+        name,
+        makeLabel("Video title", title),
+        makeLabel("Description", description),
+        makeLabel("Audience", audience),
+        status
+      );
+
+      reviewRows.append(row);
+
+      reviewData.set(clip.filename, {
+        clip, title, description, audience, status
+      });
+    }
+
+    review.hidden = false;
+    review.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  };
+
+  function showGallery(items, uploaded) {
+    list.replaceChildren();
+    clipCheckboxes.clear();
+
+    const uploadedNames = new Set(
+      uploaded.map(item => item.filename)
+    );
+
+    if (!items.length) {
+      const empty = document.createElement("p");
+      empty.className = "muted";
+      empty.textContent = "No generated Shorts found.";
+      list.append(empty);
+      return;
+    }
+
+    for (const clip of items) {
+      const url = safeClipURL(clip);
+      if (!url) continue;
+
+      const card = document.createElement("div");
+      card.className = "video-card";
+
+      const video = document.createElement("video");
+      video.src = url;
+      video.preload = "metadata";
+      video.muted = true;
+      video.playsInline = true;
+
+      const title = document.createElement("strong");
+      title.textContent = clip.title || clip.filename;
+
+      const label = document.createElement("label");
+      label.className = "publish-checkbox";
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+
+      const text = document.createElement("span");
+      text.textContent = "Select for YouTube";
+
+      label.append(checkbox,text);
+
+      checkbox.onchange = () => {
+        changeSelection(clip, checkbox.checked);
+      };
+
+      clipCheckboxes.set(clip.filename, checkbox);
+
+      const preview = button(
+        "▶ Preview Short",
+        () => selectDownload(clip)
+      );
+
+      card.append(video,title,label,preview);
+
+      if (uploadedNames.has(clip.filename)) {
+        const badge = document.createElement("p");
+        badge.className = "publish-status publish-success";
+        badge.textContent = "✓ Previously uploaded to YouTube";
+        card.append(badge);
+      }
+
+      list.append(card);
+    }
+  }
+
+  async function loadPublishingGallery() {
+    selected.clear();
+    clipCheckboxes.clear();
+    review.hidden = true;
+    channel = null;
+    refreshCount();
+
+    channelText.textContent =
+      "Checking your authorized YouTube channel...";
+
+    message("libraryStatus", "Loading your Highlights...");
+
+    try {
+      const data = await api("/workflow/gallery");
+      clips = (data.items || []).filter(safeClipURL);
+
+      let history = [];
+
+      try {
+        const uploadData = await api("/publish/history");
+        history = uploadData.items || [];
+      } catch {
+        // Highlights remain usable if history is unavailable.
+      }
+
+      showGallery(clips, history);
+      message("libraryStatus", "");
+
+    } catch (error) {
+      message("libraryStatus", error.message, "error");
+    }
+
+    try {
+      const data = await api("/publish/channel");
+
+      if (!data.connected) {
+        throw new Error(
+          data.reason || "No YouTube channel connected."
+        );
+      }
+
+      channel = data;
+
+      channelText.textContent =
+        "✓ Connected: " + data.channel_name +
+        " (" + data.channel_id + ")";
+
+    } catch (error) {
+      channel = null;
+
+      channelText.textContent =
+        "YouTube not connected: " + error.message;
+    }
+
+    refreshCount();
+  }
+
+  confirmUpload.onclick = async () => {
+    if (uploading || !channel || !reviewData.size) return;
+
+    const jobs = [];
+
+    for (const data of reviewData.values()) {
+      const title = data.title.value.trim();
+      const audience = data.audience.value;
+
+      if (!title || !audience) {
+        resultText.textContent =
+          "Every Short needs a title and audience selection.";
+        return;
+      }
+
+      jobs.push({
+        ...data,
+        titleValue: title,
+        descriptionValue: data.description.value,
+        madeForKids: audience === "yes"
+      });
+    }
+
+    // Verify the channel again before any upload.
+    try {
+      const current = await api("/publish/channel");
+
+      if (!current.connected ||
+          current.channel_id !== channel.channel_id) {
+        throw new Error(
+          "Your connected YouTube channel changed."
+        );
+      }
+    } catch (error) {
+      resultText.textContent = error.message;
+      return;
+    }
+
+    if (!confirm(
+      "Upload " + jobs.length +
+      " selected Shorts to " + channel.channel_name +
+      " as PRIVATE videos?"
+    )) return;
+
+    uploading = true;
+    confirmUpload.disabled = true;
+    selectAll.disabled = true;
+    clearAll.disabled = true;
+
+    let succeeded = 0;
+    let failed = 0;
+
+    for (const job of jobs) {
+      job.status.textContent = "Uploading...";
+
+      try {
+        const response = await api(
+          "/publish/upload-one",
+          requestOptions("POST", {
+            filename: job.clip.filename,
+            channel_id: channel.channel_id,
+            title: job.titleValue,
+            description: job.descriptionValue,
+            made_for_kids: job.madeForKids
+          })
+        );
+
+        succeeded++;
+        job.status.className =
+          "publish-status publish-success";
+
+        job.status.textContent =
+          response.already_uploaded
+            ? "Already uploaded: " + response.youtube_url
+            : "✓ Uploaded: " + response.youtube_url;
+
+      } catch (error) {
+        failed++;
+        job.status.className =
+          "publish-status publish-error";
+        job.status.textContent =
+          "Upload failed: " + error.message;
+      }
+    }
+
+    uploading = false;
+    confirmUpload.disabled = false;
+    selectAll.disabled = false;
+    clearAll.disabled = false;
+
+    resultText.textContent =
+      succeeded + " successful or previously uploaded, " +
+      failed + " failed. Check YouTube Studio " +
+      "before retrying an uncertain upload.";
+
+    refreshCount();
+
+    // Keep the review results visible.
+    review.hidden = false;
+  };
+
+  // Replace only the old My Highlights navigation action.
+  document.getElementById("navHighlights").onclick =
+    async () => {
+      showPage("library");
+      await loadPublishingGallery();
+    };
+
+})();
+</script>
+
+<script>
+/* ==========================================
+   SHORTS AI — REFERENCE LAYOUT ENHANCEMENTS
+   Preserves the existing application logic.
+========================================== */
+
+(() => {
+  const get = id => document.getElementById(id);
+
+  // 1. New hero heading.
+  const main = document.querySelector("main");
+  const heading = main?.querySelector("h1");
+  const tagline = main?.querySelector(".tagline");
+
+  if (heading && tagline && !document.querySelector(".ref-hero")) {
+    const hero = document.createElement("header");
+    hero.className = "ref-hero";
+
+    heading.before(hero);
+    hero.append(heading, tagline);
+
+    heading.innerHTML = `
+      <span>Big ideas.</span>
+      <span class="ref-orange-text">Short videos.</span>
+    `;
+
+    const badge = document.createElement("div");
+    badge.className = "ref-ai-badge";
+    badge.innerHTML = `
+      <span>✦</span>
+      AI Powered
+    `;
+
+    hero.prepend(badge);
+
+    const play = document.createElement("div");
+    play.className = "ref-floating-play";
+    play.setAttribute("aria-hidden", "true");
+
+    hero.append(play);
+  }
+
+  // 2. Reference-style sidebar navigation.
+  const sidebar = document.querySelector(".sidebar");
+  const nav = sidebar?.querySelector("nav");
+
+  if (sidebar && nav && !get("navSettings")) {
+    const projects = document.createElement("button");
+
+    projects.type = "button";
+    projects.id = "navProjects";
+    projects.className = "nav";
+    projects.innerHTML = `
+      <span class="symbol">▱</span> My Projects
+    `;
+
+    nav.insertBefore(projects, get("navHighlights"));
+
+    const settings = document.createElement("button");
+
+    settings.type = "button";
+    settings.id = "navSettings";
+    settings.className = "nav";
+    settings.innerHTML = `
+      <span class="symbol">⚙</span> Settings
+    `;
+
+    nav.append(settings);
+
+    // Settings opens the existing MP4, MP3,
+    // and YouTube controls. Nothing is deleted.
+    settings.addEventListener("click", () => {
+      const open =
+        sidebar.classList.toggle("tools-open");
+
+      settings.classList.toggle("active", open);
+    });
+
+    // Show the currently loaded project.
+    // This does not claim to provide project history.
+    projects.addEventListener("click", () => {
+      const dialog = document.createElement("dialog");
+
+      dialog.style.cssText = `
+        border:1px solid #ffe0c5;
+        border-radius:20px;
+        padding:26px;
+        width:min(90vw,400px);
+        background:#fffaf5;
+        box-shadow:0 20px 70px #49352444;
+      `;
+
+      const title = document.createElement("h2");
+      title.textContent = "Current Project";
+
+      const info = document.createElement("p");
+      info.textContent =
+        get("projectName")?.textContent ||
+        "No video selected.";
+
+      const note = document.createElement("p");
+      note.className = "muted";
+      note.textContent =
+        "Previously generated Shorts can be found in My Highlights.";
+
+      const highlights = document.createElement("button");
+      highlights.className = "btn orange";
+      highlights.textContent = "Open My Highlights";
+
+      highlights.onclick = () => {
+        dialog.close();
+        dialog.remove();
+        get("navHighlights")?.click();
+      };
+
+      const close = document.createElement("button");
+      close.className = "btn";
+      close.style.marginLeft = "10px";
+      close.textContent = "Close";
+
+      close.onclick = () => {
+        dialog.close();
+        dialog.remove();
+      };
+
+      dialog.append(
+        title,
+        info,
+        note,
+        highlights,
+        close
+      );
+
+      dialog.addEventListener("close", () => {
+        dialog.remove();
+      });
+
+      document.body.append(dialog);
+      dialog.showModal();
+    });
+
+    // Generic creator footer.
+    const footer = document.createElement("div");
+    footer.className = "ref-sidebar-footer";
+
+    const avatar = document.createElement("span");
+    avatar.className = "ref-avatar";
+    avatar.textContent = "AI";
+
+    const caption = document.createElement("span");
+    caption.textContent = "Creator Studio";
+
+    footer.append(avatar, caption);
+    sidebar.append(footer);
+  }
+
+  // 3. Method section heading.
+  const method = get("methodSection");
+
+  if (method && !method.querySelector(".ref-method-heading")) {
+    const title = document.createElement("h2");
+
+    title.className = "ref-method-heading";
+    title.innerHTML = `
+      <span>✦</span> Choose a Method
+    `;
+
+    const choices = method.querySelector(".grid2");
+    method.insertBefore(title, choices);
+  }
+
+  // 4. Add a Fetch Video action beside the URL.
+  const urlInput = get("videoURL");
+
+  if (urlInput && !get("fetchVideo")) {
+    const fetchButton = document.createElement("button");
+
+    fetchButton.type = "button";
+    fetchButton.id = "fetchVideo";
+    fetchButton.className = "ref-fetch-button";
+    fetchButton.textContent = "Fetch Video →";
+
+    urlInput.insertAdjacentElement(
+      "afterend",
+      fetchButton
+    );
+
+    fetchButton.addEventListener("click", () => {
+      const url = urlInput.value.trim();
+
+      if (!url) {
+        get("processStatus").textContent =
+          "Enter a video URL first.";
+        return;
+      }
+
+      // The existing Process Video handler
+      // contains our backend URL-ingestion logic.
+      const fileInput = get("videoFile");
+
+      if (fileInput) {
+        fileInput.value = "";
+
+        get("fileName").textContent = "";
+      }
+
+      get("processVideo")?.click();
+    });
+  }
+
+  // 5. Drag-and-drop video support.
+  const uploadArea =
+    document.querySelector(".upload-area");
+
+  const videoFile = get("videoFile");
+
+  if (uploadArea && videoFile) {
+    uploadArea.addEventListener("dragover", event => {
+      event.preventDefault();
+
+      uploadArea.classList.add("ref-dragover");
+    });
+
+    uploadArea.addEventListener("dragleave", () => {
+      uploadArea.classList.remove("ref-dragover");
+    });
+
+    uploadArea.addEventListener("drop", event => {
+      event.preventDefault();
+
+      uploadArea.classList.remove("ref-dragover");
+
+      const files = event.dataTransfer?.files;
+
+      if (!files?.length) return;
+
+      const file = files[0];
+
+      if (!file.name.toLowerCase().endsWith(".mp4")) {
+        get("processStatus").textContent =
+          "Please upload an MP4 file.";
+        return;
+      }
+
+      // Reuse the existing upload input.
+      try {
+        videoFile.files = files;
+
+        videoFile.dispatchEvent(
+          new Event("change", {
+            bubbles: true
+          })
+        );
+      } catch {
+        get("processStatus").textContent =
+          "Drag-and-drop was unavailable. Use Choose File.";
+      }
+    });
+  }
+})();
+</script>
+
+<style>
+/* ===== SHORTS AI — REFERENCE-MATCH UI V3 ===== */
+
+:root {
+  --bg: #fff9f2;
+  --white: #fffefa;
+  --ink: #262226;
+  --muted: #817878;
+  --line: #f2e5da;
+  --orange: #ff790c;
+  --lilac: #ffeddb;
+  --purple: #ee9228;
+  --yellow: #ffecbb;
+}
+
+body {
+  background:
+    radial-gradient(
+      ellipse 310px 200px at 88% -2%,
+      #ffdbb7 0%, transparent 90%
+    ),
+    radial-gradient(
+      ellipse 250px 200px at -4% 0%,
+      #ffead4 0%, transparent 90%
+    ),
+    radial-gradient(
+      ellipse 340px 210px at 100% 100%,
+      #ffdbb6 0%, transparent 90%
+    ),
+    #fff9f2;
+  color: var(--ink);
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(#e9b77c 1.2px,transparent 1.2px);
+  background-size: 13px 13px;
+  opacity: .42;
+}
+
+body::before { right: 2%; top: 0; }
+body::after { left: 0; bottom: 12%; }
+
+[hidden] { display: none !important; }
+
+/* EXACT THREE-COLUMN COMPOSITION */
+
+.layout {
+  display: grid;
+  grid-template-columns:
+    210px minmax(0,1fr) 290px;
+  gap: 23px;
+  max-width: 1530px;
+  min-height: 100vh;
+  margin: auto;
+  padding: 23px 22px;
+  align-items: start;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  position: sticky;
+  top: 22px;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 46px);
+  padding: 20px 13px 16px;
+  border: 1px solid #fff;
+  border-radius: 25px;
+  background: rgba(255,255,255,.93);
+  box-shadow: 0 12px 42px #cc986116;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 6px 39px;
+  font-size: 19px;
+  font-weight: 900;
+  letter-spacing: -.9px;
+  white-space: nowrap;
+}
+
+.brand::before {
+  content: "▶";
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  padding-left: 2px;
+  border-radius: 10px;
+  background: linear-gradient(135deg,#ffac36,#ff7510);
+  color: white;
+  font-size: 17px;
+  box-shadow: 0 5px 12px #fb932b4c;
+}
+
+.brand span { color: #f7a12e; }
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar .nav {
+  width: 100%;
+  margin: 0;
+  padding: 15px 13px;
+  border: 0;
+  border-radius: 13px;
+  color: #625d63;
+  background: transparent;
+  font-size: 13px;
+  text-align: left;
+  font-weight: 700;
+}
+
+.sidebar .nav:hover {
+  background: #fff0df;
+  color: #3a2c28;
+}
+
+.sidebar .nav.active {
+  color: white;
+  background: linear-gradient(100deg,#ffa12b,#ff7510);
+  box-shadow: 0 7px 17px #ff8c2955;
+}
+
+.sidebar .nav .symbol {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+/* Export cards no longer live in the sidebar */
+.sidebar .side-card,
+.sidebar .sidebar-heading {
+  display: none !important;
+}
+
+.sidebar .project-info {
+  margin-top: auto;
+  padding: 18px 13px;
+  min-height: 148px;
+  border: 0;
+  border-radius: 17px;
+  background: linear-gradient(145deg,#fff0dc,#ffe7d2);
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sidebar .project-info .rocket {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.sidebar .project-info p {
+  margin: 0;
+  color: #46342e;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.sidebar .project-info #projectName {
+  display: block;
+  margin-top: 8px;
+  font-size: 10px;
+  color: #93827a;
+  overflow-wrap: anywhere;
+}
+
+.ref-sidebar-footer {
+  padding: 16px 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.ref-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #252229;
+  color: white;
+}
+
+/* HERO */
+
+main { min-width: 0; }
+
+.ref-hero {
+  position: relative;
+  min-height: 265px;
+  padding: 20px 5px 25px;
+}
+
+.ref-ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 30px;
+  background: #ffead6;
+  color: #82402d;
+  padding: 8px 17px;
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.ref-ai-badge span {
+  font-size: 20px;
+  color: #f59021;
+}
+
+.ref-hero h1 {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+  font-size: clamp(40px,4.4vw,65px);
+  line-height: 1.02;
+  letter-spacing: -3px;
+  font-weight: 950;
+}
+
+.ref-orange-text {
+  position: relative;
+  color: #f36e0d;
+}
+
+.ref-orange-text::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -12px;
+  width: 65%;
+  height: 4px;
+  border-radius: 100%;
+  transform: rotate(2deg);
+  background: #eca647;
+}
+
+.ref-hero .tagline {
+  display: none;
+}
+
+.ref-floating-play {
+  position: absolute;
+  top: 38px;
+  right: 8%;
+  width: 115px;
+  height: 115px;
+  border-radius: 26px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg,#fff,#fff5e8);
+  box-shadow: 14px 17px 26px #cf945b33;
+  transform: rotate(12deg);
+}
+
+.ref-floating-play::before {
+  content: "";
+  width: 0;
+  height: 0;
+  margin-left: 9px;
+  border-top: 23px solid transparent;
+  border-bottom: 23px solid transparent;
+  border-left: 40px solid #ff7c11;
+  filter: drop-shadow(2px 4px 3px #ff9c39);
+}
+
+.ref-hero::after {
+  content: "✦";
+  position: absolute;
+  top: 73px;
+  right: 37%;
+  color: #f1a335;
+  font-size: 29px;
+}
+
+/* CREATE CARD */
+
+.card {
+  border-radius: 20px;
+  border: 1px solid #f6e9dd;
+  background: rgba(255,255,255,.96);
+  box-shadow: 0 12px 32px #c8925917;
+}
+
+#createPage > .card:first-child {
+  padding: 19px;
+}
+
+#createPage > .card:first-child > .step {
+  display: none;
+}
+
+#createPage > .card:first-child .grid2 {
+  display: grid;
+  position: relative;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 38px;
+}
+
+#createPage > .card:first-child .grid2::after {
+  content: "OR";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fffaf3;
+  color: #292527;
+  font-size: 11px;
+  font-weight: 950;
+}
+
+.upload-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 166px;
+  padding: 19px 12px;
+  text-align: center;
+  border: 2px dashed #eedac7;
+  border-radius: 16px;
+  background: #fffdfa;
+  cursor: pointer;
+}
+
+.upload-area:hover,
+.upload-area.ref-dragover {
+  background: #fff4e7;
+  border-color: #ff932f;
+}
+
+.upload-area > span:first-child {
+  font-size: 31px !important;
+  line-height: 1;
+}
+
+.upload-area strong {
+  font-size: 12px;
+  margin: 9px 0 3px;
+}
+
+.upload-area .muted {
+  font-size: 10px;
+  margin: 0;
+}
+
+.upload-area::after {
+  content: "📁  Choose File";
+  display: inline-block;
+  margin-top: 11px;
+  padding: 10px 23px;
+  border-radius: 40px;
+  background: linear-gradient(100deg,#ffa42b,#ff780b);
+  color: white;
+  font-weight: 900;
+  font-size: 11px;
+  box-shadow: 0 4px 11px #f98c3050;
+  pointer-events: none;
+}
+
+#fileName {
+  margin-top: 7px;
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+
+#videoURL {
+  height: 49px;
+  background: #fff;
+  border: 1px solid #e9ddd2;
+  border-radius: 12px;
+  font-size: 11px;
+  padding: 12px 14px;
+}
+
+.ref-fetch-button {
+  width: 100%;
+  display: block;
+  margin-top: 13px;
+  padding: 14px;
+  border: 0;
+  border-radius: 12px;
+  color: white;
+  background: linear-gradient(100deg,#ffa12b,#ff7308);
+  font-size: 13px;
+  font-weight: 850;
+  box-shadow: 0 6px 12px #ff832b3d;
+}
+
+#processVideo,
+.primary {
+  border: 0;
+  border-radius: 13px;
+  background: linear-gradient(100deg,#ffac32,#ff7309);
+  color: white;
+  box-shadow: 0 7px 16px #ff892e42;
+  font-weight: 900;
+  letter-spacing: .1px;
+}
+
+#processVideo {
+  margin-top: 19px;
+  padding: 15px;
+}
+
+/* METHOD CARDS */
+
+#methodSection {
+  margin-top: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+#methodSection > .step {
+  display: none;
+}
+
+.ref-method-heading {
+  margin: 0 0 17px;
+  font-size: 21px;
+  letter-spacing: -.5px;
+  font-weight: 900;
+}
+
+.ref-method-heading span {
+  color: #fa961f;
+}
+
+#methodSection .grid2 {
+  gap: 16px;
+}
+
+.choice {
+  display: grid;
+  grid-template-columns: 45px 1fr 35px;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 10px;
+  width: 100%;
+  min-height: 90px;
+  padding: 15px;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  background: white;
+  text-align: left;
+  box-shadow: 0 9px 21px #d99e5f20;
+  transition: transform .2s;
+}
+
+.choice:hover {
+  transform: translateY(-2px);
+  background: #fff7ed;
+}
+
+.choice:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.choice > span:first-child {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  width: 45px;
+  height: 45px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  background: #fff0df;
+  font-size: 25px;
+}
+
+.choice strong {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0;
+  font-size: 12px;
+}
+
+.choice small {
+  grid-column: 2;
+  grid-row: 2;
+  color: #857c78;
+  font-size: 10px;
+}
+
+.choice::after {
+  content: "➜";
+  display: grid;
+  place-items: center;
+  grid-column: 3;
+  grid-row: 1 / 3;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: linear-gradient(130deg,#ffaa34,#ff780a);
+  color: #fff;
+  font-size: 18px;
+}
+
+/* RIGHT PREVIEW */
+
+.preview-column {
+  position: sticky;
+  top: 55px;
+  align-self: start;
+  margin-top: 47px;
+}
+
+.preview {
+  padding: 45px 10px 11px;
+  border: 0;
+  border-radius: 21px;
+  background: white;
+  box-shadow: 0 14px 32px #b791671c;
+  overflow: visible;
+}
+
+.video-stage {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  background: #191c29;
+  border-radius: 13px;
+  overflow: visible;
+}
+
+.video-stage video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #191c29;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+.preview-pill {
+  position: absolute;
+  top: -35px;
+  left: 2px;
+  padding: 7px 0;
+  background: transparent;
+  color: #272329;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.preview-ratio {
+  position: absolute;
+  top: -33px;
+  right: 2px;
+  padding: 5px 10px;
+  background: #8e8b96;
+  color: white;
+  border-radius: 30px;
+  font-size: 10px;
+}
+
+.empty-preview {
+  border-radius: 12px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 56% 34%,#ffe6ac,transparent 19%),
+    linear-gradient(
+      180deg,
+      #ccd4e9 0%,
+      #efb9af 42%,
+      #ecb38f 60%,
+      #52607a 100%
+    );
+}
+
+.empty-preview > div { display: none; }
+
+.empty-preview::before {
+  content: "";
+  position: absolute;
+  inset: 44% 0 0;
+  background: #4d5971;
+  clip-path: polygon(
+    0 45%, 25% 28%, 44% 48%,
+    68% 9%, 100% 36%,
+    100% 100%, 0 100%
+  );
+}
+
+.empty-preview::after {
+  content: "▶";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  padding-left: 5px;
+  background: #2b2e41bd;
+  color: white;
+  font-size: 28px;
+}
+
+.preview-note {
+  padding: 0 5px;
+  margin-top: 12px;
+  font-size: 11px;
+}
+
+/* SETTINGS PAGE */
+
+#settingsPage,
+#projectsPage {
+  margin-top: 25px;
+  padding: 28px;
+}
+
+.settings-heading {
+  margin: 0 0 8px;
+  font-size: 29px;
+  letter-spacing: -.9px;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.settings-card {
+  display: block !important;
+  padding: 21px !important;
+  margin: 0 !important;
+  border: 1px solid #f1dfcd !important;
+  border-radius: 16px !important;
+  background: #fffaf5 !important;
+}
+
+.settings-card h3 {
+  margin: 0 0 20px;
+  font-size: 17px;
+}
+
+.settings-card .field {
+  border-radius: 10px;
+}
+
+.settings-card .download-btn {
+  background: #ff8a22;
+  color: white;
+  border: 0;
+}
+
+.settings-card .muted {
+  color: #84766d;
+}
+
+.settings-card button {
+  max-width: 100%;
+}
+
+#settingsPage #channelStatus {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+#projectsPage .project-entry {
+  padding: 18px;
+  margin-top: 19px;
+  border: 1px solid #f1dfcd;
+  border-radius: 15px;
+  background: #fff8ef;
+  overflow-wrap: anywhere;
+}
+
+/* OTHER SCREENS */
+
+#aiResults,
+#editorSection,
+#outputSection,
+#highlightsPage {
+  border-color: #f2e1d2;
+}
+
+.video-card {
+  border-radius: 16px;
+  border-color: #efe1d5;
+}
+
+.video-card.selected {
+  border-color: #ff9c39;
+  background: #fff4e9;
+}
+
+.btn.lilac {
+  background: #ffead8;
+  border-color: #f0caaa;
+}
+
+.btn.orange {
+  background: #ff8d28;
+  color: white;
+  border-color: #ee7e20;
+}
+
+.publish-toolbar,
+.review-panel,
+.subtitle-panel {
+  background: #fff5eb;
+  border-color: #f0d6c1;
+}
+
+/* MOBILE & TABLET */
+
+@media (max-width: 1150px) {
+  .layout {
+    grid-template-columns: 190px minmax(0,1fr) 255px;
+    gap: 14px;
+    padding: 12px;
+  }
+
+  .ref-hero h1 {
+    font-size: 48px;
+  }
+
+  .ref-floating-play {
+    right: 0;
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 950px) {
+  .layout {
+    grid-template-columns: 195px minmax(0,1fr);
+  }
+
+  .preview-column {
+    grid-column: 2;
+    position: static;
+    margin: 15px auto;
+    width: min(100%,330px);
+  }
+
+  .video-stage {
+    aspect-ratio: 9 / 16;
+    max-height: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .layout {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .sidebar {
+    position: static;
+    min-height: 0;
+    width: 100%;
+  }
+
+  .sidebar nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sidebar .project-info {
+    display: none;
+  }
+
+  .ref-hero {
+    min-height: 215px;
+  }
+
+  .ref-hero h1 {
+    font-size: clamp(36px,8.8vw,54px);
+  }
+
+  .ref-floating-play {
+    width: 60px;
+    height: 60px;
+    top: 25px;
+  }
+
+  .ref-floating-play::before {
+    border-top-width: 14px;
+    border-bottom-width: 14px;
+    border-left-width: 24px;
+  }
+
+  #createPage > .card:first-child .grid2,
+  #methodSection .grid2,
+  .settings-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  #createPage > .card:first-child .grid2::after {
+    top: 50%;
+  }
+
+  .preview-column {
+    width: min(100%,350px);
+  }
+
+  .card {
+    padding: 15px;
+  }
+}
+</style>
+
+<script>
+/* ===== SHORTS AI — NAVIGATION & SETTINGS V3 ===== */
+
+(() => {
+  const el = id => document.getElementById(id);
+  const sidebar = document.querySelector(".sidebar");
+  const main = document.querySelector("main");
+  const nav = sidebar?.querySelector("nav");
+
+  if (!sidebar || !main || !nav) return;
+
+  // Remove old placeholder event handlers without
+  // affecting the working Create/Highlights handlers.
+  function cleanButton(id) {
+    const old = el(id);
+
+    if (!old) return null;
+
+    const fresh = old.cloneNode(true);
+    old.replaceWith(fresh);
+
+    return fresh;
+  }
+
+  // ---- Reference hero ----
+
+  let hero = document.querySelector(".ref-hero");
+
+  if (!hero) {
+    const h1 = main.querySelector("h1");
+    const tagline = main.querySelector(".tagline");
+
+    if (h1) {
+      hero = document.createElement("header");
+      hero.className = "ref-hero";
+
+      h1.before(hero);
+      hero.append(h1);
+
+      if (tagline) hero.append(tagline);
+    }
+  }
+
+  if (hero) {
+    const h1 = hero.querySelector("h1");
+
+    if (h1) {
+      h1.replaceChildren();
+
+      const first = document.createElement("span");
+      first.textContent = "Big ideas.";
+
+      const second = document.createElement("span");
+      second.className = "ref-orange-text";
+      second.textContent = "Short videos.";
+
+      h1.append(first, second);
+    }
+
+    if (!hero.querySelector(".ref-ai-badge")) {
+      const badge = document.createElement("div");
+      badge.className = "ref-ai-badge";
+      badge.textContent = "✦  AI Powered";
+      hero.prepend(badge);
+    }
+
+    if (!hero.querySelector(".ref-floating-play")) {
+      const play = document.createElement("div");
+      play.className = "ref-floating-play";
+      play.setAttribute("aria-hidden", "true");
+
+      hero.append(play);
+    }
+  }
+
+  // ---- Sidebar structure ----
+
+  let projectsNav = el("navProjects");
+
+  if (!projectsNav) {
+    projectsNav = document.createElement("button");
+    projectsNav.id = "navProjects";
+    projectsNav.className = "nav";
+    projectsNav.type = "button";
+    projectsNav.textContent = "▱  My Projects";
+
+    nav.insertBefore(projectsNav,el("navHighlights"));
+  }
+
+  let settingsNav = el("navSettings");
+
+  if (!settingsNav) {
+    settingsNav = document.createElement("button");
+    settingsNav.id = "navSettings";
+    settingsNav.className = "nav";
+    settingsNav.type = "button";
+    settingsNav.textContent = "⚙  Settings";
+
+    nav.append(settingsNav);
+  }
+
+  // Eliminate the old My Projects popup
+  // and Settings sidebar accordion.
+  projectsNav = cleanButton("navProjects");
+  settingsNav = cleanButton("navSettings");
+
+  sidebar.classList.remove("tools-open");
+
+  // ---- Sidebar rocket card ----
+
+  const projectInfo = sidebar.querySelector(".project-info");
+
+  if (projectInfo) {
+    const currentName =
+      el("projectName")?.textContent || "No video selected";
+
+    projectInfo.innerHTML = `
+      <span class="rocket">🚀</span>
+      <p>Turn long videos<br>into viral shorts!</p>
+      <span id="projectName"></span>
+    `;
+
+    el("projectName").textContent = currentName;
+  }
+
+  const footer = sidebar.querySelector(".ref-sidebar-footer");
+
+  if (footer) {
+    footer.innerHTML = `
+      <span class="ref-avatar">AI</span>
+      <span>Creator Studio</span>
+    `;
+  }
+
+  // ---- Create the actual Settings page ----
+
+  let settingsPage = el("settingsPage");
+
+  if (!settingsPage) {
+    settingsPage = document.createElement("section");
+    settingsPage.id = "settingsPage";
+    settingsPage.className = "card";
+    settingsPage.hidden = true;
+
+    settingsPage.innerHTML = `
+      <h2 class="settings-heading">⚙ Settings</h2>
+      <div class="settings-grid" id="settingsGrid"></div>
+    `;
+
+    main.append(settingsPage);
+  }
+
+  const settingsGrid = el("settingsGrid");
+
+  // Move the REAL existing controls.
+  // Their original event handlers remain intact.
+  const exportCard = el("quality")?.closest(".side-card");
+  const audioCard = el("exportMP3")?.closest(".side-card");
+  const channelCard = el("channelStatus")?.closest(".side-card");
+
+  if (exportCard) {
+    exportCard.classList.add("settings-card");
+
+    const heading = exportCard.querySelector("h3");
+
+    if (heading) {
+      heading.textContent = "↓ Export & Download";
+    }
+
+    const description =
+      exportCard.querySelector("p.muted");
+
+    if (description) {
+      description.textContent =
+        "Select quality before generating your Shorts.";
+    }
+
+    settingsGrid.append(exportCard);
+  }
+
+  if (audioCard) {
+    audioCard.classList.add("settings-card");
+
+    const heading = audioCard.querySelector("h3");
+
+    if (heading) heading.textContent = "♫ Audio Export";
+
+    const description = audioCard.querySelector("p.muted");
+
+    if (description) {
+      description.textContent =
+        "Extract MP3 audio from your selected Short.";
+    }
+
+    el("exportMP3").textContent =
+      "♫ Export Selected MP3";
+
+    settingsGrid.append(audioCard);
+  }
+
+  if (channelCard) {
+    channelCard.classList.add("settings-card");
+
+    const heading = channelCard.querySelector("h3");
+
+    if (heading) heading.textContent = "▶ YouTube Channel";
+
+    const extraText = channelCard.querySelector("p.muted");
+
+    if (extraText) extraText.remove();
+
+    settingsGrid.append(channelCard);
+  }
+
+  // Remove empty sidebar category labels.
+  sidebar.querySelectorAll(".sidebar-heading")
+    .forEach(heading => heading.remove());
+
+  // ---- Simple project overview, no popup ----
+
+  let projectsPage = el("projectsPage");
+
+  if (!projectsPage) {
+    projectsPage = document.createElement("section");
+    projectsPage.id = "projectsPage";
+    projectsPage.className = "card";
+    projectsPage.hidden = true;
+
+    projectsPage.innerHTML = `
+      <h2 class="settings-heading">My Projects</h2>
+
+      <div class="project-entry">
+        <strong id="projectOverviewName"></strong>
+        <p id="projectOverviewDetail" class="muted"></p>
+
+        <button type="button"
+                id="openCurrentProject"
+                class="btn orange"
+                hidden>
+          Open Project →
+        </button>
+      </div>
+    `;
+
+    main.append(projectsPage);
+  }
+
+  function refreshProjects() {
+    const exists =
+      typeof state !== "undefined" &&
+      Boolean(state.filename);
+
+    el("projectOverviewName").textContent =
+      exists
+        ? el("projectName")?.textContent || "Current Video"
+        : "No project loaded";
+
+    el("projectOverviewDetail").textContent =
+      exists
+        ? "Your current source video is ready to edit."
+        : "Create a video project to see it here.";
+
+    el("openCurrentProject").hidden = !exists;
+  }
+
+  el("openCurrentProject").onclick = () => {
+    el("navCreate").click();
+  };
+
+  // ---- Page navigation ----
+
+  function syncPages(page) {
+    settingsPage.hidden = page !== "settings";
+    projectsPage.hidden = page !== "projects";
+
+    if (hero) hero.hidden = page !== "create";
+
+    for (const [id,name] of [
+      ["navCreate","create"],
+      ["navProjects","projects"],
+      ["navHighlights","highlights"],
+      ["navSettings","settings"]
+    ]) {
+      el(id)?.classList.toggle("active",page === name);
+    }
+  }
+
+  // Preserve the existing application's showPage logic.
+  if (typeof showPage === "function") {
+    const existingShowPage = showPage;
+
+    showPage = function(page) {
+      existingShowPage(page);
+      syncPages(page);
+    };
+  }
+
+  function navigate(page) {
+    if (
+      typeof confirmUnsaved === "function" &&
+      !confirmUnsaved()
+    ) {
+      return;
+    }
+
+    if (typeof clearSubtitles === "function") {
+      clearSubtitles();
+    }
+
+    if (page === "projects") refreshProjects();
+
+    if (typeof showPage === "function") {
+      showPage(page);
+    }
+  }
+
+  projectsNav.onclick = () => navigate("projects");
+  settingsNav.onclick = () => navigate("settings");
+
+  // ---- Exact upload copy ----
+
+  const uploadArea = document.querySelector(".upload-area");
+
+  if (uploadArea) {
+    const title = uploadArea.querySelector("strong");
+
+    if (title) {
+      title.textContent = "Drag & drop your video here";
+    }
+
+    const info = uploadArea.querySelector(".muted");
+
+    if (info) {
+      // Actual backend currently accepts MP4.
+      info.textContent = "Supports MP4";
+    }
+  }
+
+  const videoURL = el("videoURL");
+
+  if (videoURL) {
+    videoURL.placeholder =
+      "https://www.youtube.com/watch?v=...";
+  }
+
+  if (videoURL && !el("fetchVideo")) {
+    const fetchButton = document.createElement("button");
+    fetchButton.id = "fetchVideo";
+    fetchButton.type = "button";
+    fetchButton.className = "ref-fetch-button";
+    fetchButton.textContent = "Fetch Video →";
+
+    videoURL.insertAdjacentElement("afterend",fetchButton);
+
+    fetchButton.onclick = () => {
+      if (!videoURL.value.trim()) {
+        const status = el("processStatus");
+
+        if (status) {
+          status.textContent = "Enter a video URL.";
+        }
+
+        return;
+      }
+
+      const input = el("videoFile");
+
+      if (input) {
+        input.value = "";
+        el("fileName").textContent = "";
+      }
+
+      el("processVideo")?.click();
+    };
+  }
+
+  // ---- Method card details ----
+
+  const method = el("methodSection");
+
+  if (method && !method.querySelector(".ref-method-heading")) {
+    const heading = document.createElement("h2");
+    heading.className = "ref-method-heading";
+    heading.textContent = "✦  Choose a Method";
+
+    method.insertBefore(
+      heading,
+      method.querySelector(".grid2")
+    );
+  }
+
+  const manualDesc = el("chooseManual")?.querySelector("small");
+  const aiDesc = el("chooseAI")?.querySelector("small");
+
+  if (manualDesc) {
+    manualDesc.textContent = "Pick the exact part you want";
+  }
+
+  if (aiDesc) {
+    aiDesc.textContent = "Let AI find the best moments";
+  }
+
+  // Keep the selection cards visible as in the reference,
+  // but only enable them once a video is ready.
+  if (typeof drawStage === "function") {
+    const existingDrawStage = drawStage;
+
+    drawStage = function() {
+      existingDrawStage();
+
+      if (state.page === "create" && method) {
+        method.hidden = false;
+
+        const ready = Boolean(state.filename);
+
+        el("chooseManual").disabled = !ready;
+        el("chooseAI").disabled = !ready || state.busy;
+      }
+    };
+  }
+
+  // Initial state.
+  if (typeof state !== "undefined") {
+    syncPages(state.page || "create");
+  }
+
+  if (typeof drawStage === "function") {
+    drawStage();
+  }
+})();
+</script>
+
+<style>
+/* =============================================
+   SHORTS AI — CLEAN SIDEBAR + 3D UI FIX
+============================================= */
+
+/* Only navigation and branding on the left */
+.sidebar .side-card,
+.sidebar .settings-card,
+.sidebar .sidebar-heading {
+  display: none !important;
+}
+
+/* Settings controls appear in the main panel */
+#settingsPage {
+  margin-top: 28px !important;
+  padding: 27px !important;
+  min-height: 390px;
+  border: 1px solid #f6e6d6;
+  border-radius: 24px;
+  background: #fffdfb;
+  box-shadow: 0 15px 40px #bb8b5917;
+}
+
+#settingsPage[hidden],
+#projectsPage[hidden] {
+  display: none !important;
+}
+
+#settingsPage .settings-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  align-items: stretch;
+  gap: 18px;
+  margin-top: 23px;
+}
+
+#settingsPage .side-card,
+#settingsPage .settings-card {
+  display: block !important;
+  width: 100%;
+  padding: 23px !important;
+  margin: 0 !important;
+  border: 1px solid #f2ddc8 !important;
+  border-radius: 18px !important;
+  background: linear-gradient(145deg,#fff,#fff8f0) !important;
+  box-shadow: 0 7px 20px #c6915b13;
+}
+
+#settingsPage .settings-card h3 {
+  margin: 0 0 18px;
+  font-size: 17px;
+  color: #292329;
+}
+
+#settingsPage .field {
+  background: white;
+  border: 1px solid #e8d8ca;
+  border-radius: 11px;
+  padding: 12px;
+}
+
+#settingsPage .download-btn,
+#settingsPage .btn.lilac {
+  border: 0;
+  border-radius: 12px;
+  color: white;
+  background: linear-gradient(105deg,#ffad38,#ff7409);
+  box-shadow: 0 6px 15px #ff8b2e38;
+}
+
+#settingsPage .muted {
+  font-size: 12px;
+  color: #827671;
+}
+
+/* Neat navigation */
+.sidebar {
+  overflow: hidden;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar .nav {
+  flex-shrink: 0;
+  transition:
+    background .2s ease,
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.sidebar .nav:hover {
+  transform: translateX(3px);
+}
+
+.sidebar .nav.active {
+  background: linear-gradient(110deg,#ffad37,#ff7610);
+  color: #fff;
+  box-shadow: 0 8px 18px #ff8b2d45;
+}
+
+/* Make the original screenshot's hero more dimensional */
+.ref-hero {
+  isolation: isolate;
+}
+
+.ref-floating-play {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+
+  position: absolute;
+  cursor: pointer;
+  z-index: 2;
+
+  transform-style: preserve-3d;
+  transform:
+    perspective(650px)
+    rotateX(var(--tilt-x))
+    rotateY(var(--tilt-y))
+    rotateZ(10deg);
+
+  translate: 0 0;
+
+  animation: shortsFloat 4s ease-in-out infinite;
+
+  background:
+    linear-gradient(145deg,#fff,#fff6eb 65%,#ffe7d0);
+
+  border: 1px solid #fff;
+
+  box-shadow:
+    5px 6px 0 #ffe5cd,
+    14px 19px 30px #cb8d5555,
+    inset 2px 3px 3px #fff;
+
+  transition:
+    transform .16s ease-out,
+    box-shadow .2s ease-out;
+}
+
+.ref-floating-play::before {
+  transform: translateZ(28px);
+  filter: drop-shadow(3px 5px 3px #e38e32aa);
+}
+
+.ref-floating-play::after {
+  content: "";
+  position: absolute;
+  top: 8%;
+  left: 10%;
+  width: 79%;
+  height: 75%;
+  border-top: 2px solid #ffffffb5;
+  border-left: 2px solid #ffffff80;
+  border-radius: 24px;
+  pointer-events: none;
+}
+
+.ref-floating-play:hover {
+  box-shadow:
+    6px 8px 0 #ffdec1,
+    20px 25px 37px #c67b4366,
+    inset 3px 4px 5px #fff;
+}
+
+.ref-floating-play:active {
+  scale: .95;
+}
+
+@keyframes shortsFloat {
+  0%,100% { translate: 0 0; }
+  50% { translate: 0 -10px; }
+}
+
+/* Animated decorative sparkle */
+.ref-3d-sparkle {
+  position: absolute;
+  z-index: 2;
+  color: #ffab34;
+  font-size: 25px;
+  user-select: none;
+  pointer-events: none;
+  animation: sparkleFloat 3.5s ease-in-out infinite;
+}
+
+.ref-3d-sparkle.sparkle-one {
+  right: 35%;
+  top: 35px;
+}
+
+.ref-3d-sparkle.sparkle-two {
+  right: 4%;
+  top: 190px;
+  font-size: 18px;
+  animation-delay: 1.2s;
+}
+
+@keyframes sparkleFloat {
+  0%,100% {
+    opacity: .7;
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-8px) rotate(17deg);
+  }
+}
+
+/* 3D-feeling method cards */
+#methodSection .choice {
+  transform-style: preserve-3d;
+  transition:
+    transform .24s ease,
+    box-shadow .24s ease,
+    background .24s ease;
+}
+
+#methodSection .choice:hover:not(:disabled) {
+  transform:
+    perspective(750px)
+    rotateX(4deg)
+    translateY(-5px);
+
+  box-shadow:
+    0 17px 28px #c58b5033;
+  background: #fffdf9;
+}
+
+#methodSection .choice::after {
+  box-shadow:
+    0 4px 0 #d9650b,
+    0 7px 13px #e58d3955;
+}
+
+/* Upload area and buttons */
+.upload-area {
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    border-color .2s ease;
+}
+
+.upload-area:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px #d999581e;
+}
+
+#processVideo,
+.ref-fetch-button {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform .2s,
+    box-shadow .2s;
+}
+
+#processVideo:hover:not(:disabled),
+.ref-fetch-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 11px 20px #ff892d50;
+}
+
+#processVideo:active:not(:disabled),
+.ref-fetch-button:active {
+  transform: translateY(0);
+}
+
+/* 3D-style preview frame */
+.preview {
+  box-shadow:
+    0 5px 0 #fff1e3,
+    0 20px 39px #c5946625 !important;
+  transition: transform .3s ease,box-shadow .3s ease;
+}
+
+.preview:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 6px 0 #ffead8,
+    0 25px 46px #c5946635 !important;
+}
+
+/* Responsive */
+@media(max-width:700px) {
+  #settingsPage .settings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #settingsPage {
+    padding: 16px !important;
+  }
+
+  .ref-floating-play {
+    animation-duration: 5s;
+  }
+}
+
+@media(prefers-reduced-motion: reduce) {
+  .ref-floating-play,
+  .ref-3d-sparkle {
+    animation: none;
+  }
+
+  .ref-floating-play,
+  #methodSection .choice,
+  .preview {
+    transition: none;
+  }
+}
+</style>
+
+<script>
+/* =============================================
+   MOVE REAL SETTINGS CONTROLS + FIX NAVIGATION
+============================================= */
+
+(() => {
+  const get = id => document.getElementById(id);
+
+  const sidebar = document.querySelector(".sidebar");
+  const main = document.querySelector("main");
+
+  if (!sidebar || !main) return;
+
+  // 1. Ensure a real Settings page exists.
+  let settingsPage = get("settingsPage");
+
+  if (!settingsPage) {
+    settingsPage = document.createElement("section");
+    settingsPage.id = "settingsPage";
+    settingsPage.className = "card";
+    settingsPage.hidden = true;
+    main.append(settingsPage);
+  }
+
+  let heading = settingsPage.querySelector("h2");
+
+  if (!heading) {
+    heading = document.createElement("h2");
+    settingsPage.prepend(heading);
+  }
+
+  heading.className = "settings-heading";
+  heading.textContent = "⚙ Settings";
+
+  let grid = get("settingsGrid");
+
+  if (!grid) {
+    grid = document.createElement("div");
+    grid.id = "settingsGrid";
+    settingsPage.append(grid);
+  }
+
+  grid.className = "settings-grid";
+
+  // 2. Move original controls into Settings.
+  // appendChild MOVES the node. It does not clone it.
+  const sections = [
+    {
+      control: "quality",
+      title: "↓ Export & Download",
+      description: "Select quality before generating your Shorts."
+    },
+    {
+      control: "exportMP3",
+      title: "♫ Audio Export",
+      description: "Extract MP3 audio from your selected Short."
+    },
+    {
+      control: "channelStatus",
+      title: "▶ YouTube Channel",
+      description: ""
+    }
+  ];
+
+  sections.forEach(section => {
+    const control = get(section.control);
+    if (!control) return;
+
+    const card = control.closest(
+      ".side-card, .settings-card"
+    );
+
+    if (!card) return;
+
+    // Preserve all existing input values and click handlers.
+    grid.appendChild(card);
+
+    card.classList.add("settings-card");
+
+    const title = card.querySelector("h3");
+
+    if (title) title.textContent = section.title;
+
+    const description = card.querySelector("p.muted");
+
+    if (description) {
+      if (section.description) {
+        description.textContent = section.description;
+      } else {
+        description.remove();
+      }
+    }
+  });
+
+  // Remove unused labels from the sidebar.
+  sidebar.querySelectorAll(".sidebar-heading")
+    .forEach(node => node.remove());
+
+  // 3. Guarantee the navigation buttons exist.
+  const nav = sidebar.querySelector("nav");
+
+  function ensureNav(id, label, before = null) {
+    let element = get(id);
+
+    if (!element) {
+      element = document.createElement("button");
+      element.id = id;
+      element.type = "button";
+      element.className = "nav";
+      element.textContent = label;
+
+      if (before && get(before)) {
+        nav.insertBefore(element, get(before));
+      } else {
+        nav.appendChild(element);
+      }
+    }
+
+    return element;
+  }
+
+  if (!nav) return;
+
+  ensureNav("navProjects", "▱  My Projects", "navHighlights");
+  ensureNav("navSettings", "⚙  Settings");
+
+  // 4. Make My Projects a page, not a popup.
+  let projectsPage = get("projectsPage");
+
+  if (!projectsPage) {
+    projectsPage = document.createElement("section");
+    projectsPage.id = "projectsPage";
+    projectsPage.className = "card";
+    projectsPage.hidden = true;
+    main.append(projectsPage);
+  }
+
+  projectsPage.replaceChildren();
+
+  const projectsHeading = document.createElement("h2");
+  projectsHeading.textContent = "My Projects";
+
+  const projectCard = document.createElement("div");
+  projectCard.className = "project-entry";
+
+  const projectName = document.createElement("strong");
+  const projectDescription = document.createElement("p");
+
+  projectDescription.className = "muted";
+
+  const openProject = document.createElement("button");
+  openProject.className = "btn orange";
+  openProject.type = "button";
+  openProject.textContent = "Open Current Project →";
+  openProject.hidden = true;
+
+  projectCard.append(
+    projectName,
+    projectDescription,
+    openProject
+  );
+
+  projectsPage.append(projectsHeading, projectCard);
+
+  function updateProject() {
+    const exists =
+      typeof state !== "undefined" &&
+      Boolean(state.filename);
+
+    projectName.textContent = exists
+      ? get("projectName")?.textContent || "Current Video"
+      : "No project loaded";
+
+    projectDescription.textContent = exists
+      ? "Your current video project."
+      : "Upload a video to start a project.";
+
+    openProject.hidden = !exists;
+  }
+
+  // 5. One consistent page-display function.
+  function paintPage(page) {
+    const createPage = get("createPage");
+    const highlightsPage = get("highlightsPage");
+    const hero = document.querySelector(".ref-hero");
+
+    if (createPage) {
+      createPage.hidden = page !== "create";
+    }
+
+    if (highlightsPage) {
+      highlightsPage.hidden = page !== "highlights";
+    }
+
+    settingsPage.hidden = page !== "settings";
+    projectsPage.hidden = page !== "projects";
+
+    if (hero) hero.hidden = page !== "create";
+
+    const buttons = {
+      create: "navCreate",
+      projects: "navProjects",
+      highlights: "navHighlights",
+      settings: "navSettings"
+    };
+
+    Object.entries(buttons).forEach(([name,id]) => {
+      get(id)?.classList.toggle("active", name === page);
+    });
+  }
+
+  // Covers navigation initiated elsewhere in the app,
+  // such as "Open My Highlights".
+  if (typeof showPage === "function") {
+    const previousShowPage = showPage;
+
+    showPage = function(page) {
+      const result = previousShowPage(page);
+      paintPage(page);
+      return result;
+    };
+  }
+
+  async function navigate(page) {
+    if (
+      typeof confirmUnsaved === "function" &&
+      !confirmUnsaved()
+    ) {
+      return;
+    }
+
+    if (typeof clearSubtitles === "function") {
+      clearSubtitles();
+    }
+
+    if (typeof showPage === "function") {
+      showPage(page);
+    } else {
+      if (typeof state !== "undefined") {
+        state.page = page;
+      }
+      paintPage(page);
+    }
+
+    if (page === "projects") {
+      updateProject();
+    }
+
+    if (
+      page === "highlights" &&
+      typeof loadGallery === "function"
+    ) {
+      try {
+        await loadGallery();
+      } catch (error) {
+        console.error("Gallery error:", error);
+      }
+    }
+  }
+
+  // Capture these clicks before the previous placeholder
+  // handlers. This prevents duplicate popups and redirects.
+  const pages = {
+    navCreate: "create",
+    navProjects: "projects",
+    navHighlights: "highlights",
+    navSettings: "settings"
+  };
+
+  Object.entries(pages).forEach(([id,page]) => {
+    const element = get(id);
+    if (!element) return;
+
+    element.addEventListener("click", event => {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      navigate(page);
+    }, true);
+  });
+
+  openProject.onclick = () => navigate("create");
+
+  // 6. Add interactive 3D details to the hero.
+  const hero = document.querySelector(".ref-hero");
+  let playTile = hero?.querySelector(".ref-floating-play");
+
+  if (hero && !playTile) {
+    playTile = document.createElement("div");
+    playTile.className = "ref-floating-play";
+    hero.append(playTile);
+  }
+
+  if (hero && playTile) {
+    playTile.setAttribute("role", "button");
+    playTile.setAttribute("tabindex", "0");
+    playTile.setAttribute(
+      "aria-label",
+      "Choose a video to upload"
+    );
+
+    playTile.addEventListener("pointermove", event => {
+      const rect = playTile.getBoundingClientRect();
+
+      const x = (
+        (event.clientX - rect.left) / rect.width - .5
+      );
+
+      const y = (
+        (event.clientY - rect.top) / rect.height - .5
+      );
+
+      playTile.style.setProperty(
+        "--tilt-x",
+        (-y * 17).toFixed(1) + "deg"
+      );
+
+      playTile.style.setProperty(
+        "--tilt-y",
+        (x * 17).toFixed(1) + "deg"
+      );
+    });
+
+    playTile.addEventListener("pointerleave", () => {
+      playTile.style.setProperty("--tilt-x", "0deg");
+      playTile.style.setProperty("--tilt-y", "0deg");
+    });
+
+    // Clicking the floating 3D play button
+    // opens the real video upload chooser.
+    playTile.addEventListener("click", () => {
+      get("videoFile")?.click();
+    });
+
+    playTile.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        get("videoFile")?.click();
+      }
+    });
+
+    if (!hero.querySelector(".sparkle-one")) {
+      const sparkle1 = document.createElement("span");
+      sparkle1.className =
+        "ref-3d-sparkle sparkle-one";
+      sparkle1.textContent = "✦";
+
+      const sparkle2 = document.createElement("span");
+      sparkle2.className =
+        "ref-3d-sparkle sparkle-two";
+      sparkle2.textContent = "✧";
+
+      hero.append(sparkle1, sparkle2);
+    }
+  }
+
+  // Preserve whatever page is already open.
+  const current =
+    typeof state !== "undefined"
+      ? state.page || "create"
+      : "create";
+
+  if (current === "projects") updateProject();
+
+  paintPage(current);
+})();
+</script>
+
+<style>
+/* Hide all tools and project details in the left sidebar */
+.sidebar .side-card,
+.sidebar .settings-card,
+.sidebar .sidebar-heading,
+.sidebar .project-info {
+  display: none !important;
+}
+
+/* Keep the sidebar clean */
+.sidebar {
+  overflow: hidden;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Settings content */
+#settingsPage .settings-fix-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 25px;
+}
+
+#settingsPage .settings-fix-grid > .side-card,
+#settingsPage .settings-fix-grid > .settings-card,
+#settingsPage .settings-fix-grid > .project-info {
+  display: block !important;
+  width: 100%;
+  height: auto;
+  margin: 0 !important;
+  padding: 22px !important;
+  border: 1px solid #f0dccc !important;
+  border-radius: 18px !important;
+  background: #fffaf5 !important;
+  box-shadow: 0 7px 20px #d3a47817;
+}
+
+#settingsPage .settings-fix-grid h3 {
+  margin: 0 0 17px;
+  font-size: 17px;
+}
+
+#settingsPage .settings-fix-grid .field {
+  border: 1px solid #e9d9c9;
+  border-radius: 12px;
+  background: white;
+}
+
+#settingsPage .settings-fix-grid .download-btn,
+#settingsPage .settings-fix-grid #exportMP3 {
+  background: linear-gradient(100deg, #ffad35, #ff7811);
+  color: white;
+  border: 0;
+  border-radius: 12px;
+  padding: 13px;
+  font-weight: 800;
+}
+
+#settingsPage .settings-fix-grid .muted {
+  color: #847970;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Workflow section */
+.settings-workflow {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 15px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.settings-workflow li {
+  padding: 12px;
+  background: #fff0e0;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+/* Responsive settings */
+@media (max-width: 700px) {
+  #settingsPage .settings-fix-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<script>
+(function () {
+  function fixSettingsLayout() {
+    const sidebar = document.querySelector(".sidebar");
+    const settingsPage = document.getElementById("settingsPage");
+
+    if (!sidebar || !settingsPage) {
+      console.error("Sidebar or Settings page not found.");
+      return;
+    }
+
+    // Create a new independent settings grid.
+    // This avoids conflicts with older UI patches.
+    let grid = settingsPage.querySelector(".settings-fix-grid");
+
+    if (!grid) {
+      grid = document.createElement("div");
+      grid.className = "settings-fix-grid";
+      settingsPage.appendChild(grid);
+    }
+
+    // Move an existing working card to Settings.
+    function moveCard(controlId, heading, description) {
+      const control = document.getElementById(controlId);
+
+      if (!control) {
+        console.warn("Missing control:", controlId);
+        return;
+      }
+
+      const card = control.closest(
+        ".side-card, .settings-card"
+      );
+
+      if (!card) {
+        console.warn("Missing parent card:", controlId);
+        return;
+      }
+
+      // Important: moves the real node.
+      // Doesn't duplicate controls or lose event handlers.
+      grid.appendChild(card);
+
+      card.classList.add("settings-card");
+
+      const title = card.querySelector("h3");
+
+      if (title) title.textContent = heading;
+
+      const note = card.querySelector("p.muted");
+
+      if (note && description !== null) {
+        note.textContent = description;
+      }
+    }
+
+    // 1. Export & Download with real quality selector
+    moveCard(
+      "quality",
+      "↓ Export & Download",
+      "Select quality before generating your Shorts."
+    );
+
+    // 2. MP3 audio export
+    moveCard(
+      "exportMP3",
+      "♫ Audio Export",
+      "Extract MP3 audio from your selected Short. " +
+      "This is separate from MP4 downloads."
+    );
+
+    const mp3Button = document.getElementById("exportMP3");
+    if (mp3Button) {
+      mp3Button.textContent = "♫ Export Selected MP3";
+    }
+
+    // 3. YouTube connection
+    moveCard(
+      "channelStatus",
+      "▶ YouTube Channel",
+      null
+    );
+
+    // 4. Current project and workflow
+    let projectCard = sidebar.querySelector(".project-info")
+      || settingsPage.querySelector(".project-info");
+
+    if (!projectCard) {
+      projectCard = document.createElement("div");
+      projectCard.className = "project-info";
+    }
+
+    let projectName = document.getElementById("projectName");
+
+    if (!projectName) {
+      projectName = document.createElement("p");
+      projectName.id = "projectName";
+      projectName.textContent = "No video selected.";
+    }
+
+    // Preserve the existing project name element.
+    projectCard.replaceChildren();
+
+    const projectHeading = document.createElement("h3");
+    projectHeading.textContent = "✦ Current project";
+
+    projectName.classList.add("muted");
+
+    const workflowHeading = document.createElement("h3");
+    workflowHeading.textContent = "Your workflow";
+    workflowHeading.style.marginTop = "23px";
+
+    const workflow = document.createElement("ol");
+    workflow.className = "settings-workflow";
+
+    const steps = [
+      "① Process Video",
+      "② Manual or AI",
+      "③ Edit if needed",
+      "④ Generate Shorts",
+      "⑤ Download"
+    ];
+
+    for (const step of steps) {
+      const item = document.createElement("li");
+      item.textContent = step;
+      workflow.appendChild(item);
+    }
+
+    projectCard.append(
+      projectHeading,
+      projectName,
+      workflowHeading,
+      workflow
+    );
+
+    grid.appendChild(projectCard);
+
+    // Remove unused sidebar section headings.
+    sidebar.querySelectorAll(".sidebar-heading")
+      .forEach(element => element.remove());
+
+    // Remove the old empty settings grid if present.
+    const oldGrid = settingsPage.querySelector(
+      "#settingsGrid:not(.settings-fix-grid)"
+    );
+
+    if (oldGrid && !oldGrid.children.length) {
+      oldGrid.remove();
+    }
+  }
+
+  // Run after earlier scripts have initialized.
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      fixSettingsLayout,
+      { once: true }
+    );
+  } else {
+    fixSettingsLayout();
+  }
+})();
+</script>
+
+<style>
+/* CLEAN LEFT SIDEBAR */
+.sidebar .side-card,
+.sidebar .settings-card,
+.sidebar .sidebar-heading,
+.sidebar .project-info {
+    display: none !important;
+}
+
+/* SETTINGS PAGE GRID */
+#settingsPage .shorts-settings-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+}
+
+/* SHOW CONTROLS ONLY INSIDE SETTINGS */
+#settingsPage .shorts-settings-grid > .side-card,
+#settingsPage .shorts-settings-grid > .settings-card,
+#settingsPage .shorts-settings-grid > .project-info {
+    display: block !important;
+    position: static !important;
+    width: 100%;
+    margin: 0 !important;
+    padding: 22px !important;
+    border: 1px solid #f0ddca !important;
+    border-radius: 18px !important;
+    background: #fffaf5 !important;
+    box-shadow: 0 7px 20px #c79c7020;
+}
+
+#settingsPage .shorts-settings-grid h3 {
+    margin: 0 0 16px;
+    font-size: 17px;
+}
+
+#settingsPage .shorts-settings-grid .field {
+    width: 100%;
+    border-radius: 11px;
+    border: 1px solid #e8d6c5;
+    background: white;
+}
+
+#settingsPage .shorts-settings-grid .muted {
+    font-size: 12px;
+    line-height: 1.7;
+    color: #80736c;
+}
+
+#settingsPage .shorts-settings-grid #exportMP3,
+#settingsPage .shorts-settings-grid .download-btn {
+    background: linear-gradient(110deg, #ffaa32, #ff780c);
+    color: white;
+    border: 0;
+    border-radius: 11px;
+}
+
+.shorts-workflow {
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.shorts-workflow li {
+    margin-bottom: 9px;
+    padding: 12px;
+    background: #fff0e2;
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+@media (max-width: 700px) {
+    #settingsPage .shorts-settings-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<script>
+(function () {
+    function organizeSettings() {
+        const sidebar = document.querySelector(".sidebar");
+        const settings = document.getElementById("settingsPage");
+
+        if (!sidebar || !settings) {
+            console.error("Sidebar or Settings page not found");
+            return;
+        }
+
+        // Use the existing Settings grid when available.
+        let grid =
+            settings.querySelector("#settingsGrid") ||
+            settings.querySelector(".settings-fix-grid") ||
+            settings.querySelector(".shorts-settings-grid");
+
+        if (!grid) {
+            grid = document.createElement("div");
+            settings.appendChild(grid);
+        }
+
+        grid.classList.add("shorts-settings-grid");
+
+        // MOVE the real working controls, not duplicates.
+        function moveControl(id, newHeading) {
+            const control = document.getElementById(id);
+
+            if (!control) {
+                console.warn("Control not found:", id);
+                return;
+            }
+
+            const card = control.closest(
+                ".side-card, .settings-card"
+            );
+
+            if (!card) {
+                console.warn("Card not found for:", id);
+                return;
+            }
+
+            const title = card.querySelector("h3");
+
+            if (title) {
+                title.textContent = newHeading;
+            }
+
+            // This retains all existing event handlers.
+            grid.appendChild(card);
+            card.classList.add("settings-card");
+        }
+
+        moveControl("quality", "↓ Export & Download");
+        moveControl("exportMP3", "♫ Audio Export");
+        moveControl("channelStatus", "▶ YouTube Channel");
+
+        // Preserve the original MP3 export action.
+        const mp3 = document.getElementById("exportMP3");
+
+        if (mp3) {
+            mp3.textContent = "♫ Export Selected MP3";
+        }
+
+        // MOVE Current Project and Workflow to Settings.
+        let projectName = document.getElementById("projectName");
+
+        let projectCard =
+            projectName?.closest(".project-info") ||
+            document.querySelector(".sidebar .project-info") ||
+            document.querySelector("#settingsPage .project-info");
+
+        if (!projectCard) {
+            projectCard = document.createElement("div");
+            projectCard.className = "project-info";
+        }
+
+        if (!projectName) {
+            projectName = document.createElement("p");
+            projectName.id = "projectName";
+            projectName.textContent = "No video selected.";
+        }
+
+        const projectTitle = document.createElement("h3");
+        projectTitle.textContent = "✦ Current Project";
+
+        const workflowTitle = document.createElement("h3");
+        workflowTitle.textContent = "Your Workflow";
+        workflowTitle.style.marginTop = "24px";
+
+        const workflow = document.createElement("ol");
+        workflow.className = "shorts-workflow";
+
+        [
+            "① Process Video",
+            "② Manual or AI",
+            "③ Edit if needed",
+            "④ Generate Shorts",
+            "⑤ Download"
+        ].forEach(step => {
+            const item = document.createElement("li");
+            item.textContent = step;
+            workflow.appendChild(item);
+        });
+
+        projectCard.replaceChildren(
+            projectTitle,
+            projectName,
+            workflowTitle,
+            workflow
+        );
+
+        grid.appendChild(projectCard);
+
+        // Remove empty sidebar labels.
+        sidebar.querySelectorAll(".sidebar-heading")
+            .forEach(item => item.remove());
+
+        console.log(
+            "Shorts AI: Settings controls moved successfully"
+        );
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener(
+            "DOMContentLoaded",
+            organizeSettings,
+            { once: true }
+        );
+    } else {
+        organizeSettings();
+    }
+})();
+</script>
+
+</body>
+</html>

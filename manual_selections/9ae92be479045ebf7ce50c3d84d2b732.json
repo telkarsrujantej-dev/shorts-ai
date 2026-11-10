@@ -1,0 +1,24 @@
+{
+  "filename": "9ae92be479045ebf7ce50c3d84d2b732.mp4",
+  "source_identity": {
+    "size": 119015002,
+    "mtime_ns": 1793459290784313400
+  },
+  "highlights": [
+    {
+      "start": 0.0,
+      "end": 30.0,
+      "title": "Manual Short 2",
+      "reason": "Manually selected",
+      "score": 10
+    },
+    {
+      "start": 61.14,
+      "end": 121.14,
+      "title": "Manual Short 1",
+      "reason": "Manually selected",
+      "score": 10
+    }
+  ],
+  "revision": "aa611222cc9349019ae56ee20e31273b"
+}

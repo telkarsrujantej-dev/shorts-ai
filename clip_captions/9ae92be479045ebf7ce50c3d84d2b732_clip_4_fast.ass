@@ -1,0 +1,34 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 360
+PlayResY: 640
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,27,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,3,1,2,25,25,95,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.12,Default,,0,0,0,,And a different area\Nof
+Dialogue: 0,0:00:01.12,0:00:02.25,Default,,0,0,0,,your brain opens up\Nbecause
+Dialogue: 0,0:00:02.25,0:00:03.38,Default,,0,0,0,,you're out of your\Ncomfort
+Dialogue: 0,0:00:03.38,0:00:04.50,Default,,0,0,0,,zone.
+Dialogue: 0,0:00:04.50,0:00:05.25,Default,,0,0,0,,And I believe you\Nonly
+Dialogue: 0,0:00:05.25,0:00:06.00,Default,,0,0,0,,grow out of your\Ncomfort
+Dialogue: 0,0:00:06.00,0:00:06.75,Default,,0,0,0,,zone if you are,\Nsee,
+Dialogue: 0,0:00:06.75,0:00:07.50,Default,,0,0,0,,I tell them.
+Dialogue: 0,0:00:07.50,0:00:08.83,Default,,0,0,0,,So these campers\Ncome for
+Dialogue: 0,0:00:08.83,0:00:10.17,Default,,0,0,0,,one or two months,\Nso
+Dialogue: 0,0:00:10.17,0:00:11.50,Default,,0,0,0,,school people don't\Nknow.
+Dialogue: 0,0:00:11.50,0:00:12.50,Default,,0,0,0,,So when they come,\Nthey
+Dialogue: 0,0:00:12.50,0:00:13.50,Default,,0,0,0,,say, I say, if\Nyou're
+Dialogue: 0,0:00:13.50,0:00:14.50,Default,,0,0,0,,feeling comfortable\Nhere in the
+Dialogue: 0,0:00:14.50,0:00:15.50,Default,,0,0,0,,first five or six\Ndays,
+Dialogue: 0,0:00:15.50,0:00:16.50,Default,,0,0,0,,then I'm not doing\Nmy
+Dialogue: 0,0:00:16.50,0:00:17.50,Default,,0,0,0,,job properly.
+Dialogue: 0,0:00:18.00,0:00:19.25,Default,,0,0,0,,You only grow out of
+Dialogue: 0,0:00:19.25,0:00:20.50,Default,,0,0,0,,your comfort zone,\Nthat means
+Dialogue: 0,0:00:20.50,0:00:21.75,Default,,0,0,0,,you better be\Nuncomfortable and
+Dialogue: 0,0:00:21.75,0:00:23.00,Default,,0,0,0,,only then you'll\Nhave growth.

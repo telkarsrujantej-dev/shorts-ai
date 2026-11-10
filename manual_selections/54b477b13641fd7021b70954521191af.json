@@ -1,0 +1,17 @@
+{
+  "filename": "54b477b13641fd7021b70954521191af.mp4",
+  "source_identity": {
+    "size": 43708842,
+    "mtime_ns": 1793428101989161700
+  },
+  "highlights": [
+    {
+      "start": 205.03,
+      "end": 265.03,
+      "title": "Manual Short 1",
+      "reason": "Manually selected",
+      "score": 10
+    }
+  ],
+  "revision": "e30d4d2d36e54fbf81dc79b1e2d1103e"
+}

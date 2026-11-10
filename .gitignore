@@ -1,0 +1,23 @@
+cd D:\ind_30
+
+@'
+.env
+.env.*
+!.env.example
+secrets/
+youtube_client_secret.json
+*client*secret*.json
+*token*.json
+auth_data/
+*.sqlite3
+.venv/
+__pycache__/
+uploads/
+clips/
+highlights/
+transcripts/
+*.mp4
+*.mp3
+'@ | Add-Content .gitignore
+.vscode/
+speech_*/

@@ -1,0 +1,17 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 720
+PlayResY: 1280
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,48,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,3,1,2,25,25,190,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.70,Default,,0,0,0,,problm disttkchn se\Nbhddii ye
+Dialogue: 0,0:00:01.70,0:00:02.60,Default,,0,0,0,,hute ki us meN hm
+Dialogue: 0,0:00:02.60,0:00:03.58,Default,,0,0,0,,rigrett meN aadhaa\Ndin aur
+Dialogue: 0,0:00:03.58,0:00:04.24,Default,,0,0,0,,kh'aab krte hai

@@ -1,0 +1,150 @@
+{
+  "filename": "9ae92be479045ebf7ce50c3d84d2b732.mp4",
+  "index": 3,
+  "video_start": 236.0,
+  "video_end": 256.0,
+  "duration": 20.0,
+  "mode": "auto",
+  "ai_reviewed": false,
+  "word_timed_original": true,
+  "cues": [
+    {
+      "id": 0,
+      "start": 0,
+      "end": 1.04,
+      "text": "play football, they have to",
+      "original_text": "play football, they have to"
+    },
+    {
+      "id": 1,
+      "start": 1.04,
+      "end": 2.18,
+      "text": "play either TT or badminton",
+      "original_text": "play either TT or badminton"
+    },
+    {
+      "id": 2,
+      "start": 2.18,
+      "end": 4.06,
+      "text": "or volleyball or something like",
+      "original_text": "or volleyball or something like"
+    },
+    {
+      "id": 3,
+      "start": 4.06,
+      "end": 4.28,
+      "text": "that.",
+      "original_text": "that."
+    },
+    {
+      "id": 4,
+      "start": 4.8,
+      "end": 6.74,
+      "text": "So why? Because you learn",
+      "original_text": "So why? Because you learn"
+    },
+    {
+      "id": 5,
+      "start": 6.74,
+      "end": 7.94,
+      "text": "so much more from other",
+      "original_text": "so much more from other"
+    },
+    {
+      "id": 6,
+      "start": 7.94,
+      "end": 9.06,
+      "text": "sports than your own sport",
+      "original_text": "sports than your own sport"
+    },
+    {
+      "id": 7,
+      "start": 9.68,
+      "end": 11.32,
+      "text": "and a different area of",
+      "original_text": "and a different area of"
+    },
+    {
+      "id": 8,
+      "start": 11.32,
+      "end": 12.7,
+      "text": "your brain opens up because",
+      "original_text": "your brain opens up because"
+    },
+    {
+      "id": 9,
+      "start": 12.7,
+      "end": 13.6,
+      "text": "you're out of your comfort",
+      "original_text": "you're out of your comfort"
+    },
+    {
+      "id": 10,
+      "start": 13.6,
+      "end": 13.88,
+      "text": "zone",
+      "original_text": "zone"
+    },
+    {
+      "id": 11,
+      "start": 13.88,
+      "end": 15.5,
+      "text": "and I believe you only",
+      "original_text": "and I believe you only"
+    },
+    {
+      "id": 12,
+      "start": 15.5,
+      "end": 16.26,
+      "text": "grow out of your comfortable",
+      "original_text": "grow out of your comfortable"
+    },
+    {
+      "id": 13,
+      "start": 16.26,
+      "end": 17.26,
+      "text": "zone if you are, see",
+      "original_text": "zone if you are, see"
+    },
+    {
+      "id": 14,
+      "start": 17.26,
+      "end": 18.84,
+      "text": "I tell them some of",
+      "original_text": "I tell them some of"
+    },
+    {
+      "id": 15,
+      "start": 18.84,
+      "end": 19.8,
+      "text": "these campers come for one",
+      "original_text": "these campers come for one"
+    },
+    {
+      "id": 16,
+      "start": 19.8,
+      "end": 19.94,
+      "text": "or two.",
+      "original_text": "or two."
+    }
+  ],
+  "pipeline_version": "romanized-audio-20261030-v2",
+  "source_identity": {
+    "size": 119015002,
+    "mtime_ns": 1793459290784313400
+  },
+  "config": {
+    "version": "romanized-audio-20261030-v2",
+    "whisper": "small",
+    "gemini": "gemini-3.1-flash-lite",
+    "language": "auto",
+    "provider": "auto",
+    "gemini_available": true
+  },
+  "transcript_revision": "1e028a415ef5452a8994d2b3845c7978",
+  "revision": "b76321cace97498fa7f14abd906f9be7",
+  "warnings": [
+    "Gemini transcription failed: Gemini service is temporarily unavailable. Switched to Whisper. Caption wording requires review.",
+    "Whisper fallback was used. Romanized Hindi may contain incorrect words or spellings. Review before exporting."
+  ]
+}

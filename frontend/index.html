@@ -1,0 +1,4774 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shorts AI — Creator Studio</title>
+<style>
+:root{
+  --bg:#FAF8F2;--paper:#FFFEFA;--ink:#1B1918;
+  --muted:#79747D;--line:#DCD6CD;
+  --lilac:#EAD9FF;--purple:#8353E8;
+  --orange:#FF752C;--yellow:#FFF0AE;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:Inter,"Segoe UI",Arial,sans-serif;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
+button:focus-visible,input:focus-visible,select:focus-visible{
+  outline:3px solid var(--purple);outline-offset:2px
+}
+.layout{
+  max-width:1660px;min-height:100vh;margin:auto;
+  padding:15px;display:grid;gap:16px;
+  grid-template-columns:245px minmax(0,1fr) 325px;
+}
+.sidebar,.card,.download-box{
+  background:var(--paper);border:1px solid var(--line);
+  border-radius:18px;
+}
+.sidebar{padding:18px 13px;align-self:stretch}
+.brand{
+  font-size:26px;font-weight:950;letter-spacing:-1.4px;
+  padding:10px 8px 28px;
+}
+.brand span{color:var(--orange)}
+.nav{
+  display:block;width:100%;padding:13px 14px;margin-bottom:7px;
+  background:transparent;border:0;border-radius:12px;
+  text-align:left;font-weight:750;color:var(--ink);
+}
+.nav.active{background:var(--lilac)}
+.nav:hover{background:#F2E8FF}
+.nav i{font-style:normal;margin-right:11px}
+.sidebar-heading{
+  margin:28px 6px 10px;font-size:11px;
+  font-weight:900;letter-spacing:1px;color:var(--muted);
+}
+.download-box{padding:13px;border-color:#C9B3EB}
+.download-box h3{margin:0 0 12px;font-size:16px}
+label{font-size:12px;font-weight:750}
+.input{
+  width:100%;padding:12px;border-radius:10px;
+  border:1px solid #CEC7C0;background:white;color:var(--ink);
+}
+.download-box .input{margin-top:8px}
+.download-link{
+  display:block;width:100%;margin-top:12px;padding:13px 9px;
+  border:1px solid #1B1918;border-radius:10px;
+  background:var(--orange);color:#161616;
+  text-align:center;text-decoration:none;
+  font-size:13px;font-weight:900;
+}
+.download-link:hover{filter:brightness(.96)}
+.sidebar-note{
+  margin-top:16px;padding:13px;border-radius:13px;
+  background:#F3E9FF;border:1px solid #DBC5F4;
+}
+.sidebar-note strong{display:block;font-size:13px;margin-bottom:9px}
+.sidebar-note p{font-size:12px;color:#615B65;line-height:1.5;margin:7px 0}
+main{min-width:0}
+h1{
+  margin:7px 0 9px;font-size:clamp(30px,3.4vw,52px);
+  line-height:1.05;letter-spacing:-2px;font-weight:950;
+}
+.tagline{margin:0 0 20px;color:var(--muted);font-size:18px}
+.card{padding:20px;margin-bottom:17px;border:1.5px solid #24201E}
+.step{font-size:12px;font-weight:900;letter-spacing:.6px;margin-bottom:14px}
+h2{font-size:22px;margin:4px 0 12px}
+.muted{font-size:12px;color:var(--muted);line-height:1.6}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.upload{
+  padding:21px;background:#F3E8FF;border:2px dashed #BA9AEF;
+  border-radius:13px;cursor:pointer;
+}
+.upload strong{display:block;margin:6px 0}
+.row{display:flex;align-items:center;flex-wrap:wrap;gap:9px}
+.between{justify-content:space-between}
+.btn{
+  border:1px solid #302A26;border-radius:10px;
+  background:white;padding:11px 14px;font-weight:800;
+  color:var(--ink);
+}
+.btn.small{padding:8px 10px;font-size:12px}
+.btn.lilac{background:var(--lilac);border-color:#A780E8}
+.btn.orange{background:var(--orange)}
+.btn:hover:not(:disabled){filter:brightness(.96)}
+.primary{
+  display:block;width:100%;margin-top:14px;padding:16px;
+  background:var(--orange);border:1.5px solid #1B1918;
+  border-radius:12px;font-size:16px;font-weight:950;
+  box-shadow:3px 4px 0 #1B1918;
+}
+.primary:active:not(:disabled){transform:translate(2px,3px);box-shadow:none}
+.status{
+  margin-top:10px;font-size:12px;line-height:1.6;
+  color:#3568A6;white-space:pre-wrap;overflow-wrap:anywhere;
+}
+.status.error{color:#B72B20}
+.status.success{color:#278147}
+.success{
+  border:1px solid #A9DDAD;border-radius:11px;
+  background:#E4F8E9;color:#276A38;
+  padding:12px;margin-top:12px;text-align:center;font-weight:850;
+}
+.choice{
+  background:#FFF;border:1.5px solid #CCC3BA;border-radius:13px;
+  padding:19px;text-align:left;min-height:110px;
+}
+.choice:hover{border-color:var(--purple);background:#F6EEFF}
+.choice .emoji{font-size:24px;margin-bottom:9px}
+.choice strong{display:block;font-size:14px;margin-bottom:7px}
+.choice small{font-size:11px;color:var(--muted)}
+.result{
+  border:1px solid var(--line);border-radius:12px;
+  background:white;padding:13px;margin-top:11px;
+  display:flex;gap:12px;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;
+}
+.result.active{background:#F3E9FF;border-color:#9C70EF}
+.result strong{font-size:13px}
+.result p{font-size:12px;color:var(--muted);margin:6px 0}
+.result .actions{display:flex;gap:7px;flex-wrap:wrap}
+.grid-results{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;margin-top:15px;
+}
+.video-card{
+  border:1px solid var(--line);background:white;
+  border-radius:13px;padding:12px;min-width:0;
+}
+.video-card video{
+  display:block;width:100%;aspect-ratio:16/10;
+  object-fit:contain;background:#121826;border-radius:9px;
+}
+.video-card strong{display:block;font-size:13px;margin:10px 0}
+.video-card .btn{width:100%;font-size:12px}
+.editor-tools{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0}
+.film-panel{
+  padding:15px;margin:15px 0;
+  background:#151A25;border-radius:14px;color:white;
+}
+.film-caption{
+  display:flex;justify-content:space-between;gap:8px;
+  font-size:11px;color:#D4D8E1;
+}
+.film{
+  position:relative;height:90px;margin-top:42px;
+  background:#2A3547;touch-action:none;
+}
+.frames{
+  display:flex;position:absolute;inset:0;
+  border-radius:7px;overflow:hidden;
+}
+.frame{
+  flex:1;min-width:0;border-right:1px solid #152033;
+  background:linear-gradient(130deg,#334155,#64748B);
+}
+.frame img{width:100%;height:100%;object-fit:cover;display:block}
+.ai-marker{
+  position:absolute;top:0;height:90px;
+  background:#FFE28535;border:1px solid #F3CB64;
+  pointer-events:none;
+}
+.selection{
+  position:absolute;top:0;height:90px;
+  background:#AF8BFA50;border:2px solid #BB95FF;
+  pointer-events:none;
+}
+.scrubber{
+  position:absolute;inset:0;z-index:3;cursor:ew-resize;
+  touch-action:none;
+}
+.playhead{
+  position:absolute;top:0;height:90px;width:2px;
+  background:white;pointer-events:none;z-index:4;
+}
+.playhead:before{
+  content:"";position:absolute;left:-5px;top:-6px;
+  width:12px;height:12px;border-radius:50%;background:white;
+}
+.handle{
+  position:absolute;top:-2px;height:94px;width:17px;
+  border-radius:6px;background:var(--purple);
+  border:2px solid white;z-index:5;cursor:ew-resize;
+  touch-action:none;
+}
+.stamp{
+  position:absolute;top:-33px;transform:translateX(-50%);
+  border-radius:7px;background:var(--lilac);color:#27133C;
+  padding:6px 8px;font-size:11px;font-weight:900;
+  pointer-events:none;white-space:nowrap;z-index:5;
+}
+.stamp.end{background:var(--yellow)}
+.ruler{
+  display:flex;justify-content:space-between;
+  margin-top:12px;font-size:10px;color:#BEC5D2;
+}
+.subtitles{
+  background:#F8F2FF;border:1px solid #BB97EE;
+  border-radius:13px;margin-top:16px;padding:15px;
+}
+.cue{
+  display:grid;grid-template-columns:75px 75px minmax(0,1fr);
+  gap:8px;margin:8px 0;
+}
+.cue input{
+  width:100%;min-width:0;padding:9px;border:1px solid #CFC5D9;
+  border-radius:7px;background:white;
+}
+.preview-column{position:sticky;top:15px;align-self:start}
+.preview{
+  background:#0C101C;border:2px solid #1C1C1C;
+  border-radius:20px;overflow:hidden;
+}
+.video-stage{position:relative;aspect-ratio:9/16;background:#0C101C}
+.video-stage video{
+  display:block;width:100%;height:100%;object-fit:contain;
+}
+.preview-pill{
+  position:absolute;left:12px;top:12px;border-radius:20px;
+  background:var(--lilac);color:#1B1522;
+  padding:8px 11px;font-size:10px;font-weight:900;
+  pointer-events:none;
+}
+.ratio{
+  position:absolute;right:12px;top:12px;background:#181A23D9;
+  border-radius:8px;color:white;padding:8px 10px;
+  font-size:11px;pointer-events:none;
+}
+.empty-preview{
+  position:absolute;inset:0;display:grid;place-items:center;
+  text-align:center;color:white;font-weight:950;font-size:27px;
+  background:radial-gradient(circle at 25% 30%,#385079,#080B15 70%);
+  pointer-events:none;
+}
+.empty-preview em{color:var(--yellow);font-style:normal}
+.preview-note{
+  color:var(--muted);font-size:12px;line-height:1.6;
+  margin:12px 6px;
+}
+@media(max-width:1150px){
+  .layout{grid-template-columns:220px minmax(0,1fr)}
+  .preview-column{grid-column:2;position:static}
+  .video-stage{max-height:460px;aspect-ratio:16/9}
+}
+@media(max-width:700px){
+  .layout{display:flex;flex-direction:column;padding:10px}
+  .sidebar{padding:12px}
+  .brand{padding-bottom:15px}
+  .grid2,.grid-results{grid-template-columns:1fr}
+  .video-stage{aspect-ratio:9/16;max-height:550px}
+  .card{padding:15px}
+}
+.layout {
+  max-width: 1800px;
+  grid-template-columns: 245px minmax(0, 1fr) 395px;
+}
+
+.video-stage {
+  aspect-ratio: 9 / 16;
+}
+
+.video-stage video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Creator Studio upgrades */
+
+@media (min-width: 1151px) {
+    .layout {
+        max-width: 1800px;
+        grid-template-columns:
+            245px minmax(0, 1fr) 395px;
+    }
+}
+
+@media (min-width: 701px) and (max-width: 1150px) {
+    .layout {
+        grid-template-columns:
+            220px minmax(0, 1fr);
+    }
+
+    .preview-column {
+        grid-column: 2;
+        position: static;
+    }
+
+    .video-stage {
+        aspect-ratio: 16 / 9;
+        max-height: 460px;
+    }
+}
+
+@media (max-width: 700px) {
+    .layout {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .video-stage {
+        aspect-ratio: 9 / 16;
+        max-height: 550px;
+    }
+}
+
+@media (min-width: 1151px) {
+    .video-stage {
+        aspect-ratio: 9 / 16;
+    }
+}
+
+.video-stage video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.sidebar .download-box {
+    margin-bottom: 14px;
+}
+
+.creator-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-top: 14px;
+    line-height: 1.5;
+    font-size: 12px;
+}
+
+.sidebar-account {
+  margin: 22px 5px 0;
+  padding-top: 18px;
+  border-top: 1px solid #f0e0d4;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.sidebar-account strong {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #9a8172;
+}
+
+.sidebar-account .btn {
+  width: 100%;
+  border-radius: 12px;
+  padding: 13px 10px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.sidebar-account #googleSignIn {
+  background: linear-gradient(
+    105deg,
+    #ffab37,
+    #ff7610
+  );
+  color: white;
+  border: none;
+  box-shadow: 0 5px 14px #ff963b45;
+}
+
+
+.creator-checkbox input {
+    margin-top: 3px;
+    accent-color: #8353E8;
+}
+
+</style>
+</head>
+
+<body>
+<div class="layout">
+  <!-- LEFT SIDEBAR: ALL DOWNLOAD CONTROLS HERE -->
+  <aside class="sidebar">
+    <div class="brand">Shorts AI <span>✦</span></div>
+
+    <nav>
+      <button id="navCreate" class="nav active">
+        <i>✚</i> Create
+      </button>
+      <button id="navHighlights" class="nav">
+        <i>▣</i> My Highlights
+      </button>
+      <button id="navDownloads" class="nav">
+        <i>↓</i> Downloads
+      </button>
+    </nav>
+
+    <div class="sidebar-heading">DOWNLOAD STUDIO</div>
+
+    <div class="download-box">
+      <h3>↓ Export & Download</h3>
+
+      <label for="quality">Output quality</label>
+      <select id="quality" class="input">
+        <option value="fast">Fast render</option>
+        <option value="quality">High quality</option>
+      </select>
+
+      <p class="muted">
+        Select quality before generating your Shorts.
+      </p>
+
+      <div id="downloadName" class="muted">
+        No Short selected.
+      </div>
+
+      <a id="downloadLink" class="download-link" hidden>
+        ↓ Download MP4
+      </a>
+
+      <button id="rerender" class="btn small lilac"
+              style="width:100%;margin-top:11px" hidden>
+        Render with Selected Quality
+      </button>
+
+      <div id="downloadStatus" class="status"></div>
+    </div>
+
+
+    <!-- SEPARATE MP3 STUDIO -->
+    <div class="sidebar-heading">MP3 STUDIO</div>
+
+    <div class="download-box">
+      <h3>♫ Audio Export</h3>
+
+      <p class="muted">
+        Extract MP3 audio from your selected Short.
+        This is separate from MP4 Downloads.
+      </p>
+
+      <button
+        id="exportMP3"
+        class="btn small lilac"
+        style="width:100%"
+        type="button"
+      >
+        ♫ Export Selected MP3
+      </button>
+
+      <div id="mp3Status" class="status" role="status"></div>
+    </div>
+
+    <!-- SEPARATE YOUTUBE STUDIO -->
+    <div class="sidebar-heading">YOUTUBE STUDIO</div>
+
+    <div class="download-box">
+      <h3>▶ YouTube Upload</h3>
+
+      <p id="youtubeConnection" class="muted">
+        Checking YouTube connection...
+      </p>
+
+      <label for="youtubeAudience">Video audience</label>
+
+      <select id="youtubeAudience" class="input">
+        <option value="">Select audience</option>
+        <option value="no">Not made for kids</option>
+        <option value="yes">Made for kids</option>
+      </select>
+
+      <p class="muted">
+        Uploads will initially be Private.
+        Select the appropriate audience.
+      </p>
+
+      <button
+        id="uploadSelectedYouTube"
+        class="btn orange"
+        style="width:100%;margin-top:10px"
+        type="button"
+      >
+        ▶ Upload Selected Short
+      </button>
+
+      <label class="creator-checkbox">
+        <input type="checkbox" id="autoYoutube">
+        <span>
+          Automatically upload newly generated
+          Shorts to my connected YouTube channel
+          as Private videos.
+        </span>
+      </label>
+
+      <div id="youtubeStatus"
+           class="status"
+           role="status"></div>
+    </div>
+
+    <div class="sidebar-note">
+      <strong>✦ Current project</strong>
+      <p id="currentProject">No video selected</p>
+      <strong style="margin-top:15px">Your workflow</strong>
+      <p>① Process Video</p>
+      <p>② Manual or AI</p>
+      <p>③ Edit if needed</p>
+      <p>④ Generate Shorts</p>
+      <p>⑤ Download</p>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <h1>Big ideas. Short videos.</h1>
+    <p class="tagline">Make your next short with AI.</p>
+
+    <div id="createPage">
+      <section id="inputSection" class="card">
+        <div class="step">01 / INPUT</div>
+
+        <div class="grid2">
+          <label class="upload" for="videoFile">
+            <span style="font-size:26px">↥</span>
+            <strong>Upload video</strong>
+            <span class="muted">Choose an MP4, up to 200 MB</span>
+            <input id="videoFile" type="file"
+                   accept=".mp4,video/mp4" hidden>
+            <div id="fileName" class="muted"></div>
+          </label>
+
+          <div>
+            <label for="videoUrl">Or paste a video URL</label>
+            <input id="videoUrl" class="input"
+                   style="margin-top:10px"
+                   placeholder="https://youtube.com/...">
+            <p class="muted">
+              Use a supported video URL that you have
+              permission to import.
+            </p>
+          </div>
+        </div>
+
+        <button id="processVideo" class="primary">
+          Process Video →
+        </button>
+
+        <div id="processStatus" class="status" role="status"></div>
+        <div id="processed" class="success" hidden>
+          ✓ Processing done — choose a highlight method
+        </div>
+      </section>
+
+      <section id="choiceSection" class="card" hidden>
+        <div class="step">02 / CHOOSE YOUR METHOD</div>
+
+        <div class="grid2">
+          <button id="chooseManual" class="choice">
+            <div class="emoji">✂</div>
+            <strong>Manual Highlight Selection</strong>
+            <small>Open the timeline and select your own moments</small>
+          </button>
+
+          <button id="chooseAI" class="choice">
+            <div class="emoji">✦</div>
+            <strong>AI Highlight Selection</strong>
+            <small>Let Gemini find and generate your Shorts</small>
+          </button>
+        </div>
+      </section>
+
+      <!-- AI RESULTS: TIMELINE IS NOT SHOWN HERE -->
+      <section id="aiResults" class="card" hidden>
+        <div class="step">03 / AI SHORTS</div>
+        <h2>AI Shorts Generated ✨</h2>
+
+        <p class="muted">
+          Your Shorts are ready. Preview and download them,
+          or choose Edit AI Shorts if you want to make changes.
+        </p>
+
+        <div id="aiOutputList" class="grid-results"></div>
+
+        <div class="row" style="margin-top:16px">
+          <button id="editAI" class="btn lilac">
+            ✎ Edit AI Shorts
+          </button>
+          <button id="regenerateAI" class="btn">
+            ✦ Regenerate AI Shorts
+          </button>
+        </div>
+
+        <div id="aiStatus" class="status"></div>
+      </section>
+
+      <!-- EDITOR: MANUAL AUTOMATICALLY, AI ONLY ON REQUEST -->
+      <section id="editorSection" class="card" hidden>
+        <div class="step" id="editorStep">03 / EDITING STUDIO</div>
+
+        <div class="row between">
+          <strong id="editorTitle">Highlight Editor</strong>
+
+          <button id="editSubtitles" class="btn small lilac">
+            CC Edit Subtitles
+          </button>
+        </div>
+
+        <p id="editorHint" class="muted"></p>
+
+        <div class="film-panel">
+          <div class="film-caption">
+            <span id="timelineTime">00:00 / 00:00</span>
+            <span>Drag handles or scrub through the video</span>
+          </div>
+
+          <div class="film" id="film">
+            <div id="frames" class="frames"></div>
+            <div id="aiMarkers"></div>
+            <div id="selection" class="selection"></div>
+            <div id="scrubber" class="scrubber"></div>
+            <div id="playhead" class="playhead"></div>
+            <div id="startHandle" class="handle"></div>
+            <div id="endHandle" class="handle"></div>
+            <div id="startStamp" class="stamp">00:00</div>
+            <div id="endStamp" class="stamp end">00:30</div>
+          </div>
+
+          <div id="ruler" class="ruler">
+            <span>00:00</span><span>00:00</span>
+            <span>00:00</span><span>00:00</span>
+            <span>00:00</span>
+          </div>
+        </div>
+
+        <p id="rangeText" class="muted"></p>
+
+        <!-- MANUAL: NO SAVE HIGHLIGHT BUTTON -->
+        <div id="manualTools" class="editor-tools" hidden>
+          <button id="previewManual" class="btn small">
+            ▶ Preview
+          </button>
+          <button id="addSegment" class="btn small lilac">
+            + Add Another Segment
+          </button>
+          <button id="removeSegment" class="btn small">
+            Remove Segment
+          </button>
+        </div>
+
+        <!-- AI: ONLY AVAILABLE INSIDE OPTIONAL EDITOR -->
+        <div id="aiTools" class="editor-tools" hidden>
+          <button id="previewAI" class="btn small">
+            ▶ Preview
+          </button>
+          <button id="undoAI" class="btn small">
+            ↶ Undo
+          </button>
+          <button id="redoAI" class="btn small">
+            ↷ Redo
+          </button>
+          <button id="saveAITrim" class="btn small lilac">
+            Apply AI Trim
+          </button>
+          <button id="backToAI" class="btn small">
+            ← Back to AI Shorts
+          </button>
+        </div>
+
+        <div id="segmentList"></div>
+
+        <!-- SUBTITLES NEVER OPEN BY DEFAULT -->
+        <section id="subtitlePanel" class="subtitles" hidden>
+          <div class="row between">
+            <strong>Subtitle Editor</strong>
+            <button id="closeSubtitles" class="btn small">
+              Close
+            </button>
+          </div>
+
+          <p class="muted">
+            Edit caption text and timing for the selected Short.
+          </p>
+
+          <div id="subtitleRows"></div>
+
+          <div class="row" style="margin-top:12px">
+            <button id="saveSubtitles" class="btn small lilac">
+              Save Subtitles
+            </button>
+            <button id="addCaption" class="btn small">
+              + Add Caption
+            </button>
+          </div>
+
+          <div id="subtitleStatus" class="status"></div>
+        </section>
+
+        <button id="done" class="primary">
+          Done and Proceed →
+        </button>
+
+        <div id="editStatus" class="status"></div>
+      </section>
+
+      <!-- MANUAL OUTPUTS AFTER DONE -->
+      <section id="outputSection" class="card" hidden>
+        <div class="step">04 / SHORTS READY</div>
+        <h2>Your Shorts are ready ✨</h2>
+
+        <p class="muted">
+          Click Preview on any Short. The selected video
+          appears in the right column, and its Download
+          button appears on the left.
+        </p>
+
+        <div id="outputList" class="grid-results"></div>
+      </section>
+    </div>
+
+    <section id="libraryPage" class="card" hidden>
+      <div class="step">MY HIGHLIGHTS</div>
+      <h2>Generated Highlights</h2>
+      <p class="muted">
+        Choose any saved Short to preview it on the right.
+      </p>
+      <div id="libraryList" class="grid-results"></div>
+      <div id="libraryStatus" class="status"></div>
+    </section>
+
+    <section id="downloadsPage" class="card" hidden>
+      <div class="step">DOWNLOADS</div>
+      <h2>Download Your Shorts</h2>
+      <p class="muted">
+        Select a generated Short, then use the Download Studio
+        in the left sidebar.
+      </p>
+      <div id="downloadsList" class="grid-results"></div>
+      <div id="downloadsPageStatus" class="status"></div>
+    </section>
+  </main>
+
+  <!-- RIGHT: VIDEO PREVIEW ONLY -->
+  <aside class="preview-column">
+    <div class="preview">
+      <div class="video-stage">
+        <video id="player" controls playsinline
+               preload="metadata"></video>
+
+        <div id="emptyPreview" class="empty-preview">
+          <div>BIG IDEAS.<br><em>SHORT VIDEOS.</em></div>
+        </div>
+
+        <div class="preview-pill">● LIVE PREVIEW</div>
+        <div class="ratio">9:16</div>
+      </div>
+    </div>
+
+    <p class="preview-note">
+      Preview your original video, selected timeline range,
+      or generated Short here.
+    </p>
+  </aside>
+</div>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+const player = $("player");
+
+const state = {
+  page: "create",
+  stage: "input",
+  filename: null,
+  duration: 0,
+  mode: null,
+  ai: [],
+  manual: [],
+  active: 0,
+  draft: {start: 0, end: 30},
+  outputs: [],
+  selectedOutput: null,
+  currentSource: null,
+  previewEnd: null,
+  subtitleDoc: null,
+  subtitleUrl: null,
+  subtitleDirty: false,
+  history: [],
+  future: [],
+  busy: false,
+  generationId: 0,
+  frameJob: 0
+};
+
+const CLIP_NAME =
+  /^[a-f0-9]{32}_clip_\d+(?:_(?:fast|quality))?\.mp4$/;
+
+function time(value) {
+  value = Math.max(0, Math.floor(Number(value) || 0));
+  return String(Math.floor(value / 60)).padStart(2,"0") +
+    ":" + String(value % 60).padStart(2,"0");
+}
+
+function message(id, text, type = "") {
+  $(id).className = "status" + (type ? " " + type : "");
+  $(id).textContent = text;
+}
+
+function requestOptions(method, body) {
+  return {
+    method,
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(body)
+  };
+}
+
+async function api(url, options = {}) {
+  const response = await fetch(url, options);
+  const raw = await response.text();
+
+  let data;
+  try {
+    data = JSON.parse(raw);
+  } catch {
+    data = {detail: raw};
+  }
+
+  if (!response.ok) {
+    const detail = typeof data.detail === "string"
+      ? data.detail : JSON.stringify(data.detail || data);
+
+    throw new Error(detail || "Request failed");
+  }
+
+  return data;
+}
+
+function safeClipURL(clip) {
+  const filename = clip && clip.filename;
+
+  if (!CLIP_NAME.test(filename || "")) return null;
+
+  return "/clips/" + encodeURIComponent(filename);
+}
+
+function originalURL() {
+  return "/videos/" + encodeURIComponent(state.filename);
+}
+
+function activeClips() {
+  return state.mode === "manual" ? state.manual : state.ai;
+}
+
+function valid(a, b) {
+  return Number.isFinite(a) &&
+    Number.isFinite(b) &&
+    a >= 0 && a < b &&
+    b <= state.duration + .05 &&
+    b-a <= 60.05;
+}
+
+function createButton(text, className, onClick) {
+  const button = document.createElement("button");
+  button.textContent = text;
+  button.className = className;
+  button.onclick = onClick;
+  return button;
+}
+
+function showPage(page) {
+  state.page = page;
+
+  $("createPage").hidden = page !== "create";
+  $("libraryPage").hidden = page !== "library";
+  $("downloadsPage").hidden = page !== "downloads";
+
+  for (const [id, name] of [
+    ["navCreate", "create"],
+    ["navHighlights", "library"],
+    ["navDownloads", "downloads"]
+  ]) {
+    $(id).classList.toggle("active", page === name);
+  }
+
+  drawStage();
+}
+
+function drawStage() {
+  const create = state.page === "create";
+
+  $("choiceSection").hidden =
+    !create || !state.filename;
+
+  $("processed").hidden =
+    !create || !state.filename;
+
+  $("aiResults").hidden =
+    !create || state.stage !== "ai-results";
+
+  $("editorSection").hidden =
+    !create ||
+    !["manual-editor", "ai-editor"].includes(state.stage);
+
+  $("outputSection").hidden =
+    !create || state.stage !== "output";
+
+  $("manualTools").hidden =
+    state.stage !== "manual-editor";
+
+  $("aiTools").hidden =
+    state.stage !== "ai-editor";
+
+  $("done").textContent =
+    state.stage === "ai-editor"
+      ? "Regenerate Edited Shorts →"
+      : "Done and Proceed →";
+}
+
+function clearSubtitles() {
+  $("subtitlePanel").hidden = true;
+  $("subtitleRows").replaceChildren();
+  state.subtitleDoc = null;
+  state.subtitleUrl = null;
+  state.subtitleDirty = false;
+}
+
+function selectedRange() {
+  const clip = activeClips()[state.active];
+
+  if (clip) {
+    state.draft = {
+      start: Number(clip.start),
+      end: Number(clip.end)
+    };
+  } else {
+    state.draft = {
+      start: 0,
+      end: Math.min(state.duration, 30)
+    };
+  }
+
+  state.history = [];
+  state.future = [];
+  updateUndo();
+  paintTimeline();
+}
+
+function updateUndo() {
+  $("undoAI").disabled = !state.history.length;
+  $("redoAI").disabled = !state.future.length;
+}
+
+/* VIDEO PREVIEW */
+
+async function useVideo(url) {
+  if (state.currentSource === url && player.readyState >= 1) {
+    return;
+  }
+
+  player.pause();
+  state.previewEnd = null;
+
+  await new Promise((resolve, reject) => {
+    let finished = false;
+
+    const finish = error => {
+      if (finished) return;
+      finished = true;
+
+      clearTimeout(timeout);
+      player.removeEventListener("loadedmetadata", onLoad);
+      player.removeEventListener("error", onError);
+
+      if (error) reject(error);
+      else resolve();
+    };
+
+    const onLoad = () => finish();
+    const onError = () =>
+      finish(new Error("Video preview could not load."));
+
+    const timeout = setTimeout(
+      () => finish(new Error("Video loading timed out.")),
+      15000
+    );
+
+    player.addEventListener("loadedmetadata", onLoad);
+    player.addEventListener("error", onError);
+
+    player.src = url;
+    player.load();
+  });
+
+  state.currentSource = url;
+  $("emptyPreview").hidden = true;
+}
+
+async function previewRange(start, end) {
+  if (!valid(start, end)) {
+    throw new Error("Select a valid range up to 60 seconds.");
+  }
+
+  await useVideo(originalURL());
+
+  player.pause();
+  player.currentTime = start;
+  state.previewEnd = end;
+
+  await player.play();
+}
+
+player.addEventListener("timeupdate", () => {
+  if (
+    state.previewEnd !== null &&
+    player.currentTime >= state.previewEnd
+  ) {
+    player.pause();
+    state.previewEnd = null;
+  }
+
+  paintTimeline();
+});
+
+function selectDownload(clip) {
+  const url = safeClipURL(clip);
+
+  if (!url) {
+    message("downloadStatus", "Invalid clip filename.", "error");
+    return;
+  }
+
+  state.selectedOutput = clip;
+
+  $("downloadName").textContent =
+    clip.title || clip.filename;
+
+  $("downloadLink").href =
+    "/creator/download/" +
+    encodeURIComponent(clip.filename);
+  $("downloadLink").download = clip.filename;
+  $("downloadLink").hidden = false;
+
+  // The right column previews the selected Short.
+  useVideo(url).then(() => {
+    player.play().catch(() => {});
+  }).catch(error => {
+    message("downloadStatus", error.message, "error");
+  });
+
+  message(
+    "downloadStatus",
+    "Short selected. Use Download MP4.",
+    "success"
+  );
+}
+
+function resetDownload() {
+  state.selectedOutput = null;
+
+  $("downloadLink").hidden = true;
+  $("downloadLink").removeAttribute("href");
+  $("downloadName").textContent = "No Short selected.";
+  $("rerender").hidden = true;
+
+  message("downloadStatus", "");
+}
+
+/* INPUT AND PROCESS VIDEO */
+
+$("videoFile").onchange = () => {
+  $("fileName").textContent =
+    $("videoFile").files[0]?.name || "";
+};
+
+$("processVideo").onclick = async () => {
+  const file = $("videoFile").files[0];
+  const url = $("videoUrl").value.trim();
+
+  if (!file && !url) {
+    message(
+      "processStatus",
+      "Upload a video or paste a supported URL.",
+      "error"
+    );
+    return;
+  }
+
+  $("processVideo").disabled = true;
+  message("processStatus", "Preparing your video...");
+
+  try {
+    let data;
+
+    if (file) {
+      if (!file.name.toLowerCase().endsWith(".mp4")) {
+        throw new Error("Choose an MP4 video.");
+      }
+
+      if (file.size > 200*1024*1024) {
+        throw new Error("Video must be under 200 MB.");
+      }
+
+      const form = new FormData();
+      form.append("file", file);
+
+      data = await api("/upload", {
+        method: "POST",
+        body: form
+      });
+    } else {
+      data = await api(
+        "/workflow/ingest-url",
+        requestOptions("POST", {url})
+      );
+    }
+
+    if (!data.filename) {
+      throw new Error("The server did not return a video filename.");
+    }
+
+    state.filename = data.filename;
+    state.currentSource = null;
+
+    await useVideo(originalURL());
+
+    if (
+      !Number.isFinite(player.duration) ||
+      player.duration <= 0
+    ) {
+      throw new Error("Could not read the video duration.");
+    }
+
+    state.duration = player.duration;
+    state.mode = null;
+    state.ai = [];
+    state.manual = [];
+    state.outputs = [];
+    state.active = 0;
+    state.draft = {
+      start: 0,
+      end: Math.min(30, state.duration)
+    };
+    state.stage = "choose";
+    state.generationId++;
+
+    $("currentProject").textContent =
+      file?.name || "Imported video";
+
+    resetDownload();
+    clearSubtitles();
+    drawStage();
+    makeFilmFrames();
+
+    message(
+      "processStatus",
+      "Video ready. Choose Manual or AI Selection.",
+      "success"
+    );
+
+  } catch (error) {
+    state.filename = null;
+    state.stage = "input";
+
+    $("processed").hidden = true;
+    drawStage();
+
+    message("processStatus", error.message, "error");
+  } finally {
+    $("processVideo").disabled = false;
+  }
+};
+
+/* GENERATION */
+
+async function renderShorts(mode) {
+  const data = await api(
+    "/workflow/render/" +
+      encodeURIComponent(state.filename),
+    requestOptions("POST", {
+      selection_mode: mode,
+      quality: $("quality").value
+    })
+  );
+
+  if (!Array.isArray(data.clips) || !data.clips.length) {
+    throw new Error("No generated Shorts were returned.");
+  }
+
+  state.outputs = data.clips;
+
+  // Optional, explicitly enabled private YouTube upload.
+  // Never interrupt video generation if YouTube fails.
+  if ($("autoYoutube").checked) {
+    void autoUploadGeneratedShorts(data.clips);
+  }
+  $("rerender").hidden = false;
+
+  return data.clips;
+}
+
+async function startAI(force = false) {
+  if (!state.filename || state.busy) return;
+
+  state.busy = true;
+  const ticket = ++state.generationId;
+
+  state.mode = "ai";
+  state.stage = "ai-results";
+  clearSubtitles();
+  drawStage();
+
+  $("aiOutputList").replaceChildren();
+
+  message(
+    "aiStatus",
+    force
+      ? "Regenerating AI highlights and Shorts..."
+      : "Gemini is finding highlights and creating Shorts..."
+  );
+
+  $("chooseAI").disabled = true;
+  $("regenerateAI").disabled = true;
+
+  try {
+    const result = await api(
+      "/creator/analyze/" +
+        encodeURIComponent(state.filename) +
+        (force ? "?force=true" : ""),
+      {method: "POST"}
+    );
+
+    if (ticket !== state.generationId) return;
+
+    const highlights = result.highlights || [];
+
+    if (!highlights.length) {
+      throw new Error("Gemini returned no highlights.");
+    }
+
+    state.ai = highlights;
+    state.active = 0;
+
+    const outputs = await renderShorts("ai");
+
+    if (ticket !== state.generationId) return;
+
+    showGenerated($("aiOutputList"), outputs);
+    selectDownload(outputs[0]);
+
+    message(
+      "aiStatus",
+      `${outputs.length} AI Shorts generated. ` +
+      "Editing is optional.",
+      "success"
+    );
+
+  } catch (error) {
+    message("aiStatus", error.message, "error");
+  } finally {
+    state.busy = false;
+    $("chooseAI").disabled = false;
+    $("regenerateAI").disabled = false;
+  }
+}
+
+$("chooseAI").onclick = () => startAI();
+$("regenerateAI").onclick = () => {
+  if (confirm("Replace AI suggestions and regenerate Shorts?")) {
+    startAI(true);
+  }
+};
+
+/* AI RESULTS FIRST — EDITOR ONLY AFTER CLICK */
+
+$("editAI").onclick = () => openAIEditor(0);
+
+function openAIEditor(index) {
+  if (!state.ai.length) return;
+
+  state.mode = "ai";
+  state.active = index;
+  state.stage = "ai-editor";
+
+  $("editorTitle").textContent = "Edit AI Shorts";
+  $("editorHint").textContent =
+    "Adjust Gemini's selections only if needed. " +
+    "Apply a trim, then regenerate the edited Shorts.";
+
+  clearSubtitles();
+  selectedRange();
+  drawSegments();
+  drawStage();
+
+  useVideo(originalURL()).catch(error => {
+    message("editStatus", error.message, "error");
+  });
+}
+
+$("backToAI").onclick = () => {
+  if (state.subtitleDirty) {
+    if (!confirm("Discard unsaved subtitle changes?")) return;
+  }
+
+  clearSubtitles();
+
+  state.stage = "ai-results";
+  drawStage();
+  showGenerated($("aiOutputList"), state.outputs);
+};
+
+/* MANUAL: NO SAVE HIGHLIGHT BUTTON */
+
+$("chooseManual").onclick = () => {
+  if (!state.filename) return;
+
+  state.mode = "manual";
+  state.stage = "manual-editor";
+  state.active = 0;
+
+  if (!state.manual.length) {
+    state.manual = [{
+      start: 0,
+      end: Math.min(30, state.duration),
+      title: "Manual Short 1"
+    }];
+  }
+
+  $("editorTitle").textContent = "Manual Editing Studio";
+  $("editorHint").textContent =
+    "Drag the handles to select your moments. " +
+    "No Save Highlight button is needed.";
+
+  clearSubtitles();
+  selectedRange();
+  drawSegments();
+  drawStage();
+
+  useVideo(originalURL()).catch(error => {
+    message("editStatus", error.message, "error");
+  });
+};
+
+function findGap() {
+  const ordered = [...state.manual].sort(
+    (a,b) => a.start-b.start
+  );
+
+  let cursor = 0;
+
+  for (const clip of ordered) {
+    if (clip.start-cursor >= .2) {
+      return {
+        start: cursor,
+        end: Math.min(cursor+30, clip.start)
+      };
+    }
+    cursor = Math.max(cursor, clip.end);
+  }
+
+  if (state.duration-cursor >= .2) {
+    return {
+      start: cursor,
+      end: Math.min(cursor+30, state.duration)
+    };
+  }
+
+  return null;
+}
+
+$("addSegment").onclick = () => {
+  if (state.manual.length >= 6) {
+    message("editStatus", "Maximum six segments.", "error");
+    return;
+  }
+
+  const gap = findGap();
+
+  if (!gap) {
+    message(
+      "editStatus",
+      "There is no unused video section available.",
+      "error"
+    );
+    return;
+  }
+
+  state.manual.push({
+    ...gap,
+    title: `Manual Short ${state.manual.length+1}`
+  });
+
+  state.active = state.manual.length-1;
+
+  clearSubtitles();
+  selectedRange();
+  drawSegments();
+};
+
+$("removeSegment").onclick = () => {
+  if (state.manual.length <= 1) {
+    message(
+      "editStatus",
+      "At least one segment is required.",
+      "error"
+    );
+    return;
+  }
+
+  state.manual.splice(state.active, 1);
+  state.active = 0;
+
+  clearSubtitles();
+  selectedRange();
+  drawSegments();
+};
+
+/* FILMSTRIP AND DRAGGABLE TIMELINE */
+
+function percent(value) {
+  return state.duration
+    ? value/state.duration*100
+    : 0;
+}
+
+function position(event) {
+  const bounds = $("film").getBoundingClientRect();
+
+  return Math.max(0, Math.min(
+    1,
+    (event.clientX-bounds.left)/bounds.width
+  ));
+}
+
+function paintTimeline() {
+  if (
+    !state.duration ||
+    !["manual-editor","ai-editor"].includes(state.stage)
+  ) return;
+
+  const {start,end} = state.draft;
+
+  $("selection").style.left = percent(start)+"%";
+  $("selection").style.width = percent(end-start)+"%";
+
+  $("startHandle").style.left =
+    `calc(${percent(start)}% - 8px)`;
+
+  $("endHandle").style.left =
+    `calc(${percent(end)}% - 8px)`;
+
+  $("startStamp").style.left =
+    `clamp(28px, ${percent(start)}%, calc(100% - 28px))`;
+
+  $("endStamp").style.left =
+    `clamp(28px, ${percent(end)}%, calc(100% - 28px))`;
+
+  $("startStamp").textContent = time(start);
+  $("endStamp").textContent = time(end);
+
+  $("playhead").style.left =
+    percent(player.currentTime || 0)+"%";
+
+  $("rangeText").textContent =
+    time(start) + " – " + time(end) +
+    " • " + (end-start).toFixed(1) + " seconds";
+
+  $("timelineTime").textContent =
+    time(player.currentTime || 0) +
+    " / " + time(state.duration);
+
+  const ticks = $("ruler").children;
+
+  for (let i=0;i<ticks.length;i++) {
+    ticks[i].textContent = time(
+      state.duration*i/(ticks.length-1)
+    );
+  }
+
+  $("aiMarkers").replaceChildren();
+
+  if (state.mode === "ai") {
+    for (const clip of state.ai) {
+      const marker = document.createElement("div");
+      marker.className = "ai-marker";
+      marker.style.left = percent(clip.start)+"%";
+      marker.style.width =
+        percent(clip.end-clip.start)+"%";
+
+      $("aiMarkers").append(marker);
+    }
+  }
+}
+
+function updateDraft(side, value) {
+  if (!state.duration) return;
+
+  let {start,end} = state.draft;
+
+  if (side === "start") {
+    start = Math.max(0, Math.min(value, end-.1));
+  } else {
+    end = Math.min(
+      state.duration,
+      Math.max(value, start+.1)
+    );
+  }
+
+  if (end-start > 60) {
+    if (side === "start") end = start+60;
+    else start = end-60;
+  }
+
+  const candidate = {
+    start: Number(start.toFixed(2)),
+    end: Number(end.toFixed(2))
+  };
+
+  if (!valid(candidate.start, candidate.end)) return;
+
+  if (state.mode === "manual") {
+    const overlap = state.manual.some(
+      (clip,i) => i !== state.active &&
+      candidate.start < clip.end &&
+      candidate.end > clip.start
+    );
+
+    if (overlap) return;
+
+    // Update the selection automatically in memory.
+    Object.assign(state.manual[state.active], candidate);
+  }
+
+  state.draft = candidate;
+  paintTimeline();
+  drawSegments();
+}
+
+for (const [id,side] of [
+  ["startHandle","start"],
+  ["endHandle","end"]
+]) {
+  $(id).addEventListener("pointerdown", event => {
+    if (state.subtitleDirty || !$("subtitlePanel").hidden) {
+      message(
+        "editStatus",
+        "Save and close subtitles before adjusting timing.",
+        "error"
+      );
+      return;
+    }
+
+    if (!activeClips()[state.active]) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const handle = $(id);
+    handle.setPointerCapture(event.pointerId);
+
+    player.pause();
+
+    const before = {...state.draft};
+
+    const move = e => {
+      updateDraft(side, position(e)*state.duration);
+    };
+
+    const finish = () => {
+      handle.removeEventListener("pointermove", move);
+      handle.removeEventListener("pointerup", finish);
+      handle.removeEventListener("pointercancel", finish);
+
+      if (
+        state.mode === "ai" &&
+        (before.start !== state.draft.start ||
+         before.end !== state.draft.end)
+      ) {
+        state.history.push(before);
+        state.future = [];
+        updateUndo();
+      }
+    };
+
+    handle.addEventListener("pointermove", move);
+    handle.addEventListener("pointerup", finish);
+    handle.addEventListener("pointercancel", finish);
+  });
+}
+
+$("scrubber").addEventListener("pointerdown", event => {
+  if (!state.duration) return;
+
+  const surface = $("scrubber");
+  surface.setPointerCapture(event.pointerId);
+  player.pause();
+
+  let lastPosition = position(event)*state.duration;
+  let lastSeekAt = 0;
+
+  const move = e => {
+    lastPosition = position(e)*state.duration;
+
+    $("playhead").style.left =
+      percent(lastPosition)+"%";
+
+    if (performance.now()-lastSeekAt > 70) {
+      lastSeekAt = performance.now();
+
+      useVideo(originalURL()).then(() => {
+        player.currentTime = lastPosition;
+      }).catch(() => {});
+    }
+  };
+
+  const finish = () => {
+    surface.removeEventListener("pointermove", move);
+    surface.removeEventListener("pointerup", finish);
+    surface.removeEventListener("pointercancel", finish);
+
+    useVideo(originalURL()).then(() => {
+      player.currentTime = lastPosition;
+    }).catch(() => {});
+  };
+
+  move(event);
+
+  surface.addEventListener("pointermove", move);
+  surface.addEventListener("pointerup", finish);
+  surface.addEventListener("pointercancel", finish);
+});
+
+function drawSegments() {
+  const list = $("segmentList");
+  list.replaceChildren();
+
+  activeClips().forEach((clip,index) => {
+    const row = document.createElement("div");
+    row.className = "result" +
+      (index === state.active ? " active" : "");
+
+    const info = document.createElement("div");
+
+    const title = document.createElement("strong");
+    title.textContent = clip.title || `Short ${index+1}`;
+
+    const timing = document.createElement("p");
+    timing.textContent =
+      time(clip.start) + " – " + time(clip.end);
+
+    info.append(title, timing);
+
+    const select = createButton(
+      "Select & Preview",
+      "btn small lilac",
+      async () => {
+        state.active = index;
+        clearSubtitles();
+        selectedRange();
+        drawSegments();
+
+        try {
+          await previewRange(clip.start, clip.end);
+        } catch (error) {
+          message("editStatus", error.message, "error");
+        }
+      }
+    );
+
+    row.append(info, select);
+    list.append(row);
+  });
+}
+
+$("previewManual").onclick =
+$("previewAI").onclick = async () => {
+  try {
+    await previewRange(
+      state.draft.start,
+      state.draft.end
+    );
+  } catch (error) {
+    message("editStatus", error.message, "error");
+  }
+};
+
+/* REAL FRAME THUMBNAILS */
+
+async function makeFilmFrames() {
+  const job = ++state.frameJob;
+  const source = originalURL();
+
+  $("frames").replaceChildren();
+
+  const video = document.createElement("video");
+  video.muted = true;
+  video.playsInline = true;
+  video.preload = "auto";
+
+  try {
+    await new Promise((resolve,reject) => {
+      const timer = setTimeout(
+        () => reject(new Error("Frame source timeout")),12000
+      );
+
+      video.onloadedmetadata = () => {
+        clearTimeout(timer); resolve();
+      };
+
+      video.onerror = () => {
+        clearTimeout(timer);
+        reject(new Error("Cannot load frame source."));
+      };
+
+      video.src = source;
+      video.load();
+    });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = 144;
+    canvas.height = 81;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    for (let i=0;i<12;i++) {
+      if (job !== state.frameJob) break;
+
+      const frame = document.createElement("div");
+      frame.className = "frame";
+      $("frames").append(frame);
+
+      const target = Math.min(
+        Math.max(0,video.duration-.05),
+        video.duration*(i+.5)/12
+      );
+
+      try {
+        await new Promise((resolve,reject) => {
+          const timer = setTimeout(
+            () => reject(new Error("Frame seek timeout")),
+            3500
+          );
+
+          video.onseeked = () => {
+            clearTimeout(timer);
+            resolve();
+          };
+
+          video.currentTime = target;
+        });
+
+        ctx.drawImage(video,0,0,144,81);
+
+        const image = document.createElement("img");
+        image.src = canvas.toDataURL("image/jpeg",.7);
+        image.alt = "Frame at " + time(target);
+
+        frame.append(image);
+      } catch {
+        // Keep a neutral frame when seeking is unavailable.
+      }
+    }
+  } catch {
+    // Timeline controls remain usable without thumbnails.
+  } finally {
+    video.removeAttribute("src");
+    video.load();
+  }
+}
+
+/* AI TRIM — UNDO, REDO, APPLY */
+
+$("undoAI").onclick = () => {
+  if (!state.history.length) return;
+
+  state.future.push({...state.draft});
+  state.draft = state.history.pop();
+
+  updateUndo();
+  paintTimeline();
+};
+
+$("redoAI").onclick = () => {
+  if (!state.future.length) return;
+
+  state.history.push({...state.draft});
+  state.draft = state.future.pop();
+
+  updateUndo();
+  paintTimeline();
+};
+
+$("saveAITrim").onclick = async () => {
+  if (state.active < 0 || !valid(
+    state.draft.start,state.draft.end
+  )) return;
+
+  try {
+    const data = await api(
+      "/update-highlight/" +
+        encodeURIComponent(state.filename) +
+        "/" + state.active,
+      requestOptions("POST", state.draft)
+    );
+
+    state.ai[state.active] = data.highlight;
+
+    clearSubtitles();
+    selectedRange();
+    drawSegments();
+
+    message(
+      "editStatus",
+      "AI trim applied. Regenerate Edited Shorts " +
+      "to create the updated MP4.",
+      "success"
+    );
+  } catch (error) {
+    message("editStatus",error.message,"error");
+  }
+};
+
+/* MANUAL BACKEND SYNC — NEVER A SAVE BUTTON */
+
+async function syncManual() {
+  if (!state.manual.length) {
+    throw new Error("Choose at least one manual segment.");
+  }
+
+  const ordered = [...state.manual].sort(
+    (a,b) => a.start-b.start
+  );
+
+  for (let i=0;i<ordered.length;i++) {
+    const clip = ordered[i];
+
+    if (!valid(clip.start,clip.end)) {
+      throw new Error("Each segment must be 0.1–60 seconds.");
+    }
+
+    if (
+      i > 0 &&
+      ordered[i-1].end > clip.start
+    ) {
+      throw new Error("Manual segments cannot overlap.");
+    }
+  }
+
+  // Preserve the active segment even after sorting.
+  const current = state.manual[state.active];
+  state.active = ordered.indexOf(current);
+  state.manual = ordered;
+
+  await api(
+    "/workflow/manual/" +
+      encodeURIComponent(state.filename) +
+      "/selections",
+    requestOptions("POST", {
+      highlights: ordered
+    })
+  );
+}
+
+/* SUBTITLES — OPEN ONLY WHEN USER CLICKS */
+
+$("editSubtitles").onclick = async () => {
+  if (!$("subtitlePanel").hidden) {
+    clearSubtitles();
+    return;
+  }
+
+  if (!activeClips()[state.active]) {
+    message(
+      "editStatus",
+      "Select a highlight first.",
+      "error"
+    );
+    return;
+  }
+
+  $("subtitlePanel").hidden = false;
+  message("subtitleStatus","Loading captions...");
+
+  try {
+    if (state.mode === "manual") {
+      await syncManual();
+    } else {
+      const saved = state.ai[state.active];
+
+      if (
+        Math.abs(saved.start-state.draft.start)>.01 ||
+        Math.abs(saved.end-state.draft.end)>.01
+      ) {
+        throw new Error(
+          "Apply AI Trim before editing subtitles."
+        );
+      }
+    }
+
+    const endpoint = state.mode === "manual"
+      ? "/workflow/manual/" +
+          encodeURIComponent(state.filename) +
+          "/subtitles/" + state.active
+      : "/subtitle-review/" +
+          encodeURIComponent(state.filename) +
+          "/" + state.active;
+
+    const doc = await api(endpoint);
+
+    state.subtitleDoc = doc;
+    state.subtitleUrl = endpoint;
+    state.subtitleDirty = false;
+
+    drawCues();
+    message("subtitleStatus","Captions ready.");
+
+  } catch (error) {
+    message("subtitleStatus",error.message,"error");
+  }
+};
+
+$("closeSubtitles").onclick = () => {
+  if (
+    state.subtitleDirty &&
+    !confirm("Discard unsaved subtitle changes?")
+  ) return;
+
+  clearSubtitles();
+};
+
+function drawCues() {
+  const root = $("subtitleRows");
+  root.replaceChildren();
+
+  if (!state.subtitleDoc) return;
+
+  state.subtitleDoc.cues.forEach(cue => {
+    const row = document.createElement("div");
+    row.className = "cue";
+
+    for (const field of ["start","end","text"]) {
+      const input = document.createElement("input");
+      input.dataset.field = field;
+      input.value = cue[field];
+
+      if (field === "text") {
+        input.type = "text";
+      } else {
+        input.type = "number";
+        input.step = ".01";
+        input.min = "0";
+        input.max = state.subtitleDoc.duration;
+      }
+
+      input.oninput = () => {
+        state.subtitleDirty = true;
+      };
+
+      row.append(input);
+    }
+
+    root.append(row);
+  });
+}
+
+function readCues() {
+  return [...$("subtitleRows").children].map((row,id) => {
+    const value = field =>
+      row.querySelector(
+        `[data-field="${field}"]`
+      ).value;
+
+    return {
+      id,
+      start: Number(value("start")),
+      end: Number(value("end")),
+      text: value("text").trim()
+    };
+  });
+}
+
+$("addCaption").onclick = () => {
+  if (!state.subtitleDoc) return;
+
+  const cues = readCues();
+  const start = cues.length
+    ? cues[cues.length-1].end : 0;
+
+  if (start>=state.subtitleDoc.duration) {
+    message(
+      "subtitleStatus",
+      "No room for another caption.",
+      "error"
+    );
+    return;
+  }
+
+  state.subtitleDoc.cues = [
+    ...cues,
+    {
+      id:cues.length,
+      start,
+      end:Math.min(start+1,state.subtitleDoc.duration),
+      text:"[unclear]"
+    }
+  ];
+
+  state.subtitleDirty = true;
+  drawCues();
+};
+
+$("saveSubtitles").onclick = async () => {
+  if (!state.subtitleDoc) return;
+
+  $("saveSubtitles").disabled = true;
+
+  try {
+    const result = await api(
+      state.subtitleUrl,
+      requestOptions("PUT",{
+        mode:"auto",
+        revision:state.subtitleDoc.revision,
+        cues:readCues()
+      })
+    );
+
+    state.subtitleDoc = result;
+    state.subtitleDirty = false;
+
+    drawCues();
+
+    message(
+      "subtitleStatus",
+      "Subtitle edits saved.",
+      "success"
+    );
+  } catch (error) {
+    message("subtitleStatus",error.message,"error");
+  } finally {
+    $("saveSubtitles").disabled = false;
+  }
+};
+
+/* FINAL RENDER */
+
+async function generateFromEditor() {
+  if (state.subtitleDirty) {
+    throw new Error(
+      "Save your subtitle changes before generating."
+    );
+  }
+
+  if (!activeClips().length) {
+    throw new Error("Choose at least one highlight.");
+  }
+
+  if (state.mode === "manual") {
+    await syncManual();
+  } else {
+    const saved = state.ai[state.active];
+
+    if (
+      saved &&
+      (Math.abs(saved.start-state.draft.start)>.01 ||
+       Math.abs(saved.end-state.draft.end)>.01)
+    ) {
+      throw new Error("Apply AI Trim before rendering.");
+    }
+  }
+
+  const outputs = await renderShorts(state.mode);
+
+  if (state.mode === "ai") {
+    state.stage = "ai-results";
+    showGenerated($("aiOutputList"),outputs);
+    message(
+      "aiStatus",
+      "Edited AI Shorts regenerated.",
+      "success"
+    );
+  } else {
+    state.stage = "output";
+    showGenerated($("outputList"),outputs);
+  }
+
+  clearSubtitles();
+  drawStage();
+  selectDownload(outputs[0]);
+}
+
+$("done").onclick = async () => {
+  if (state.busy) return;
+
+  state.busy = true;
+  $("done").disabled = true;
+
+  message(
+    "editStatus",
+    "Generating your Shorts with FFmpeg..."
+  );
+
+  try {
+    await generateFromEditor();
+
+    message(
+      "editStatus",
+      "Your Shorts have been generated.",
+      "success"
+    );
+  } catch (error) {
+    message("editStatus",error.message,"error");
+  } finally {
+    state.busy = false;
+    $("done").disabled = false;
+  }
+};
+
+/* RESULTS AND MY HIGHLIGHTS */
+
+function showGenerated(container, clips) {
+  container.replaceChildren();
+
+  if (!clips.length) {
+    const empty = document.createElement("p");
+    empty.className = "muted";
+    empty.textContent = "No generated Shorts yet.";
+    container.append(empty);
+    return;
+  }
+
+  clips.forEach((clip,index) => {
+    const url = safeClipURL(clip);
+    if (!url) return;
+
+    const card = document.createElement("div");
+    card.className = "video-card";
+
+    const video = document.createElement("video");
+    video.src = url;
+    video.preload = "metadata";
+    video.muted = true;
+    video.playsInline = true;
+
+    const title = document.createElement("strong");
+    title.textContent =
+      clip.title || `Short ${index+1}`;
+
+    const preview = createButton(
+      "▶ Preview & Select",
+      "btn lilac",
+      () => selectDownload(clip)
+    );
+
+    card.append(video,title,preview);
+
+    // AI editing is deliberately offered only
+    // after the Shorts have already been generated.
+    if (
+      container === $("aiOutputList") &&
+      state.ai[index]
+    ) {
+      const edit = createButton(
+        "✎ Edit This Short",
+        "btn small",
+        () => openAIEditor(index)
+      );
+      edit.style.marginTop = "8px";
+      edit.style.width = "100%";
+      card.append(edit);
+    }
+
+    container.append(card);
+  });
+}
+
+async function loadLibrary(target,statusId) {
+  try {
+    const endpoint =
+      target === $("downloadsList")
+        ? "/creator/downloads"
+        : "/workflow/gallery";
+
+    const data = await api(endpoint);
+
+    showGenerated(target,data.items || []);
+    message(statusId,"");
+  } catch (error) {
+    message(statusId,error.message,"error");
+  }
+}
+
+$("navCreate").onclick = () => {
+  showPage("create");
+};
+
+$("navHighlights").onclick = async () => {
+  showPage("library");
+  await loadLibrary(
+    $("libraryList"),
+    "libraryStatus"
+  );
+};
+
+$("navDownloads").onclick = async () => {
+  showPage("downloads");
+  await loadLibrary(
+    $("downloadsList"),
+    "downloadsPageStatus"
+  );
+};
+
+$("rerender").onclick = async () => {
+  if (!state.filename || state.busy) return;
+
+  state.busy = true;
+  $("rerender").disabled = true;
+
+  message(
+    "downloadStatus",
+    "Generating Shorts at the selected quality..."
+  );
+
+  try {
+    if (state.mode === "manual") await syncManual();
+
+    const outputs = await renderShorts(state.mode);
+
+    if (state.mode === "ai") {
+      showGenerated($("aiOutputList"),outputs);
+    } else {
+      showGenerated($("outputList"),outputs);
+    }
+
+    selectDownload(outputs[0]);
+
+    message(
+      "downloadStatus",
+      "Rendered successfully at the selected quality.",
+      "success"
+    );
+  } catch (error) {
+    message("downloadStatus",error.message,"error");
+  } finally {
+    state.busy = false;
+    $("rerender").disabled = false;
+  }
+};
+
+
+
+/* ================================================
+   CREATOR FEATURES
+   Separate MP3, Downloads, and YouTube Studio
+================================================ */
+
+const youtubeUploadedThisSession = new Set();
+let youtubeConnected = false;
+
+
+/* MP3 AUDIO EXPORT */
+
+$("exportMP3").onclick = async () => {
+  const clip = state.selectedOutput;
+
+  if (!clip || !safeClipURL(clip)) {
+    message(
+      "mp3Status",
+      "Select a generated Short first.",
+      "error"
+    );
+    return;
+  }
+
+  const button = $("exportMP3");
+  button.disabled = true;
+
+  message("mp3Status", "Converting the selected Short...");
+
+  try {
+    const response = await fetch(
+      "/creator/mp3/" +
+      encodeURIComponent(clip.filename)
+    );
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+
+      throw new Error(
+        data.detail || "MP3 export failed."
+      );
+    }
+
+    const blob = await response.blob();
+    const objectURL = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = objectURL;
+    link.download = clip.filename.replace(
+      /\.mp4$/i,
+      ".mp3"
+    );
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(
+      () => URL.revokeObjectURL(objectURL),
+      10000
+    );
+
+    message(
+      "mp3Status",
+      "MP3 download started.",
+      "success"
+    );
+
+  } catch (error) {
+    message("mp3Status", error.message, "error");
+  } finally {
+    button.disabled = false;
+  }
+};
+
+
+/* YOUTUBE CONNECTION STATUS */
+
+async function refreshYouTubeConnection() {
+  try {
+    const data = await api(
+      "/creator/youtube/status"
+    );
+
+    youtubeConnected = Boolean(data.connected);
+
+    $("youtubeConnection").textContent =
+      youtubeConnected
+        ? "✓ YouTube account connected"
+        : "YouTube not connected. Run connect_youtube.py.";
+
+  } catch {
+    youtubeConnected = false;
+
+    $("youtubeConnection").textContent =
+      "YouTube backend unavailable. Check creator_features.py.";
+  }
+}
+
+
+/* CHECK VIDEO AUDIENCE */
+
+function getYouTubeAudience() {
+  const selected = $("youtubeAudience").value;
+
+  if (!selected) {
+    throw new Error(
+      "Select whether your video is made for kids."
+    );
+  }
+
+  return selected === "yes";
+}
+
+
+/* UPLOAD ONE MP4 TO YOUTUBE */
+
+async function uploadShortToYouTube(clip) {
+  if (!safeClipURL(clip)) {
+    throw new Error("Select a valid generated MP4 Short.");
+  }
+
+  if (!youtubeConnected) {
+    throw new Error(
+      "Connect your YouTube account first."
+    );
+  }
+
+  const madeForKids = getYouTubeAudience();
+
+  return api(
+    "/creator/youtube/upload/" +
+      encodeURIComponent(clip.filename),
+
+    requestOptions("POST", {
+      title: String(
+        clip.title || "Shorts AI Video"
+      ).trim().slice(0, 100),
+
+      description:
+        "Created using the Shorts AI Video Editing Agent.",
+
+      made_for_kids: madeForKids
+    })
+  );
+}
+
+
+/* MANUAL YOUTUBE UPLOAD BUTTON */
+
+$("uploadSelectedYouTube").onclick = async () => {
+  const clip = state.selectedOutput;
+
+  if (!clip) {
+    message(
+      "youtubeStatus",
+      "Select a generated Short first.",
+      "error"
+    );
+    return;
+  }
+
+  const button = $("uploadSelectedYouTube");
+  button.disabled = true;
+
+  message(
+    "youtubeStatus",
+    "Uploading your Short privately to YouTube..."
+  );
+
+  try {
+    const result = await uploadShortToYouTube(clip);
+
+    youtubeUploadedThisSession.add(clip.filename);
+
+    message(
+      "youtubeStatus",
+      "Successfully uploaded as Private:\n" +
+      result.youtube_url,
+      "success"
+    );
+
+  } catch (error) {
+    message(
+      "youtubeStatus",
+      error.message,
+      "error"
+    );
+
+    // Refresh status in case the OAuth token expired.
+    await refreshYouTubeConnection();
+  } finally {
+    button.disabled = false;
+  }
+};
+
+
+/* EXPLICIT OPT-IN FOR AUTOMATIC UPLOADS */
+
+$("autoYoutube").onchange = async function () {
+  if (!this.checked) return;
+
+  try {
+    await refreshYouTubeConnection();
+
+    if (!youtubeConnected) {
+      throw new Error(
+        "Connect YouTube before enabling automatic uploads."
+      );
+    }
+
+    getYouTubeAudience();
+
+    const approved = confirm(
+      "Automatically upload newly generated Shorts " +
+      "as PRIVATE videos to your connected YouTube channel?"
+    );
+
+    if (!approved) {
+      this.checked = false;
+    }
+
+  } catch (error) {
+    this.checked = false;
+
+    message(
+      "youtubeStatus",
+      error.message,
+      "error"
+    );
+  }
+};
+
+
+/* AUTOMATIC PRIVATE UPLOAD AFTER GENERATION */
+
+async function autoUploadGeneratedShorts(clips) {
+  if (!$("autoYoutube").checked) return;
+
+  try {
+    getYouTubeAudience();
+
+    if (!youtubeConnected) {
+      throw new Error(
+        "YouTube is not connected."
+      );
+    }
+
+  } catch (error) {
+    message(
+      "youtubeStatus",
+      error.message,
+      "error"
+    );
+    return;
+  }
+
+  let completed = 0;
+  let skipped = 0;
+  const errors = [];
+
+  for (const clip of clips) {
+    if (!clip || !safeClipURL(clip)) continue;
+
+    // Avoid duplicate uploads from repeat renders
+    // during this browser session.
+    if (youtubeUploadedThisSession.has(clip.filename)) {
+      skipped++;
+      continue;
+    }
+
+    // Reserve the filename before uploading.
+    youtubeUploadedThisSession.add(clip.filename);
+
+    message(
+      "youtubeStatus",
+      "Uploading Short " +
+      (completed + skipped + 1) +
+      " of " + clips.length + "..."
+    );
+
+    try {
+      await uploadShortToYouTube(clip);
+      completed++;
+
+    } catch (error) {
+      youtubeUploadedThisSession.delete(clip.filename);
+
+      errors.push(
+        (clip.title || clip.filename) +
+        ": " + error.message
+      );
+    }
+  }
+
+  if (errors.length) {
+    message(
+      "youtubeStatus",
+      completed + " uploaded, " +
+      errors.length + " failed.\n" +
+      errors.join("\n"),
+      "error"
+    );
+  } else {
+    message(
+      "youtubeStatus",
+      completed + " new Shorts uploaded privately." +
+      (skipped ? " " + skipped + " already uploaded." : ""),
+      "success"
+    );
+  }
+}
+
+
+/* CHECK CONNECTION AT PAGE LOAD */
+
+refreshYouTubeConnection();
+
+
+updateUndo();
+drawStage();
+</script>
+
+<style>
+/* SHORTS AI — CLEAN REFERENCE DESIGN */
+
+:root {
+  --bg: #fff8f0;
+  --paper: #fffefa;
+  --ink: #242125;
+  --muted: #807777;
+  --line: #f0dfcf;
+  --orange: #ff7b10;
+  --purple: #ed9834;
+  --lilac: #ffedda;
+  --yellow: #ffe8b0;
+}
+
+body {
+  color: var(--ink);
+  background:
+    radial-gradient(
+      ellipse at 85% 0%,
+      #ffe3c4 0,
+      transparent 35%
+    ),
+    radial-gradient(
+      ellipse at 100% 100%,
+      #ffe5ca 0,
+      transparent 30%
+    ),
+    #fff8f0;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.layout {
+  max-width: 1530px;
+  min-height: 100vh;
+  margin: auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns:
+    215px minmax(0,1fr) 295px;
+  gap: 22px;
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 40px);
+  padding: 24px 14px;
+  border: 1px solid #fff;
+  border-radius: 27px;
+  background: #ffffffee;
+  box-shadow: 0 14px 39px #c998671b;
+}
+
+.brand {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 6px 41px;
+  font-size: 20px;
+  letter-spacing: -.9px;
+  white-space: nowrap;
+}
+
+.brand::before {
+  content: "▶";
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding-left: 3px;
+  flex-shrink: 0;
+  border-radius: 11px;
+  background: linear-gradient(
+    135deg,#ffab35,#ff7612
+  );
+  color: #fff;
+  font-size: 17px;
+  box-shadow: 0 6px 14px #fda33d54;
+}
+
+.brand span {
+  color: #ec9e35;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar .nav {
+  margin: 0;
+  padding: 15px 13px;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: #625c61;
+  font-size: 13px;
+  font-weight: 750;
+  transition: transform .2s,background .2s;
+}
+
+.sidebar .nav:hover {
+  background: #fff1df;
+  transform: translateX(3px);
+}
+
+.sidebar .nav.active {
+  background: linear-gradient(
+    110deg,#ffab36,#ff7915
+  );
+  color: white;
+  box-shadow: 0 7px 18px #ff963e50;
+}
+
+/* The old Downloads button must stay in the DOM
+   because original JavaScript references it. */
+#navDownloads {
+  display: none !important;
+}
+
+#downloadsPage {
+  display: none !important;
+}
+
+/* Hide old tools in the sidebar only. */
+.sidebar > .download-box,
+.sidebar > .sidebar-note,
+.sidebar > .sidebar-heading {
+  display: none !important;
+}
+
+.ref-sidebar-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding: 18px 8px 0;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.ref-avatar {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #262329;
+  color: white;
+}
+
+main {
+  min-width: 0;
+}
+
+/* REFERENCE HERO */
+
+.ref-hero {
+  position: relative;
+  min-height: 260px;
+  padding: 25px 7px;
+}
+
+.ref-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 17px;
+  border-radius: 30px;
+  background: #ffead9;
+  color: #894732;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ref-hero h1 {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  width: max-content;
+  max-width: 100%;
+  margin: 15px 0 0;
+  font-size: clamp(37px,4.2vw,66px);
+  font-weight: 950;
+  letter-spacing: -2.9px;
+  line-height: 1.04;
+}
+
+.ref-orange-text {
+  position: relative;
+  color: #f46d09;
+}
+
+.ref-orange-text::after {
+  content: "";
+  position: absolute;
+  right: 2%;
+  bottom: -9px;
+  width: 69%;
+  height: 4px;
+  border-radius: 80%;
+  background: #efad58;
+}
+
+.ref-hero .tagline {
+  display: none;
+}
+
+/* INTERACTIVE 3D PLAY TILE */
+
+.ref-floating-play {
+  --rx: 0deg;
+  --ry: 0deg;
+  position: absolute;
+  right: 4%;
+  top: 50px;
+  z-index: 2;
+  width: 109px;
+  height: 109px;
+  border: 1px solid white;
+  border-radius: 25px;
+  cursor: pointer;
+  background: linear-gradient(
+    135deg,#fff,#fff1e1
+  );
+  box-shadow:
+    5px 7px 0 #ffebd4,
+    14px 20px 30px #cb91594a;
+  transform:
+    perspective(650px)
+    rotateX(var(--rx))
+    rotateY(var(--ry))
+    rotateZ(12deg);
+  animation: refFloat 4s ease-in-out infinite;
+  transition: transform .16s ease;
+}
+
+.ref-floating-play::before {
+  content: "";
+  position: absolute;
+  top: 29%;
+  left: 35%;
+  border-top: 23px solid transparent;
+  border-bottom: 23px solid transparent;
+  border-left: 40px solid #ff7b10;
+  filter: drop-shadow(3px 4px 3px #d98945);
+}
+
+.ref-floating-play:focus-visible {
+  outline: 3px solid #ff9b35;
+}
+
+@keyframes refFloat {
+  0%,100% { translate: 0 0; }
+  50% { translate: 0 -9px; }
+}
+
+.ref-sparkle {
+  position: absolute;
+  right: 35%;
+  top: 65px;
+  color: #eda035;
+  font-size: 28px;
+  pointer-events: none;
+}
+
+/* UPLOAD CARD */
+
+.card {
+  border: 1px solid #f7e4d4;
+  border-radius: 21px;
+  background: #ffffffef;
+  box-shadow: 0 12px 32px #c9976219;
+}
+
+#inputSection {
+  padding: 19px;
+}
+
+#inputSection > .step {
+  display: none;
+}
+
+#inputSection .grid2 {
+  position: relative;
+  grid-template-columns:
+    minmax(0,1fr) minmax(0,1fr);
+  gap: 37px;
+  align-items: center;
+}
+
+#inputSection .grid2::after {
+  content: "OR";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff8ef;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.upload {
+  display: flex;
+  min-height: 180px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 17px;
+  border: 2px dashed #f0d9c4;
+  background: #fffcf9;
+  border-radius: 15px;
+  text-align: center;
+  transition:
+    transform .2s,
+    border-color .2s,
+    box-shadow .2s;
+}
+
+.upload:hover,
+.upload.dragging {
+  transform: translateY(-3px);
+  border-color: #ff952b;
+  background: #fff4e6;
+  box-shadow: 0 9px 20px #c48e5627;
+}
+
+.upload strong {
+  margin: 10px 0 5px;
+  font-size: 13px;
+}
+
+.upload .muted {
+  font-size: 11px;
+}
+
+.upload::after {
+  content: "📁  Choose File";
+  margin-top: 13px;
+  padding: 10px 23px;
+  border-radius: 25px;
+  color: white;
+  font-size: 12px;
+  font-weight: 850;
+  background: linear-gradient(
+    105deg,#ffa735,#ff7811
+  );
+  box-shadow: 0 5px 13px #ff993f51;
+}
+
+#videoUrl {
+  margin-top: 11px;
+  border: 1px solid #e7d9cc;
+  background: white;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.ref-fetch {
+  width: 100%;
+  margin-top: 13px;
+  padding: 13px;
+  border: 0;
+  border-radius: 12px;
+  color: white;
+  font-weight: 850;
+  background: linear-gradient(
+    105deg,#ffa735,#ff7510
+  );
+}
+
+.primary,
+#processVideo {
+  border: 0;
+  border-radius: 13px;
+  color: white;
+  background: linear-gradient(
+    105deg,#ffab37,#ff7410
+  );
+  box-shadow: 0 7px 16px #fe973e4d;
+  font-weight: 900;
+}
+
+.primary:hover:not(:disabled),
+.ref-fetch:hover,
+.btn.orange:hover {
+  transform: translateY(-2px);
+}
+
+#processVideo {
+  margin-top: 18px;
+  padding: 15px;
+}
+
+/* METHOD CARDS */
+
+#choiceSection {
+  margin-top: 25px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+#choiceSection > .step {
+  display: none;
+}
+
+.ref-method-heading {
+  margin: 0 0 17px;
+  font-size: 21px;
+  font-weight: 900;
+}
+
+#choiceSection .grid2 {
+  gap: 16px;
+}
+
+.choice {
+  display: grid;
+  grid-template-columns: 47px 1fr 35px;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 10px;
+  min-height: 100px;
+  padding: 14px;
+  border: 1px solid white;
+  border-radius: 19px;
+  background: white;
+  box-shadow: 0 11px 25px #d6a47723;
+  transition: transform .23s,box-shadow .23s;
+}
+
+.choice:hover:not(:disabled) {
+  transform:
+    perspective(650px)
+    rotateX(4deg)
+    translateY(-5px);
+  box-shadow: 0 17px 29px #cd93592e;
+  background: #fff9f0;
+}
+
+.choice .emoji {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  width: 47px;
+  height: 47px;
+  border-radius: 15px;
+  background: #ffefdd;
+}
+
+.choice strong {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0;
+  font-size: 12px;
+}
+
+.choice small {
+  grid-column: 2;
+  grid-row: 2;
+  font-size: 10px;
+}
+
+.choice::after {
+  content: "➜";
+  grid-column: 3;
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  color: white;
+  background: #ff851b;
+  box-shadow: 0 4px 0 #d86b12;
+}
+
+/* LIVE PREVIEW */
+
+.preview-column {
+  position: sticky;
+  top: 59px;
+  margin-top: 35px;
+  align-self: start;
+}
+
+.preview {
+  overflow: visible;
+  padding: 45px 11px 11px;
+  border: 0;
+  border-radius: 22px;
+  background: white;
+  box-shadow: 0 18px 37px #b7926826;
+  transition: transform .2s;
+}
+
+.preview:hover {
+  transform: translateY(-4px);
+}
+
+.video-stage {
+  position: relative;
+  aspect-ratio: 9/16;
+  max-height: none;
+  overflow: visible;
+  border-radius: 12px;
+  background: #182132;
+}
+
+.video-stage video {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+.preview-pill {
+  top: -35px;
+  left: 0;
+  color: #29242a;
+  background: transparent;
+}
+
+.ratio {
+  top: -34px;
+  right: 2px;
+  padding: 5px 10px;
+  border-radius: 25px;
+  background: #888692;
+}
+
+.empty-preview {
+  overflow: hidden;
+  border-radius: 12px;
+  background:
+    radial-gradient(
+      circle at 62% 35%,
+      #ffe5aa,transparent 18%
+    ),
+    linear-gradient(
+      #c4cfe5,#eeb9ad 58%,#51607d
+    );
+}
+
+.empty-preview > div {
+  display: none;
+}
+
+.empty-preview::before {
+  content: "";
+  position: absolute;
+  inset: 46% 0 0;
+  background: #495572;
+  clip-path: polygon(
+    0 40%,25% 20%,44% 50%,
+    68% 10%,100% 42%,
+    100% 100%,0 100%
+  );
+}
+
+.empty-preview::after {
+  content: "▶";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 68px;
+  height: 68px;
+  display: grid;
+  place-items: center;
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  background: #252b41b5;
+  color: white;
+  font-size: 28px;
+}
+
+/* SETTINGS — ACTUAL CONTROLS */
+
+#settingsPage,
+#projectsPage {
+  margin-top: 24px;
+  padding: 25px;
+}
+
+#settingsPage h2,
+#projectsPage h2 {
+  font-size: 29px;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+  gap: 17px;
+  margin-top: 22px;
+}
+
+#settingsPage .download-box,
+#settingsPage .sidebar-note,
+#settingsPage .settings-channel {
+  display: block !important;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 21px;
+  border: 1px solid #f0dcc9;
+  border-radius: 17px;
+  background: #fffaf5;
+  box-shadow: 0 7px 19px #c4956220;
+}
+
+#settingsPage h3 {
+  margin: 0 0 15px;
+  font-size: 17px;
+}
+
+#settingsPage .input {
+  background: white;
+  border-radius: 11px;
+}
+
+#settingsPage .download-link,
+#settingsPage #exportMP3 {
+  color: white;
+  background: linear-gradient(
+    100deg,#ffa636,#ff7914
+  );
+  border: 0;
+}
+
+#settingsPage .sidebar-note strong {
+  margin-top: 5px;
+}
+
+#settingsPage .sidebar-note p {
+  background: #fff1e2;
+  border-radius: 9px;
+  padding: 8px 10px;
+}
+
+.settings-channel p {
+  overflow-wrap: anywhere;
+}
+
+.project-entry {
+  padding: 18px;
+  border-radius: 15px;
+  border: 1px solid #f0ddca;
+  background: #fff8ef;
+}
+
+/* PUBLISHING GALLERY */
+
+.publish-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 15px;
+  margin: 15px 0;
+  border: 1px solid #f2d1b3;
+  border-radius: 13px;
+  background: #fff0e1;
+}
+
+.publish-review,
+.publish-fields {
+  padding: 15px;
+  margin-top: 14px;
+  border: 1px solid #f1dac5;
+  border-radius: 13px;
+  background: #fffdf9;
+}
+
+.publish-fields label {
+  display: block;
+  margin-top: 12px;
+}
+
+.publish-fields textarea {
+  display: block;
+  width: 100%;
+  min-height: 75px;
+}
+
+.publish-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 10px 0;
+}
+
+.publish-checkbox input {
+  accent-color: #ff8625;
+}
+
+.publish-status {
+  margin-top: 9px;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.publish-success { color: #21814c; }
+.publish-error { color: #b83030; }
+
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
+  .layout {
+    grid-template-columns:
+      190px minmax(0,1fr);
+  }
+
+  .preview-column {
+    grid-column: 2;
+    position: static;
+    width: min(100%,360px);
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .layout {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .sidebar {
+    position: static;
+    width: 100%;
+    min-height: auto;
+  }
+
+  .sidebar nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ref-hero {
+    min-height: 225px;
+  }
+
+  .ref-hero h1 {
+    font-size: clamp(35px,9vw,52px);
+  }
+
+  .ref-floating-play {
+    width: 65px;
+    height: 65px;
+    right: 0;
+  }
+
+  .ref-floating-play::before {
+    border-top-width: 14px;
+    border-bottom-width: 14px;
+    border-left-width: 24px;
+  }
+
+  #inputSection .grid2,
+  #choiceSection .grid2,
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-column {
+    width: min(100%,350px);
+  }
+
+  .video-stage {
+    aspect-ratio: 9/16;
+    max-height: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ref-floating-play {
+    animation: none;
+  }
+
+  * {
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+
+<script>
+(() => {
+  "use strict";
+
+  // Stop using the old automatic publishing controls.
+  // Every upload must now come from My Highlights.
+  const previousAuto = document.getElementById("autoYoutube");
+  if (previousAuto) previousAuto.checked = false;
+
+  const previousUpload =
+    document.getElementById("uploadSelectedYouTube");
+
+  if (previousUpload) {
+    const oldPanel = previousUpload.closest(".download-box");
+
+    if (oldPanel) {
+      oldPanel.hidden = true;
+
+      const heading = oldPanel.previousElementSibling;
+
+      if (
+        heading &&
+        heading.classList.contains("sidebar-heading")
+      ) {
+        heading.hidden = true;
+      }
+    }
+  }
+
+  const library = document.getElementById("libraryPage");
+  const list = document.getElementById("libraryList");
+
+  const selected = new Map();
+  const clipCheckboxes = new Map();
+
+  let clips = [];
+  let channel = null;
+  let uploading = false;
+
+  const toolbar = document.createElement("div");
+  toolbar.className = "publish-toolbar";
+
+  const channelText = document.createElement("div");
+  channelText.className = "muted";
+  channelText.textContent = "Checking YouTube channel...";
+
+  const selectedText = document.createElement("strong");
+  selectedText.textContent = "0 Shorts selected";
+
+  const selectAll = document.createElement("button");
+  selectAll.className = "btn small";
+  selectAll.textContent = "Select All";
+
+  const clearAll = document.createElement("button");
+  clearAll.className = "btn small";
+  clearAll.textContent = "Clear";
+
+  const reviewButton = document.createElement("button");
+  reviewButton.className = "btn small orange";
+  reviewButton.textContent = "Review & Upload";
+  reviewButton.disabled = true;
+
+  const controls = document.createElement("div");
+  controls.className = "row";
+  controls.append(
+    selectedText, selectAll, clearAll, reviewButton
+  );
+
+  toolbar.append(channelText, controls);
+  library.insertBefore(toolbar, list);
+
+  const review = document.createElement("div");
+  review.className = "publish-review";
+  review.hidden = true;
+
+  const heading = document.createElement("h3");
+  heading.textContent = "Review Shorts Before Publishing";
+
+  const privacy = document.createElement("p");
+  privacy.className = "muted";
+  privacy.textContent =
+    "Uploads will be Private. Check each title, " +
+    "description and audience before confirming.";
+
+  const reviewRows = document.createElement("div");
+
+  const confirmUpload = document.createElement("button");
+  confirmUpload.className = "primary";
+  confirmUpload.textContent = "Confirm & Upload Selected Shorts";
+
+  const resultText = document.createElement("div");
+  resultText.className = "publish-status";
+  resultText.setAttribute("role", "status");
+
+  review.append(
+    heading, privacy, reviewRows,
+    confirmUpload, resultText
+  );
+
+  list.after(review);
+
+  function button(text, action) {
+    const element = document.createElement("button");
+    element.className = "btn small lilac";
+    element.textContent = text;
+    element.onclick = action;
+    return element;
+  }
+
+  function refreshCount() {
+    selectedText.textContent =
+      selected.size + " Shorts selected";
+
+    reviewButton.disabled =
+      !selected.size || !channel || uploading;
+
+    review.hidden = true;
+  }
+
+  function changeSelection(clip, checked) {
+    if (checked && selected.size >= 6 &&
+        !selected.has(clip.filename)) {
+      message(
+        "libraryStatus",
+        "Select up to six Shorts per upload.",
+        "error"
+      );
+
+      const checkbox = clipCheckboxes.get(clip.filename);
+      if (checkbox) checkbox.checked = false;
+      return;
+    }
+
+    if (checked) selected.set(clip.filename, clip);
+    else selected.delete(clip.filename);
+
+    refreshCount();
+  }
+
+  selectAll.onclick = () => {
+    selected.clear();
+
+    clips.forEach((clip, index) => {
+      const checked = index < 6;
+
+      if (checked) selected.set(clip.filename, clip);
+
+      const checkbox = clipCheckboxes.get(clip.filename);
+      if (checkbox) checkbox.checked = checked;
+    });
+
+    refreshCount();
+  };
+
+  clearAll.onclick = () => {
+    selected.clear();
+
+    for (const checkbox of clipCheckboxes.values()) {
+      checkbox.checked = false;
+    }
+
+    refreshCount();
+  };
+
+  function makeLabel(text, control) {
+    const wrapper = document.createElement("label");
+    wrapper.textContent = text;
+    wrapper.append(control);
+    return wrapper;
+  }
+
+  function makeOption(value, text) {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = text;
+    return option;
+  }
+
+  const reviewData = new Map();
+
+  reviewButton.onclick = () => {
+    reviewRows.replaceChildren();
+    reviewData.clear();
+    resultText.textContent = "";
+
+    for (const clip of selected.values()) {
+      const row = document.createElement("div");
+      row.className = "publish-fields";
+
+      const title = document.createElement("input");
+      title.className = "input";
+      title.maxLength = 100;
+      title.value = (clip.title || "My Short").slice(0,100);
+
+      const description = document.createElement("textarea");
+      description.className = "input";
+      description.maxLength = 5000;
+      description.value = "";
+
+      const audience = document.createElement("select");
+      audience.className = "input";
+      audience.append(
+        makeOption("", "Select audience"),
+        makeOption("no", "Not made for kids"),
+        makeOption("yes", "Made for kids")
+      );
+
+      const name = document.createElement("strong");
+      name.textContent = clip.filename;
+
+      const status = document.createElement("p");
+      status.className = "publish-status";
+
+      row.append(
+        name,
+        makeLabel("Video title", title),
+        makeLabel("Description", description),
+        makeLabel("Audience", audience),
+        status
+      );
+
+      reviewRows.append(row);
+
+      reviewData.set(clip.filename, {
+        clip, title, description, audience, status
+      });
+    }
+
+    review.hidden = false;
+    review.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  };
+
+  function showGallery(items, uploaded) {
+    list.replaceChildren();
+    clipCheckboxes.clear();
+
+    const uploadedNames = new Set(
+      uploaded.map(item => item.filename)
+    );
+
+    if (!items.length) {
+      const empty = document.createElement("p");
+      empty.className = "muted";
+      empty.textContent = "No generated Shorts found.";
+      list.append(empty);
+      return;
+    }
+
+    for (const clip of items) {
+      const url = safeClipURL(clip);
+      if (!url) continue;
+
+      const card = document.createElement("div");
+      card.className = "video-card";
+
+      const video = document.createElement("video");
+      video.src = url;
+      video.preload = "metadata";
+      video.muted = true;
+      video.playsInline = true;
+
+      const title = document.createElement("strong");
+      title.textContent = clip.title || clip.filename;
+
+      const label = document.createElement("label");
+      label.className = "publish-checkbox";
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+
+      const text = document.createElement("span");
+      text.textContent = "Select for YouTube";
+
+      label.append(checkbox,text);
+
+      checkbox.onchange = () => {
+        changeSelection(clip, checkbox.checked);
+      };
+
+      clipCheckboxes.set(clip.filename, checkbox);
+
+      const preview = button(
+        "▶ Preview Short",
+        () => selectDownload(clip)
+      );
+
+      card.append(video,title,label,preview);
+
+      if (uploadedNames.has(clip.filename)) {
+        const badge = document.createElement("p");
+        badge.className = "publish-status publish-success";
+        badge.textContent = "✓ Previously uploaded to YouTube";
+        card.append(badge);
+      }
+
+      list.append(card);
+    }
+  }
+
+  async function loadPublishingGallery() {
+    selected.clear();
+    clipCheckboxes.clear();
+    review.hidden = true;
+    channel = null;
+    refreshCount();
+
+    channelText.textContent =
+      "Checking your authorized YouTube channel...";
+
+    message("libraryStatus", "Loading your Highlights...");
+
+    try {
+      const data = await api("/workflow/gallery");
+      clips = (data.items || []).filter(safeClipURL);
+
+      let history = [];
+
+      try {
+        const uploadData = await api("/publish/history");
+        history = uploadData.items || [];
+      } catch {
+        // Highlights remain usable if history is unavailable.
+      }
+
+      showGallery(clips, history);
+      message("libraryStatus", "");
+
+    } catch (error) {
+      message("libraryStatus", error.message, "error");
+    }
+
+    try {
+      const data = await api("/publish/channel");
+
+      if (!data.connected) {
+        throw new Error(
+          data.reason || "No YouTube channel connected."
+        );
+      }
+
+      channel = data;
+
+      channelText.textContent =
+        "✓ Connected: " + data.channel_name +
+        " (" + data.channel_id + ")";
+
+    } catch (error) {
+      channel = null;
+
+      channelText.textContent =
+        "YouTube not connected: " + error.message;
+    }
+
+    refreshCount();
+  }
+
+  confirmUpload.onclick = async () => {
+    if (uploading || !channel || !reviewData.size) return;
+
+    const jobs = [];
+
+    for (const data of reviewData.values()) {
+      const title = data.title.value.trim();
+      const audience = data.audience.value;
+
+      if (!title || !audience) {
+        resultText.textContent =
+          "Every Short needs a title and audience selection.";
+        return;
+      }
+
+      jobs.push({
+        ...data,
+        titleValue: title,
+        descriptionValue: data.description.value,
+        madeForKids: audience === "yes"
+      });
+    }
+
+    // Verify the channel again before any upload.
+    try {
+      const current = await api("/publish/channel");
+
+      if (!current.connected ||
+          current.channel_id !== channel.channel_id) {
+        throw new Error(
+          "Your connected YouTube channel changed."
+        );
+      }
+    } catch (error) {
+      resultText.textContent = error.message;
+      return;
+    }
+
+    if (!confirm(
+      "Upload " + jobs.length +
+      " selected Shorts to " + channel.channel_name +
+      " as PRIVATE videos?"
+    )) return;
+
+    uploading = true;
+    confirmUpload.disabled = true;
+    selectAll.disabled = true;
+    clearAll.disabled = true;
+
+    let succeeded = 0;
+    let failed = 0;
+
+    for (const job of jobs) {
+      job.status.textContent = "Uploading...";
+
+      try {
+        const response = await api(
+          "/publish/upload-one",
+          requestOptions("POST", {
+            filename: job.clip.filename,
+            channel_id: channel.channel_id,
+            title: job.titleValue,
+            description: job.descriptionValue,
+            made_for_kids: job.madeForKids
+          })
+        );
+
+        succeeded++;
+        job.status.className =
+          "publish-status publish-success";
+
+        job.status.textContent =
+          response.already_uploaded
+            ? "Already uploaded: " + response.youtube_url
+            : "✓ Uploaded: " + response.youtube_url;
+
+      } catch (error) {
+        failed++;
+        job.status.className =
+          "publish-status publish-error";
+        job.status.textContent =
+          "Upload failed: " + error.message;
+      }
+    }
+
+    uploading = false;
+    confirmUpload.disabled = false;
+    selectAll.disabled = false;
+    clearAll.disabled = false;
+
+    resultText.textContent =
+      succeeded + " successful or previously uploaded, " +
+      failed + " failed. Check YouTube Studio " +
+      "before retrying an uncertain upload.";
+
+    refreshCount();
+
+    // Keep the review results visible.
+    review.hidden = false;
+  };
+
+  // Replace only the old My Highlights navigation action.
+  document.getElementById("navHighlights").onclick =
+    async () => {
+      showPage("library");
+      await loadPublishingGallery();
+    };
+
+})();
+</script>
+
+<script>
+/* SHORTS AI — CLEAN NAVIGATION & SETTINGS */
+
+(() => {
+  "use strict";
+
+  const byId = id => document.getElementById(id);
+  const sidebar = document.querySelector(".sidebar");
+  const main = document.querySelector("main");
+  const nav = sidebar.querySelector("nav");
+
+  // -----------------------------------------
+  // Sidebar: Create / Projects / Highlights / Settings
+  // -----------------------------------------
+
+  function makeNav(id, label, before = null) {
+    let button = byId(id);
+
+    if (!button) {
+      button = document.createElement("button");
+      button.type = "button";
+      button.className = "nav";
+      button.id = id;
+      button.textContent = label;
+
+      if (before) {
+        nav.insertBefore(button, byId(before));
+      } else {
+        nav.append(button);
+      }
+    }
+
+    return button;
+  }
+
+  const projectsNav = makeNav(
+    "navProjects",
+    "▱  My Projects",
+    "navHighlights"
+  );
+
+  const settingsNav = makeNav(
+    "navSettings",
+    "⚙  Settings"
+  );
+
+  // -----------------------------------------
+  // Settings page
+  // -----------------------------------------
+
+  const settingsPage = document.createElement("section");
+  settingsPage.id = "settingsPage";
+  settingsPage.className = "card";
+  settingsPage.hidden = true;
+
+  const settingsTitle = document.createElement("h2");
+  settingsTitle.textContent = "⚙ Settings";
+
+  const settingsGrid = document.createElement("div");
+  settingsGrid.className = "settings-grid";
+
+  settingsPage.append(settingsTitle, settingsGrid);
+  main.append(settingsPage);
+
+  // IMPORTANT: these are the actual classes in
+  // the original uploaded HTML: .download-box
+  function moveExistingCard(id, title) {
+    const control = byId(id);
+    const card = control?.closest(".download-box");
+
+    if (!card) {
+      console.error("Missing original card:", id);
+      return;
+    }
+
+    const heading = card.querySelector("h3");
+
+    if (heading) heading.textContent = title;
+
+    // appendChild MOVES an existing element.
+    // Existing event handlers stay attached.
+    settingsGrid.appendChild(card);
+  }
+
+  moveExistingCard(
+    "quality",
+    "↓ Export & Download"
+  );
+
+  moveExistingCard(
+    "exportMP3",
+    "♫ Audio Export"
+  );
+
+  // Move the actual project and workflow note.
+  // Original class: .sidebar-note
+  // Original project ID: currentProject
+  const projectNote =
+    sidebar.querySelector(".sidebar-note");
+
+  if (projectNote) {
+    settingsGrid.appendChild(projectNote);
+  }
+
+  // Hide obsolete sidebar-only heading labels.
+  sidebar.querySelectorAll(".sidebar-heading")
+    .forEach(node => node.remove());
+
+  // Old single-upload UI stays hidden.
+  // Publishing is handled through My Highlights.
+  const auto = byId("autoYoutube");
+
+  if (auto) {
+    auto.checked = false;
+    auto.disabled = true;
+  }
+
+  // Read-only YouTube channel settings card.
+  const channelCard = document.createElement("div");
+  channelCard.className = "settings-channel";
+
+  const channelTitle = document.createElement("h3");
+  channelTitle.textContent = "▶ YouTube Connection";
+
+  const channelInfo = document.createElement("p");
+  channelInfo.className = "muted";
+  channelInfo.textContent = "Checking connection...";
+
+  const refresh = document.createElement("button");
+  refresh.className = "btn orange";
+  refresh.type = "button";
+  refresh.textContent = "Check Connection";
+
+  channelCard.append(
+    channelTitle,
+    channelInfo,
+    refresh
+  );
+
+  settingsGrid.append(channelCard);
+
+  async function checkChannel() {
+    try {
+      const result = await api("/publish/channel");
+
+      channelInfo.textContent = result.connected
+        ? "✓ Connected to " + result.channel_name
+        : result.reason || "Not connected";
+
+    } catch (error) {
+      channelInfo.textContent = error.message;
+    }
+  }
+
+  refresh.onclick = checkChannel;
+
+  // -----------------------------------------
+  // My Projects: real current project view
+  // -----------------------------------------
+
+  const projectsPage = document.createElement("section");
+  projectsPage.id = "projectsPage";
+  projectsPage.className = "card";
+  projectsPage.hidden = true;
+
+  const projectsTitle = document.createElement("h2");
+  projectsTitle.textContent = "My Projects";
+
+  const projectEntry = document.createElement("div");
+  projectEntry.className = "project-entry";
+
+  const projectText = document.createElement("strong");
+  const projectDetail = document.createElement("p");
+  projectDetail.className = "muted";
+
+  const openProject = document.createElement("button");
+  openProject.className = "btn orange";
+  openProject.type = "button";
+  openProject.textContent = "Open Current Project →";
+
+  projectEntry.append(
+    projectText,
+    projectDetail,
+    openProject
+  );
+
+  projectsPage.append(
+    projectsTitle,
+    projectEntry
+  );
+
+  main.append(projectsPage);
+
+  function refreshProjects() {
+    const ready = Boolean(state.filename);
+
+    projectText.textContent = ready
+      ? byId("currentProject").textContent
+      : "No video selected";
+
+    projectDetail.textContent = ready
+      ? "Your current video project is ready."
+      : "Upload a video to create a project.";
+
+    openProject.hidden = !ready;
+  }
+
+  openProject.onclick = () => showPage("create");
+
+  // -----------------------------------------
+  // Reference hero & 3D play tile
+  // -----------------------------------------
+
+  const heading = main.querySelector("h1");
+  const tagline = main.querySelector(".tagline");
+
+  const hero = document.createElement("header");
+  hero.className = "ref-hero";
+
+  heading.before(hero);
+
+  const badge = document.createElement("div");
+  badge.className = "ref-badge";
+  badge.textContent = "✦  AI Powered";
+
+  heading.replaceChildren();
+
+  const line1 = document.createElement("span");
+  line1.textContent = "Big ideas.";
+
+  const line2 = document.createElement("span");
+  line2.className = "ref-orange-text";
+  line2.textContent = "Short videos.";
+
+  heading.append(line1, line2);
+
+  const tile = document.createElement("button");
+  tile.type = "button";
+  tile.className = "ref-floating-play";
+  tile.setAttribute(
+    "aria-label",
+    "Choose a video to upload"
+  );
+
+  const sparkle = document.createElement("span");
+  sparkle.className = "ref-sparkle";
+  sparkle.textContent = "✦";
+
+  hero.append(
+    badge,heading,tagline,tile,sparkle
+  );
+
+  tile.onclick = () => byId("videoFile").click();
+
+  tile.addEventListener("pointermove", event => {
+    if (matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches) return;
+
+    const rect = tile.getBoundingClientRect();
+
+    const x =
+      (event.clientX - rect.left) / rect.width - .5;
+
+    const y =
+      (event.clientY - rect.top) / rect.height - .5;
+
+    tile.style.setProperty(
+      "--rx", (-y * 15) + "deg"
+    );
+
+    tile.style.setProperty(
+      "--ry", (x * 15) + "deg"
+    );
+  });
+
+  tile.addEventListener("pointerleave", () => {
+    tile.style.setProperty("--rx", "0deg");
+    tile.style.setProperty("--ry", "0deg");
+  });
+
+  // Sidebar footer.
+  const footer = document.createElement("div");
+  footer.className = "ref-sidebar-footer";
+
+  const avatar = document.createElement("span");
+  avatar.className = "ref-avatar";
+  avatar.textContent = "AI";
+
+  const footerText = document.createElement("span");
+  footerText.textContent = "Creator Studio";
+
+  footer.append(avatar, footerText);
+  sidebar.append(footer);
+
+  // -----------------------------------------
+  // Upload and method enhancements
+  // -----------------------------------------
+
+  const uploadLabel = document.querySelector(".upload");
+
+  const uploadTitle = uploadLabel.querySelector("strong");
+  uploadTitle.textContent = "Drag & drop your video here";
+
+  const videoUrl = byId("videoUrl");
+  videoUrl.placeholder =
+    "https://www.youtube.com/watch?v=...";
+
+  const fetchButton = document.createElement("button");
+  fetchButton.id = "fetchVideo";
+  fetchButton.type = "button";
+  fetchButton.className = "ref-fetch";
+  fetchButton.textContent = "Fetch Video →";
+
+  videoUrl.insertAdjacentElement(
+    "afterend", fetchButton
+  );
+
+  fetchButton.onclick = () => {
+    if (!videoUrl.value.trim()) {
+      message(
+        "processStatus",
+        "Enter a video URL.",
+        "error"
+      );
+      return;
+    }
+
+    byId("videoFile").value = "";
+    byId("fileName").textContent = "";
+
+    byId("processVideo").click();
+  };
+
+  // Drag and drop using the real file input.
+  uploadLabel.addEventListener("dragover", event => {
+    event.preventDefault();
+    uploadLabel.classList.add("dragging");
+  });
+
+  uploadLabel.addEventListener("dragleave", () => {
+    uploadLabel.classList.remove("dragging");
+  });
+
+  uploadLabel.addEventListener("drop", event => {
+    event.preventDefault();
+    uploadLabel.classList.remove("dragging");
+
+    const files = event.dataTransfer?.files;
+    if (!files?.length) return;
+
+    if (!files[0].name.toLowerCase().endsWith(".mp4")) {
+      message(
+        "processStatus",
+        "Upload an MP4 file.",
+        "error"
+      );
+      return;
+    }
+
+    try {
+      byId("videoFile").files = files;
+
+      byId("videoFile").dispatchEvent(
+        new Event("change", {bubbles:true})
+      );
+
+    } catch {
+      message(
+        "processStatus",
+        "Use Choose File to upload.",
+        "error"
+      );
+    }
+  });
+
+  const choice = byId("choiceSection");
+
+  const methodTitle = document.createElement("h2");
+  methodTitle.className = "ref-method-heading";
+  methodTitle.textContent = "✦  Choose a Method";
+
+  choice.insertBefore(
+    methodTitle,
+    choice.querySelector(".grid2")
+  );
+
+  // Show methods on Create even before upload,
+  // but keep buttons disabled until video is ready.
+  const oldDrawStage = drawStage;
+
+  drawStage = function() {
+    oldDrawStage();
+
+    if (state.page === "create") {
+      choice.hidden = false;
+
+      byId("chooseManual").disabled =
+        !state.filename;
+
+      byId("chooseAI").disabled =
+        !state.filename || state.busy;
+    }
+  };
+
+  // -----------------------------------------
+  // Navigation: no popups and no redirects
+  // -----------------------------------------
+
+  const originalShowPage = showPage;
+
+  showPage = function(page) {
+    originalShowPage(page);
+
+    settingsPage.hidden = page !== "settings";
+    projectsPage.hidden = page !== "projects";
+    hero.hidden = page !== "create";
+
+    const activePages = {
+      navCreate: "create",
+      navProjects: "projects",
+      navHighlights: "library",
+      navSettings: "settings"
+    };
+
+    for (const [id,name] of Object.entries(
+      activePages
+    )) {
+      byId(id).classList.toggle(
+        "active", page === name
+      );
+    }
+  };
+
+  projectsNav.onclick = () => {
+    refreshProjects();
+    showPage("projects");
+  };
+
+  settingsNav.onclick = async () => {
+    showPage("settings");
+    await checkChannel();
+  };
+
+  // The original publishing script still handles
+  // My Highlights and its review/upload flow.
+  // No extra confirmation to switch sections.
+
+  showPage("create");
+  drawStage();
+})();
+</script>
+
+<style>
+.delete-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.delete-toolbar .delete-danger {
+  background: #dc4242;
+  color: white;
+  border: 0;
+}
+
+.delete-toolbar .delete-danger:disabled {
+  opacity: .45;
+}
+
+.delete-choice {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 12px;
+  padding: 10px;
+  border: 1px solid #efc2c2;
+  border-radius: 10px;
+  background: #fff1f1;
+  cursor: pointer;
+}
+
+.delete-choice input {
+  width: 18px;
+  height: 18px;
+  accent-color: #dc4242;
+}
+
+.delete-status {
+  color: #85625a;
+  font-size: 12px;
+}
+
+/* Separate deletion from YouTube selection */
+#libraryPage.delete-mode .publish-toolbar,
+#libraryPage.delete-mode .publish-review,
+#libraryPage.delete-mode .publish-checkbox {
+  display: none !important;
+}
+
+@media (max-width: 700px) {
+  .delete-toolbar {
+    align-items: stretch;
+  }
+}
+</style>
+
+<script>
+(() => {
+  const library = document.getElementById("libraryPage");
+  const list = document.getElementById("libraryList");
+
+  if (!library || !list) return;
+
+  const selected = new Set();
+  let deleteMode = false;
+  let deleting = false;
+
+  const filenamePattern =
+    /^[a-f0-9]{32}_(?:clip_[1-9]\d*(?:_(?:fast|quality))?|combined_(?:fast|quality))\.mp4$/;
+
+  const toolbar = document.createElement("div");
+  toolbar.className = "delete-toolbar";
+
+  const startButton = document.createElement("button");
+  startButton.className = "btn small";
+  startButton.textContent = "🗑 Select to Delete";
+
+  const countText = document.createElement("strong");
+  countText.className = "delete-status";
+  countText.hidden = true;
+
+  const deleteButton = document.createElement("button");
+  deleteButton.className = "btn small delete-danger";
+  deleteButton.textContent = "Delete Selected";
+  deleteButton.hidden = true;
+  deleteButton.disabled = true;
+
+  const cancelButton = document.createElement("button");
+  cancelButton.className = "btn small";
+  cancelButton.textContent = "Cancel";
+  cancelButton.hidden = true;
+
+  const status = document.createElement("div");
+  status.className = "status";
+  status.setAttribute("role", "status");
+
+  toolbar.append(
+    startButton,
+    countText,
+    deleteButton,
+    cancelButton,
+    status
+  );
+
+  library.insertBefore(toolbar, list);
+
+  function clipFilename(card) {
+    const video = card.querySelector("video");
+
+    if (!video) return null;
+
+    try {
+      const url = new URL(
+        video.getAttribute("src"),
+        window.location.href
+      );
+
+      if (!url.pathname.startsWith("/clips/")) {
+        return null;
+      }
+
+      const filename = decodeURIComponent(
+        url.pathname.split("/").pop()
+      );
+
+      return filenamePattern.test(filename)
+        ? filename
+        : null;
+
+    } catch {
+      return null;
+    }
+  }
+
+  function updateButtons() {
+    countText.textContent = `${selected.size} selected`;
+
+    countText.hidden = !deleteMode;
+    deleteButton.hidden = !deleteMode;
+    cancelButton.hidden = !deleteMode;
+
+    startButton.hidden = deleteMode;
+
+    deleteButton.disabled =
+      selected.size === 0 || deleting;
+
+    cancelButton.disabled = deleting;
+  }
+
+  function decorateCards() {
+    for (const card of list.querySelectorAll(".video-card")) {
+      const filename = clipFilename(card);
+
+      if (!filename) continue;
+
+      let choice = card.querySelector(".delete-choice");
+
+      if (!choice) {
+        choice = document.createElement("label");
+        choice.className = "delete-choice";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+
+        const text = document.createElement("span");
+        text.textContent = "Select to delete";
+
+        checkbox.onchange = () => {
+          if (checkbox.checked) {
+            selected.add(filename);
+          } else {
+            selected.delete(filename);
+          }
+
+          updateButtons();
+        };
+
+        choice.append(checkbox, text);
+        card.append(choice);
+      }
+
+      choice.hidden = !deleteMode;
+
+      const checkbox = choice.querySelector("input");
+
+      checkbox.checked = selected.has(filename);
+    }
+  }
+
+  function setMode(enabled) {
+    deleteMode = enabled;
+
+    if (!enabled) {
+      selected.clear();
+    }
+
+    library.classList.toggle("delete-mode", enabled);
+
+    decorateCards();
+    updateButtons();
+  }
+
+  startButton.onclick = () => {
+    status.textContent = "";
+
+    // Hide an open YouTube review during deletion.
+    const review = library.querySelector(".publish-review");
+    if (review) review.hidden = true;
+
+    setMode(true);
+  };
+
+  cancelButton.onclick = () => {
+    setMode(false);
+    status.textContent = "";
+  };
+
+  // Gallery cards are rebuilt whenever My Highlights
+  // is refreshed, so attach checkboxes to new cards too.
+  const observer = new MutationObserver(decorateCards);
+
+  observer.observe(list, {
+    childList: true
+  });
+
+  deleteButton.onclick = async () => {
+    if (!selected.size || deleting) return;
+
+    const filenames = [...selected];
+
+    const approved = confirm(
+      `Permanently delete ${filenames.length} selected Short(s)?\n\n` +
+      "This removes local generated MP4 files. " +
+      "YouTube uploads will not be deleted."
+    );
+
+    if (!approved) return;
+
+    deleting = true;
+    updateButtons();
+
+    status.textContent = "Deleting selected Shorts...";
+
+    // Release local video previews, especially on Windows.
+    for (const video of document.querySelectorAll("video")) {
+      const src = video.getAttribute("src") || "";
+
+      if (
+        filenames.some(name =>
+          src.includes("/clips/" + encodeURIComponent(name))
+        )
+      ) {
+        video.pause();
+        video.removeAttribute("src");
+        video.load();
+      }
+    }
+
+    try {
+      const response = await fetch("/gallery/delete", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({filenames})
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          result.detail || "Failed to delete selected Shorts."
+        );
+      }
+
+      if (
+        typeof state !== "undefined" &&
+        state.selectedOutput &&
+        filenames.includes(state.selectedOutput.filename)
+      ) {
+        resetDownload();
+        state.currentSource = null;
+      }
+
+      setMode(false);
+
+      status.textContent =
+        `${result.deleted.length} Short(s) deleted.`;
+
+      // Refresh My Highlights using its existing handler.
+      document.getElementById("navHighlights")?.click();
+
+    } catch (error) {
+      status.textContent = error.message;
+
+    } finally {
+      deleting = false;
+      updateButtons();
+    }
+  };
+
+  // Initialize the deletion controls.
+  updateButtons();
+})();
+</script>
+
+<script>
+(() => {
+  const settings = document.getElementById("settingsPage");
+
+  if (!settings) {
+    console.error("Settings page not found.");
+    return;
+  }
+
+  const grid =
+    settings.querySelector(".settings-grid") || settings;
+
+  // Replace the older shared-channel status card.
+  const oldChannel = grid.querySelector(".settings-channel");
+  if (oldChannel) oldChannel.remove();
+
+  const card = document.createElement("div");
+  card.className = "settings-channel";
+
+  card.innerHTML = `
+    <h3>▶ Google & YouTube Account</h3>
+
+    <p id="googleAccountStatus" class="muted">
+      Checking account...
+    </p>
+
+    <div style="
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:15px;
+    ">
+      <button id="googleSignIn"
+              class="btn orange"
+              type="button" hidden>
+        Sign in with Google
+      </button>
+
+      <button id="connectYouTube"
+              class="btn orange"
+              type="button" hidden>
+        ▶ Connect YouTube
+      </button>
+
+      <button id="disconnectYouTube"
+              class="btn"
+              type="button" hidden>
+        Disconnect YouTube
+      </button>
+
+      <button id="googleSignOut"
+              class="btn small"
+              type="button" hidden>
+        Sign Out
+      </button>
+    </div>
+  `;
+
+  grid.appendChild(card);
+
+  const el = id => document.getElementById(id);
+
+  async function refreshAccount() {
+    try {
+      const response = await fetch("/auth/status");
+      if (!response.ok) throw new Error("Connection failed.");
+
+      const data = await response.json();
+
+      el("googleSignIn").hidden = data.logged_in;
+      el("googleSignOut").hidden = !data.logged_in;
+
+      el("connectYouTube").hidden =
+        !data.logged_in || data.youtube_connected;
+
+      el("disconnectYouTube").hidden =
+        !data.youtube_connected;
+
+      if (!data.logged_in) {
+        el("googleAccountStatus").textContent =
+          "Sign in with Google to connect your YouTube channel.";
+      } else if (data.youtube_connected) {
+        el("googleAccountStatus").textContent =
+          "✓ Connected: " + data.channel_name;
+      } else {
+        el("googleAccountStatus").textContent =
+          "Signed in as " + data.email +
+          ". Connect YouTube to publish Shorts.";
+      }
+
+    } catch (error) {
+      el("googleAccountStatus").textContent =
+        error.message;
+    }
+  }
+
+  el("googleSignIn").onclick = () => {
+    window.location.href = "/auth/google/login";
+  };
+
+  el("connectYouTube").onclick = () => {
+    window.location.href = "/auth/youtube/connect";
+  };
+
+  el("disconnectYouTube").onclick = async () => {
+    if (!confirm("Disconnect your YouTube channel?")) return;
+
+    const response = await fetch(
+      "/auth/youtube/disconnect",
+      {method: "POST"}
+    );
+
+    if (!response.ok) {
+      alert("Could not disconnect YouTube.");
+      return;
+    }
+
+    await refreshAccount();
+  };
+
+  el("googleSignOut").onclick = async () => {
+    await fetch("/auth/logout", {method: "POST"});
+    await refreshAccount();
+  };
+
+  // Move the existing Google account buttons
+  // from Settings into the left sidebar.
+
+  const sidebarNav = document.querySelector(".sidebar nav");
+
+  if (sidebarNav) {
+    const accountBox = document.createElement("div");
+    accountBox.className = "sidebar-account";
+
+    const accountTitle = document.createElement("strong");
+    accountTitle.textContent = "ACCOUNT";
+
+    accountBox.append(
+      accountTitle,
+      el("googleSignIn"),
+      el("googleSignOut")
+    );
+
+    sidebarNav.insertAdjacentElement(
+      "afterend",
+      accountBox
+    );
+
+    el("googleSignIn").textContent =
+      "Continue with Google";
+  }
+
+  refreshAccount();
+})();
+</script>
+
+</body>
+</html>

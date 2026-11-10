@@ -1,0 +1,28 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 360
+PlayResY: 640
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,27,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,3,1,2,25,25,95,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.75,Default,,0,0,0,,Because it's because\Nof them
+Dialogue: 0,0:00:00.75,0:00:01.50,Default,,0,0,0,,I'm here.
+Dialogue: 0,0:00:03.00,0:00:03.75,Default,,0,0,0,,If they had done\Ntheir
+Dialogue: 0,0:00:03.75,0:00:04.50,Default,,0,0,0,,job properly, I\Nwon't be
+Dialogue: 0,0:00:04.50,0:00:05.25,Default,,0,0,0,,needing to do this.
+Dialogue: 0,0:00:07.45,0:00:08.83,Default,,0,0,0,,Simple, we Indians\Nhave not
+Dialogue: 0,0:00:08.83,0:00:10.20,Default,,0,0,0,,done our job\Nproperly, when
+Dialogue: 0,0:00:10.20,0:00:11.58,Default,,0,0,0,,we say Indians, I\Nmean
+Dialogue: 0,0:00:11.58,0:00:12.95,Default,,0,0,0,,Indian football\Nclubs,
+Dialogue: 0,0:00:12.95,0:00:13.90,Default,,0,0,0,,whose only\Nresponsibility was\Nto
+Dialogue: 0,0:00:13.90,0:00:14.85,Default,,0,0,0,,build the future and\Nthey
+Dialogue: 0,0:00:14.85,0:00:15.80,Default,,0,0,0,,have just talked\Nabout their
+Dialogue: 0,0:00:15.80,0:00:16.75,Default,,0,0,0,,present.
+Dialogue: 0,0:00:16.75,0:00:17.96,Default,,0,0,0,,That means title\Njeetna humne
+Dialogue: 0,0:00:17.96,0:00:19.17,Default,,0,0,0,,is saal, is saal.

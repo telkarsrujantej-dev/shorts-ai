@@ -1,0 +1,64 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 360
+PlayResY: 640
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,27,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,3,1,2,25,25,95,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.08,Default,,0,0,0,,thing is done before\Nthe
+Dialogue: 0,0:00:01.08,0:00:02.17,Default,,0,0,0,,matches so we giving\Nfood
+Dialogue: 0,0:00:02.17,0:00:03.25,Default,,0,0,0,,mein bhi carbs
+Dialogue: 0,0:00:03.25,0:00:05.30,Default,,0,0,0,,so like noodles or\Nrice
+Dialogue: 0,0:00:05.30,0:00:07.35,Default,,0,0,0,,or whatever but even\Nbananas.
+Dialogue: 0,0:00:07.35,0:00:08.60,Default,,0,0,0,,So we give them\Nenough
+Dialogue: 0,0:00:08.60,0:00:09.85,Default,,0,0,0,,carbs so their body\Nis
+Dialogue: 0,0:00:09.85,0:00:11.10,Default,,0,0,0,,primed with full of\Nenergy
+Dialogue: 0,0:00:11.10,0:00:12.35,Default,,0,0,0,,at that time to make
+Dialogue: 0,0:00:12.35,0:00:13.60,Default,,0,0,0,,sure that they are\Nfully
+Dialogue: 0,0:00:13.60,0:00:14.85,Default,,0,0,0,,energized.
+Dialogue: 0,0:00:15.35,0:00:16.87,Default,,0,0,0,,Then after that even\Nprotein
+Dialogue: 0,0:00:16.87,0:00:18.38,Default,,0,0,0,,is given according\Nto the
+Dialogue: 0,0:00:18.38,0:00:19.90,Default,,0,0,0,,body fat percentage\Nand amount
+Dialogue: 0,0:00:19.90,0:00:21.42,Default,,0,0,0,,of weight they have\Nper
+Dialogue: 0,0:00:21.42,0:00:22.93,Default,,0,0,0,,gram 1 gram\Ndifferent depends
+Dialogue: 0,0:00:22.93,0:00:24.45,Default,,0,0,0,,on weight loss\Nweight gain.
+Dialogue: 0,0:00:25.25,0:00:26.29,Default,,0,0,0,,And then we do\Nlactic
+Dialogue: 0,0:00:26.29,0:00:27.34,Default,,0,0,0,,acid test that means\NI
+Dialogue: 0,0:00:27.34,0:00:28.38,Default,,0,0,0,,have a machine which\Nwhile
+Dialogue: 0,0:00:28.38,0:00:29.42,Default,,0,0,0,,they are playing in\Nthe
+Dialogue: 0,0:00:29.42,0:00:30.46,Default,,0,0,0,,match either in the\Nhydration
+Dialogue: 0,0:00:30.46,0:00:31.51,Default,,0,0,0,,breaks or half time\NI
+Dialogue: 0,0:00:31.51,0:00:32.55,Default,,0,0,0,,test them.
+Dialogue: 0,0:00:32.55,0:00:33.43,Default,,0,0,0,,And it's like a\Nblood
+Dialogue: 0,0:00:33.43,0:00:34.30,Default,,0,0,0,,thing so it's like\Nthat
+Dialogue: 0,0:00:34.30,0:00:35.18,Default,,0,0,0,,diabetes thing but\Nexcept it's
+Dialogue: 0,0:00:35.18,0:00:36.05,Default,,0,0,0,,a prick.
+Dialogue: 0,0:00:36.35,0:00:37.28,Default,,0,0,0,,And you test it\Nimmediately
+Dialogue: 0,0:00:37.28,0:00:38.22,Default,,0,0,0,,and you come to know
+Dialogue: 0,0:00:38.22,0:00:39.15,Default,,0,0,0,,what lactic acid you\Nhave.
+Dialogue: 0,0:00:39.15,0:00:40.29,Default,,0,0,0,,So I know exactly\Nhow
+Dialogue: 0,0:00:40.29,0:00:41.43,Default,,0,0,0,,much how tired you\Nare
+Dialogue: 0,0:00:41.43,0:00:42.57,Default,,0,0,0,,doesn't matter what\Nyou are
+Dialogue: 0,0:00:42.57,0:00:43.71,Default,,0,0,0,,telling me what your\NRP
+Dialogue: 0,0:00:43.71,0:00:44.85,Default,,0,0,0,,is RP.
+Dialogue: 0,0:00:45.00,0:00:47.25,Default,,0,0,0,,is rate of perceived\Nexertion.
+Dialogue: 0,0:00:47.75,0:00:49.12,Default,,0,0,0,,So that's according\Nto the
+Dialogue: 0,0:00:49.12,0:00:50.50,Default,,0,0,0,,athlete, rate of\Nperceived,
+Dialogue: 0,0:00:50.50,0:00:51.12,Default,,0,0,0,,what he perceives it\Nto
+Dialogue: 0,0:00:51.12,0:00:51.75,Default,,0,0,0,,be.
+Dialogue: 0,0:00:51.75,0:00:52.67,Default,,0,0,0,,Forget the\Nperceived, man, I
+Dialogue: 0,0:00:52.67,0:00:53.58,Default,,0,0,0,,will know exactly\Nwhat you
+Dialogue: 0,0:00:53.58,0:00:54.50,Default,,0,0,0,,are.
+Dialogue: 0,0:00:54.50,0:00:55.25,Default,,0,0,0,,I will know what\Nyour
+Dialogue: 0,0:00:55.25,0:00:56.00,Default,,0,0,0,,lactic acid is, if I
+Dialogue: 0,0:00:56.00,0:00:56.75,Default,,0,0,0,,flushed it out\Nproperly or
+Dialogue: 0,0:00:56.75,0:00:57.50,Default,,0,0,0,,not,
+Dialogue: 0,0:00:57.50,0:00:58.50,Default,,0,0,0,,and whether you need\Na
+Dialogue: 0,0:00:58.50,0:00:59.50,Default,,0,0,0,,change.
+Dialogue: 0,0:00:59.50,0:01:00.00,Default,,0,0,0,,And then we

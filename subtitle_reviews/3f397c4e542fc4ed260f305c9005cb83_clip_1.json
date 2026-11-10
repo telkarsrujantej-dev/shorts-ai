@@ -1,0 +1,87 @@
+{
+  "filename": "3f397c4e542fc4ed260f305c9005cb83.mp4",
+  "index": 0,
+  "video_start": 101.96,
+  "video_end": 112.66,
+  "duration": 10.7,
+  "mode": "auto",
+  "ai_reviewed": false,
+  "word_timed_original": true,
+  "cues": [
+    {
+      "id": 0,
+      "start": 0,
+      "end": 2.38,
+      "text": "turb paaNsekint soco, tuurbh paamsekinn,",
+      "original_text": "turb paaNsekint soco, tuurbh paamsekinn,"
+    },
+    {
+      "id": 1,
+      "start": 2.38,
+      "end": 3.46,
+      "text": "utthnaa chii hai, nhiiN uttnaa",
+      "original_text": "utthnaa chii hai, nhiiN uttnaa"
+    },
+    {
+      "id": 2,
+      "start": 3.46,
+      "end": 4.14,
+      "text": "jhii he, utnaa chii hai",
+      "original_text": "jhii he, utnaa chii hai"
+    },
+    {
+      "id": 3,
+      "start": 4.14,
+      "end": 5.32,
+      "text": "nhiN acii hai. vaad aad",
+      "original_text": "nhiN acii hai. vaad aad"
+    },
+    {
+      "id": 4,
+      "start": 5.32,
+      "end": 6.0,
+      "text": "ap nheN utpaaNge.",
+      "original_text": "ap nheN utpaaNge."
+    },
+    {
+      "id": 5,
+      "start": 7.26,
+      "end": 8.44,
+      "text": "udd'ke hai toNsii taaii much",
+      "original_text": "udd'ke hai toNsii taaii much"
+    },
+    {
+      "id": 6,
+      "start": 8.44,
+      "end": 8.52,
+      "text": "jognii",
+      "original_text": "jognii"
+    },
+    {
+      "id": 7,
+      "start": 8.6,
+      "end": 10.68,
+      "text": "usiittaaii ud'kaae, vrnaa nhut skte.",
+      "original_text": "usiittaaii ud'kaae, vrnaa nhut skte."
+    }
+  ],
+  "pipeline_version": "romanized-audio-20261030-v2",
+  "source_identity": {
+    "size": 31091678,
+    "mtime_ns": 1793337730641424300
+  },
+  "config": {
+    "version": "romanized-audio-20261030-v2",
+    "whisper": "small",
+    "gemini": "gemini-3.1-flash-lite",
+    "language": "auto",
+    "provider": "auto",
+    "gemini_available": true
+  },
+  "transcript_revision": "0b37eb982b3f4275a5699bb1e0528b72",
+  "revision": "9a4730f989a44e1a8ea707b5f4b5fbfa",
+  "warnings": [
+    "Gemini transcription failed: Gemini transcription request failed. Switched to Whisper. Caption wording requires review.",
+    "Whisper fallback was used. Romanized Hindi may contain incorrect words or spellings. Review before exporting."
+  ]
+}

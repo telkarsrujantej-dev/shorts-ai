@@ -1,0 +1,61 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 360
+PlayResY: 640
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,27,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,3,1,2,25,25,95,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.25,Default,,0,0,0,,participation medal\Ndete hain. Oh
+Dialogue: 0,0:00:01.25,0:00:02.50,Default,,0,0,0,,my god.
+Dialogue: 0,0:00:04.30,0:00:05.50,Default,,0,0,0,,for showing up.
+Dialogue: 0,0:00:06.40,0:00:07.68,Default,,0,0,0,,No, man. We have to
+Dialogue: 0,0:00:07.68,0:00:08.95,Default,,0,0,0,,make people who have\Nto
+Dialogue: 0,0:00:08.95,0:00:10.22,Default,,0,0,0,,understand that\Nwinning is the
+Dialogue: 0,0:00:10.22,0:00:11.50,Default,,0,0,0,,only thing.
+Dialogue: 0,0:00:11.50,0:00:13.20,Default,,0,0,0,,Because we we don't\Nwin.
+Dialogue: 0,0:00:13.20,0:00:14.12,Default,,0,0,0,,You are not winners.\NYou
+Dialogue: 0,0:00:14.12,0:00:15.04,Default,,0,0,0,,are being a loser\Nand
+Dialogue: 0,0:00:15.04,0:00:15.96,Default,,0,0,0,,you're saying, oh,\Nyou get
+Dialogue: 0,0:00:15.96,0:00:16.88,Default,,0,0,0,,to win. That's\Nthat's being
+Dialogue: 0,0:00:16.88,0:00:17.80,Default,,0,0,0,,stupid, man.
+Dialogue: 0,0:00:18.10,0:00:19.00,Default,,0,0,0,,You'll never win.
+Dialogue: 0,0:00:19.90,0:00:21.30,Default,,0,0,0,,So you've got to\Nbring
+Dialogue: 0,0:00:21.30,0:00:22.70,Default,,0,0,0,,up kids who know\Nthat
+Dialogue: 0,0:00:22.70,0:00:24.10,Default,,0,0,0,,they can take on\Nanything
+Dialogue: 0,0:00:24.10,0:00:25.50,Default,,0,0,0,,in the world.
+Dialogue: 0,0:00:26.10,0:00:27.07,Default,,0,0,0,,And that is why you
+Dialogue: 0,0:00:27.07,0:00:28.05,Default,,0,0,0,,make them have fun\Ntill
+Dialogue: 0,0:00:28.05,0:00:29.03,Default,,0,0,0,,12 so they can not
+Dialogue: 0,0:00:29.03,0:00:30.00,Default,,0,0,0,,actually fun.
+Dialogue: 0,0:00:30.00,0:00:31.12,Default,,0,0,0,,Basically, what\Nthey're doing is
+Dialogue: 0,0:00:31.12,0:00:32.25,Default,,0,0,0,,they're trying to\Nshow the
+Dialogue: 0,0:00:32.25,0:00:33.38,Default,,0,0,0,,kid, okay, these are\Nthe
+Dialogue: 0,0:00:33.38,0:00:34.50,Default,,0,0,0,,sports available to\Nyou.
+Dialogue: 0,0:00:35.00,0:00:35.50,Default,,0,0,0,,What do you like the
+Dialogue: 0,0:00:35.50,0:00:36.00,Default,,0,0,0,,most?
+Dialogue: 0,0:00:36.00,0:00:36.50,Default,,0,0,0,,What do you love the
+Dialogue: 0,0:00:36.50,0:00:37.00,Default,,0,0,0,,most?
+Dialogue: 0,0:00:37.30,0:00:38.40,Default,,0,0,0,,What do you think is
+Dialogue: 0,0:00:38.40,0:00:39.50,Default,,0,0,0,,the best sport?
+Dialogue: 0,0:00:39.50,0:00:41.00,Default,,0,0,0,,Like all my\Nfootballers, there
+Dialogue: 0,0:00:41.00,0:00:42.50,Default,,0,0,0,,are seven sports\Navailable there.
+Dialogue: 0,0:00:42.50,0:00:43.50,Default,,0,0,0,,So on the off day,
+Dialogue: 0,0:00:43.50,0:00:44.50,Default,,0,0,0,,they cannot play\Nfootball.
+Dialogue: 0,0:00:44.50,0:00:45.00,Default,,0,0,0,,They have to play
+Dialogue: 0,0:00:45.00,0:00:46.64,Default,,0,0,0,,either TT or\Nbadminton or
+Dialogue: 0,0:00:46.64,0:00:48.28,Default,,0,0,0,,volleyball or\Nsomething like that.
+Dialogue: 0,0:00:48.88,0:00:50.25,Default,,0,0,0,,So why? Because you\Nlearn
+Dialogue: 0,0:00:50.25,0:00:51.63,Default,,0,0,0,,so much more from\Nother
+Dialogue: 0,0:00:51.63,0:00:53.00,Default,,0,0,0,,sports than your own\Nsport.
+Dialogue: 0,0:00:53.56,0:00:54.61,Default,,0,0,0,,And a different area\Nof
+Dialogue: 0,0:00:54.61,0:00:55.66,Default,,0,0,0,,your brain opens up\Nbecause
+Dialogue: 0,0:00:55.66,0:00:56.71,Default,,0,0,0,,you are out of your
+Dialogue: 0,0:00:56.71,0:00:57.76,Default,,0,0,0,,comfort zone.
+Dialogue: 0,0:00:57.76,0:00:58.82,Default,,0,0,0,,And I believe you\Nonly
+Dialogue: 0,0:00:58.82,0:00:59.88,Default,,0,0,0,,grow out of your\Ncomfort
