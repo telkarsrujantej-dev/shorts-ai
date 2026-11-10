@@ -22,3 +22,12 @@ google-auth-oauthlib
 google-auth-httplib2
 
 itsdangerous
+
+
+authlib
+httpx
+cryptography
+google-auth
+python-dotenv
+itsdangerous
+
