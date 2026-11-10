@@ -229,13 +229,11 @@ def get_selected_transcript(filename, highlights, force=False, language="auto"):
 # BASIC ROUTES
 # ==========================================
 
+from fastapi.responses import RedirectResponse
+
 @app.get("/")
 def home():
-    return {
-        "status": "running",
-        "project": "AI Video Editing Agent",
-    }
-
+    return RedirectResponse(url="/dashboard")
 
 @app.get("/health")
 def health():
